@@ -37,3 +37,4 @@ run migrations again and for every addition or change
 register models on admin
 configure list views
 create app views
+test all new added funtionality with unit tests
