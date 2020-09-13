@@ -37,7 +37,10 @@ ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 INSTALLED_APPS = [
     # Local Apps
     'accounts.apps.AccountsConfig',
+    'pages.apps.PagesConfig',
     
+    # third-party apps
+      
     # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,10 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # third-party apps
-    
-    
 ]
 
 MIDDLEWARE = [
@@ -66,7 +65,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

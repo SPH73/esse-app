@@ -18,23 +18,27 @@
 14. Save to remote repo
 15. Write unit tests for user and superuser creation
 16. Install coverage and run (add to .gitignore)
-17. Create Pages App
-18. Create templates directory add path to settings TEMPLATES....'DIRS':[str(BASE_DIR.joinpath('templates'))]
+17. Create Pages App for static pages
+18. Create templates directory add path to settings TEMPLATES....'DIRS'
 19. create \_base template
 20. create index template
 21. create memberships app
-22. plan next stage of implementing cloudinary
+22. Create UserMemberships
+23. Create Subscriptions
+24. Create Share app
+25. Create Profile
+26. plan next stage of implementing cloudinary
 
 ## generic process
 
-create app
-register in installed apps
-add url maps
-create app urls.py
-run migrations
-create models
-run migrations again and for every addition or change
-register models on admin
-configure list views
-create app views
-test all new added funtionality with unit tests
+create app  
+register in installed apps  
+add url maps  
+create app urls.py  
+run migrations  
+create models  
+run migrations again and for every addition or change  
+register models on admin  
+configure list views  
+create app views  
+test all new added funtionality with unit tests using coverage.py

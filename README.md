@@ -107,7 +107,7 @@ Produce a project that I am proud of.
 
 ### Frameworks
 
-[Django 3.1](https://www.djangoproject.com/) A high-level Python Web framework that encourages rapid development and clean, pragmatic design.
+[Django 3.1](https://www.djangoproject.com/) A high-level Python Web framework that encourages rapid development and clean, pragmatic design.  
 [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
 ### Libraries/Packages
@@ -134,7 +134,7 @@ Produce a project that I am proud of.
 
 Coverage.py is being used to check the code being tested or more specifically to find missing tests or code/modules not included in addition to the django test module and TestCase and SimpleTestCase classes.
 
-Thanks to the blog post by Adam Johnson [Getting a Django Application to 100% Coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/) I was able to resolve coverage reporting 98% to 100% by excluding manage.py. See screenshots here.
+Thanks to this blog post by Adam Johnson [Getting a Django Application to 100% Coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/) I was able to resolve coverage reporting 98% to 100% by excluding manage.py. See screenshots here and refer to the credit code in manaage.py.
 
 ## Deployment
 
@@ -147,17 +147,20 @@ Thanks to the blog post by Adam Johnson [Getting a Django Application to 100% Co
 [Django source code](https://github.com/django/django)  
 [Django Docs](https://www.djangoproject.com/)  
 [Django packages](https://djangopackages.org/)  
-[Django Tests](https://docs.djangoproject.com/en/3.1/topics/testing/)  
-[Django SerializeMixin](https://docs.djangoproject.com/en/3.1/topics/testing/advanced/#testing-reusable-applications)  
 [Postgresql Docs](https://postgresapp.com/documentation/)  
+[CustomUser](https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project)  
 [Django-allauth](https://readthedocs.org/projects/django-allauth/)  
 [Cloudinary Dashboard](https://cloudinary.com/console/)  
 [Cloudinary Django SDK](https://cloudinary.com/documentation/django_image_and_video_upload)  
 [Cloudinary Django Library](https://github.com/cloudinary/pycloudinary)  
 [cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)  
 [Bootstrap Grid ref](https://getbootstrap.com/docs/4.5/layout/grid/)  
+[Django Tests](https://docs.djangoproject.com/en/3.1/topics/testing/)  
+[Django SerializeMixin](https://docs.djangoproject.com/en/3.1/topics/testing/advanced/#testing-reusable-applications)  
+[coverage.py docs](https://coverage.readthedocs.io/en/coverage-5.2.1/cmd.html)  
 [Testing with Coverage](https://devguide.python.org/coverage/#using-coverage-py)  
 [Adam Johnson Blog on coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/#:~:text=Code%20coverage%20is%20a%20simple,tool%20for%20measuring%20code%20coverage.)  
-[Learn Django Tutorials](https://learndjango.com/tutorials/)
+[Learn Django Tutorials](https://learndjango.com/tutorials/)  
+[UUID as Prinary ID](https://tech.serhatteker.com/post/2020-01/uuid-primary-key/#:~:text=In%20Django%20whenever%20we%20create,was%20added%20in%20Django%201.8%20.)
 
 #### Next Steps

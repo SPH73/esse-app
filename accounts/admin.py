@@ -8,9 +8,11 @@ CustomUser = get_user_model()
 
 
 class CustomUserAdmin(UserAdmin):
+    # Forms to add and change user instances.
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
+    # Fields to display the CustomUser model
     list_display = ['email', 'username', 'last_login', 'date_joined',]
 
 admin.site.register(CustomUser, CustomUserAdmin)
