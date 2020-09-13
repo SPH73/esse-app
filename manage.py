@@ -38,6 +38,8 @@ def main():
     if running_tests:
         cov.stop()
         cov.save()
+        # see credits in README.md for the next line
+        cov.html_report(directory='covhtml') 
         covered = cov.report()
         if covered < 100:
             sys.exit(1)

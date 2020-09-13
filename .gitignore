@@ -1,7 +1,7 @@
 docker-compose.yml
 *.sqlite3
 .vscode/
-htmlcov/
+covhtml
 .coverage
 .DS_Store
 .env
