@@ -22,12 +22,17 @@
 18. Create templates directory add path to settings TEMPLATES....'DIRS'
 19. create \_base template
 20. create index template
-21. create memberships app
-22. Create UserMemberships
-23. Create Subscriptions
-24. Create Share app
-25. Create Profile
-26. plan next stage of implementing cloudinary
+21. add authentication
+
+## build up site with features
+
+1. create memberships app
+2. Create UserMemberships
+3. Create Subscriptions
+4. Create Share app
+5. Create Profile
+6. develop api
+7. plan next stage of implementing cloudinary
 
 ## generic process
 
