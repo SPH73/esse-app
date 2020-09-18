@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="PixPI Media" id="Project_11ec" database="PostgreSQL" >
+	<comment><![CDATA[media dorage and sharing web app]]></comment>
+	<schema name="pixpi media" >
+		<table name="accounts" prior="account" >
+			<column name="username" type="char" length="255" jt="1" mandatory="y" />
+			<column name="email" type="char" length="255" jt="1" mandatory="y" />
+			<column name="created_on" type="date" jt="91" mandatory="y" >
+				<defo><![CDATA[current_date]]></defo>
+			</column>
+			<column name="password" type="char" length="255" jt="1" mandatory="y" />
+			<column name="user_id" type="uuid" jt="1111" mandatory="y" />
+			<index name="pk_accounts_user_id" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+			</index>
+			<fk name="fk_accounts_repository" to_schema="pixpi media" to_table="repository" delete_action="cascade" >
+				<fk_column name="user_id" pk="user_id" />
+			</fk>
+		</table>
+		<table name="bucket" prior="tbl" >
+			<column name="slug" prior="name" type="char" length="255" jt="1" />
+			<column name="repository" type="char" length="255" jt="1" />
+			<column name="owner" type="char" length="255" jt="1" />
+			<column name="created_on" type="date" jt="91" >
+				<defo><![CDATA[current_date]]></defo>
+			</column>
+			<column name="group" type="char" length="10" jt="1" />
+			<column name="bucket_id" prior="id" type="uuid" jt="1111" mandatory="y" />
+			<index name="pk_bucket_id" unique="PRIMARY_KEY" >
+				<column name="bucket_id" />
+			</index>
+			<fk name="fk_bucket_repository" to_schema="pixpi media" to_table="repository" delete_action="cascade" >
+				<fk_column name="repository" pk="repository_id" />
+			</fk>
+		</table>
+		<table name="media" prior="tbl" >
+			<column name="media_id" type="integer" jt="4" mandatory="y" />
+			<column name="media_type" type="char" length="10" jt="1" />
+			<column name="title" prior="name" type="char" length="255" jt="1" />
+			<column name="desctiption" type="char" length="255" jt="1" />
+			<column name="bucket_id" type="uuid" jt="1111" />
+			<column name="respository_id" type="uuid" jt="1111" />
+			<column name="user_id" type="uuid" jt="1111" />
+			<column name="created_on" type="date" jt="91" >
+				<defo><![CDATA[current_date]]></defo>
+			</column>
+			<column name="modified_on" prior="updated_on" type="date" jt="91" >
+				<defo><![CDATA[current_date]]></defo>
+			</column>
+			<index name="pk_media_media_id" unique="PRIMARY_KEY" >
+				<column name="media_id" />
+			</index>
+			<fk name="fk_media_accounts" to_schema="pixpi media" to_table="accounts" >
+				<fk_column name="user_id" pk="user_id" />
+			</fk>
+			<fk name="fk_media_bucket" to_schema="pixpi media" to_table="bucket" >
+				<fk_column name="bucket_id" pk="bucket_id" />
+			</fk>
+			<fk name="fk_media_repository" to_schema="pixpi media" to_table="repository" >
+				<fk_column name="respository_id" pk="repository_id" />
+			</fk>
+		</table>
+		<table name="membership" prior="tbl" >
+			<column name="membership_type" type="text[]" length="30" jt="2003" >
+				<defo><![CDATA['Free']]></defo>
+			</column>
+			<column name="slug" type="text" jt="12" />
+			<column name="price" type="decimal" length="0" decimal="2" jt="3" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="membership" type="char" length="30" jt="1" />
+			<index name="unq_membership_membership_type" unique="UNIQUE_KEY" >
+				<column name="membership_type" />
+			</index>
+			<index name="unq_membership_membership" unique="UNIQUE_KEY" >
+				<column name="membership" />
+			</index>
+			<fk name="fk_membership_user_membership" to_schema="pixpi media" to_table="user_membership" >
+				<fk_column name="membership" pk="membership" />
+			</fk>
+			<options><![CDATA[MEMBERSHIP_CHOICES=(Free, Basic, Creator)]]></options>
+		</table>
+		<table name="repository" prior="repos" >
+			<column name="slug" prior="name" type="char" length="255" jt="1" />
+			<column name="user_id" prior="owner" type="uuid" length="255" jt="1111" />
+			<column name="repository_id" prior="repositoru_id" type="uuid" jt="1111" mandatory="y" />
+			<column name="created_on" type="date" jt="91" >
+				<defo><![CDATA[current_date]]></defo>
+			</column>
+			<index name="pk_repository_repositoru_id" unique="PRIMARY_KEY" >
+				<column name="repository_id" />
+			</index>
+			<index name="unq_repository_user_id" unique="UNIQUE_KEY" >
+				<column name="user_id" />
+			</index>
+		</table>
+		<table name="subscription" prior="tbl" >
+			<column name="slug" prior="name" type="char" length="10" jt="1" />
+			<column name="active" type="boolean" jt="-7" >
+				<defo><![CDATA[True]]></defo>
+			</column>
+			<column name="user_membership" type="char" length="255" jt="1" />
+			<index name="unq_subscription_user_membership" unique="UNIQUE_KEY" >
+				<column name="user_membership" />
+			</index>
+		</table>
+		<table name="user_membership" prior="usermembership" >
+			<column name="user_id" prior="user" type="uuid" length="255" jt="1111" />
+			<column name="subscription" type="char" length="255" jt="1" />
+			<column name="membership" type="char" length="10" jt="1" />
+			<index name="unq_user_membership_user" unique="UNIQUE_KEY" >
+				<column name="user_id" />
+			</index>
+			<index name="unq_user_membership_membership" unique="UNIQUE_KEY" >
+				<column name="membership" />
+			</index>
+			<fk name="fk_user_membership_accounts" to_schema="pixpi media" to_table="accounts" >
+				<fk_column name="user_id" pk="user_id" />
+			</fk>
+			<fk name="fk_user_membership" to_schema="pixpi media" to_table="subscription" >
+				<fk_column name="subscription" pk="user_membership" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout_22e2" show_relation="columns" >
+		<callout x="48" y="48" pointer="Round" >
+			<comment><![CDATA[DbSchema is in offline mode.
+New designed tables will be saved to model file and later can be create in any database.
+Right-click the layout to create new tables. Drop this callout from its context menu.]]></comment>
+		</callout>
+	</layout>
+	<layout name="Layout" id="Layout_1d4d" joined_routing="y" show_schema_name="y" show_relation="name" >
+		<entity schema="pixpi media" name="accounts" color="C1D8EE" x="192" y="224" />
+		<entity schema="pixpi media" name="bucket" color="C1D8EE" x="48" y="48" />
+		<entity schema="pixpi media" name="media" color="C1D8EE" x="128" y="400" />
+		<entity schema="pixpi media" name="membership" color="C1D8EE" x="720" y="80" />
+		<entity schema="pixpi media" name="repository" color="C1D8EE" x="336" y="48" />
+		<entity schema="pixpi media" name="subscription" color="C1D8EE" x="576" y="224" />
+		<entity schema="pixpi media" name="user_membership" color="C1D8EE" x="544" y="416" />
+	</layout>
+</project>

@@ -22,20 +22,21 @@
 18. Create templates directory add path to settings TEMPLATES....'DIRS'
 19. create \_base template
 20. create index template
-21. add authentication
+21. add authentication (create separate branch to try various options after completing the next steps)
 
 ## build up site with features
 
-1. create memberships app
-2. Create UserMemberships
-3. Create Subscriptions
-4. Create Share app
-5. Create Profile
-6. develop api
-7. plan next stage of implementing cloudinary
+1. Create Portfilio app
+2. create memberships app
+3. Create UserMemberships
+4. Create Subscriptions
+5. Create Profile app and/or
+6. plan next stage of implementing cloudinary
+7. develop api
 
 ## generic process
 
+create git branch
 create app  
 register in installed apps  
 add url maps  

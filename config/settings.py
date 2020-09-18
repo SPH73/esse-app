@@ -34,14 +34,7 @@ ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
-INSTALLED_APPS = [
-    # Local Apps
-    'accounts.apps.AccountsConfig',
-    'pages.apps.PagesConfig',
-    
-    # third-party apps
-      
-    # Django Apps
+DJNAGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+THIRD_PARTY_APPS = [
+    
+]
+
+LOCAL_APPS = [
+    'accounts.apps.AccountsConfig',
+    'pages.apps.PagesConfig',
+]
+
+INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,3 +132,6 @@ STATIC_URL = '/static/'
 
 # tell Django to use the CustomUser model instead of default User model
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'

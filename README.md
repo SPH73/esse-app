@@ -134,7 +134,7 @@ Produce a project that I am proud of.
 
 Coverage.py is being used to check the code being tested or more specifically to find missing tests or code/modules not included in addition to the django test module and TestCase and SimpleTestCase classes.
 
-Thanks to Adam Johnson and this blog post [Getting a Django Application to 100% Coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/) I was able to resolve coverage reporting 98% to 100% by including the code in manage.py which is a workaround for a bug in the report.  See screenshots here and refer to the credit code in manaage.py.
+Thanks to Adam Johnson and this blog post [Getting a Django Application to 100% Coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/) I was able to resolve coverage reporting 98% to 100% by including the code in manage.py which is a workaround for a bug in the report. See screenshots here and refer to the credit code in manaage.py.
 
 ## Deployment
 
