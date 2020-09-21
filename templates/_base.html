@@ -15,14 +15,22 @@
     {% endblock %}
 
     {% block corecss %}
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@500&family=Muli:ital,wght@0,400;0,600;1,300&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
 
     {% block extra_css %}
     {% endblock %}
 
     {% block corejs %}
+    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
@@ -32,17 +40,32 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
+    <!-- Custom JS -->
+    <script src="{% static 'js/base.js' %}"></script>
     {% endblock %}
 
     {% block extra_js %}
     {% endblock %}
 
-    <title>PixPi Media Share {% block extra_title %}{% endblock %}</title>
+    <title>PixPi Media Share App {% block extra_title %}{% endblock %}</title>
 </head>
 
 <body>
-    <header class="container-fluid fixed-top">
-
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4
+        mb-3 bg-white border-bottom shadow-sm">
+            <a href="{% url 'home' %}" class="navbar-brand my-0 mr-md-auto
+         font-weight-normal">PixPi Media</a>
+            <nav class="my-2 my-md-0 mr-md-3">
+                {% if user.is_authenticated %}
+                <a class="p-2 text-dark" href="{% url 'logout' %}">Log Out</a>
+                {% else %}
+                <a class="p-2 text-dark" href="{% url 'about' %}">About</a>
+                <a class="p-2 text-dark" href="{% url 'login' %}">Log In</a>
+                <a class="btn btn-outline-primary" href="{% url 'signup' %}">Sign Up</a>
+                {% endif %}
+            </nav>
+        </div>
     </header>
 
     {% if messages %}
@@ -60,7 +83,16 @@
     {% block postloadjs %}
     {% endblock %}
 
-
+    <footer>
+        <div class="footer">
+            <p><small>
+                    Copyright &copy;<script>
+                        document.write(new Date().getFullYear())
+                    </script> PixPi Media
+                </small>
+            </p>
+        </div>
+    </footer>
 </body>
 
 </html>

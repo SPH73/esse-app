@@ -157,6 +157,7 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [Cloudinary Django Library](https://github.com/cloudinary/pycloudinary)  
 [cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)  
 [Bootstrap Grid ref](https://getbootstrap.com/docs/4.5/layout/grid/)  
+[Bootstrap Icons](https://icons.getbootstrap.com/)  
 [Django Tests](https://docs.djangoproject.com/en/3.1/topics/testing/)  
 [Django SerializeMixin](https://docs.djangoproject.com/en/3.1/topics/testing/advanced/#testing-reusable-applications)  
 [coverage.py docs](https://coverage.readthedocs.io/en/coverage-5.2.1/cmd.html)  
