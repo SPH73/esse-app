@@ -3,7 +3,7 @@ from django.urls import reverse, resolve
 from .views import HomePageView
 
 class HomepageTests(SimpleTestCase):
-    """Test the existence of the homepage, that it uses the correct template
+    """Tests the existence of the homepage, that it uses the correct template
     and test the html is contains and that it resolves the url path."""
     
     def setUp(self):
@@ -23,10 +23,9 @@ class HomepageTests(SimpleTestCase):
         self.assertNotContains(
             self.response, 'Hi there! I should not be on the page.')
         
-    def test_homepage_url_resolves_homepageview(self): # new
+    def test_homepage_url_resolves_homepageview(self):
         view = resolve('/')
         self.assertEqual(
             view.func.__name__,
             HomePageView.as_view().__name__
         )
-
