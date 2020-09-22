@@ -12,6 +12,7 @@ psycopg2-binary = "==2.8.6"
 environs = {extras = ["django"], version = "==8.0.0"}
 coverage = "*"
 django-crispy-forms = "~=1.9.2"
+djangorestframework = "~=3.11.1"
 
 [requires]
 python_version = "3.8"

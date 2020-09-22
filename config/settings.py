@@ -45,11 +45,13 @@ DJNAGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'crispy_forms',
+    'rest_framework'
 ]
 
 LOCAL_APPS = [
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
+    'posts.apps.PostsConfig',
 ]
 
 INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -143,3 +145,11 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
