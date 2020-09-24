@@ -154,6 +154,7 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [Postgresql Docs](https://postgresapp.com/documentation/)  
 [CustomUser](https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project)  
 [Django-allauth](https://readthedocs.org/projects/django-allauth/)  
+[Allauth Social login - Google](https://django-allauth.readthedocs.io/en/latest/providers.html#google)  
 [Cloudinary Dashboard](https://cloudinary.com/console/)  
 [Cloudinary Django SDK](https://cloudinary.com/documentation/django_image_and_video_upload)  
 [Cloudinary Django Library](https://github.com/cloudinary/pycloudinary)  
