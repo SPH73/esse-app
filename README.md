@@ -114,7 +114,8 @@ Produce a project that I am proud of.
 
 [Psycopg2-binary](https://pypi.org/project/psycopg2-binary/) psycopg2 - Python-PostgreSQL Database Adapter (for development)  
 [environs with django suppoort](https://pypi.org/project/environs/#usage-with-django) for separation and parsing of environment variables which installs [dj-database-url](https://pypi.org/project/dj-database-url/) as a dependency.  
-[Django-Crispy-forms](https://pypi.org/project/django-crispy-forms/) prestyled bootstrap forms
+[Django-Crispy-forms](https://pypi.org/project/django-crispy-forms/) prestyled bootstrap forms  
+[Django-allauth](https://pypi.org/project/django-allauth/)
 
 ### Database
 
@@ -164,7 +165,8 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [Django SerializeMixin](https://docs.djangoproject.com/en/3.1/topics/testing/advanced/#testing-reusable-applications)  
 [coverage.py docs](https://coverage.readthedocs.io/en/coverage-5.2.1/cmd.html)  
 [Testing with Coverage](https://devguide.python.org/coverage/#using-coverage-py)  
-[Adam Johnson Blog on coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/#:~:text=Code%20coverage%20is%20a%20simple,tool%20for%20measuring%20code%20coverage.)  
+[Adam Johnson Blog on coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/#:~:text=Code%20coverage%20is%20a%20simple,tool%20for%20measuring%20code%20coverage.)
+
 [Learn Django Tutorials](https://learndjango.com/tutorials/)  
 [UUID as Prinary ID](https://tech.serhatteker.com/post/2020-01/uuid-primary-key/#:~:text=In%20Django%20whenever%20we%20create,was%20added%20in%20Django%201.8%20.)
 
