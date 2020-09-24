@@ -1,6 +1,7 @@
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse, resolve
 from .views import HomePageView, AboutPageView
+from .models import Page
 
 class HomepageTests(SimpleTestCase):
     """Tests the existence of the homepage, that it uses the correct template
@@ -58,3 +59,9 @@ class AboutPageTests(SimpleTestCase):
             view.func.__name__,
             AboutPageView.as_view().__name__
         )
+        
+class PageModelTest(TestCase):
+        
+    def test_page_string_method_returns_title(self):
+        page = Page.objects.create(title='About')
+        self.assertEqual(str(page), 'About')

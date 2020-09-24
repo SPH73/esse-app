@@ -3,7 +3,7 @@ from django.db import models
 class Page(models.Model):
     title = models.CharField(max_length=50)
     permalink = models.CharField(max_length=12, unique=True)
-    update_date = models.DateTimeField('Last Updated')
+    update_date = models.DateTimeField('Last Updated', null=True)
     bodytext = models.TextField('Page Content', blank=True)
     
     def __str__(self):
