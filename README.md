@@ -151,14 +151,19 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [Django source code](https://github.com/django/django)  
 [Django Docs](https://www.djangoproject.com/)  
 [Django packages](https://djangopackages.org/)  
-[Postgresql Docs](https://postgresapp.com/documentation/)  
+[Postgresql Docs](https://postgresapp.com/documentation/)
+
+[Django REST framework](https://www.django-rest-framework.org/api-guide/generic-views/#concrete-view-classes)
+
 [CustomUser](https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project)  
 [Django-allauth](https://readthedocs.org/projects/django-allauth/)  
-[Allauth Social login - Google](https://django-allauth.readthedocs.io/en/latest/providers.html#google)  
+[Allauth Social login - Google](https://django-allauth.readthedocs.io/en/latest/providers.html#google)
+
 [Cloudinary Dashboard](https://cloudinary.com/console/)  
 [Cloudinary Django SDK](https://cloudinary.com/documentation/django_image_and_video_upload)  
 [Cloudinary Django Library](https://github.com/cloudinary/pycloudinary)  
-[cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)  
+[cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)
+
 [Bootstrap Grid ref](https://getbootstrap.com/docs/4.5/layout/grid/)  
 [Bootstrap Icons](https://icons.getbootstrap.com/)
 
@@ -170,5 +175,7 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 
 [Learn Django Tutorials](https://learndjango.com/tutorials/)  
 [UUID as Prinary ID](https://tech.serhatteker.com/post/2020-01/uuid-primary-key/#:~:text=In%20Django%20whenever%20we%20create,was%20added%20in%20Django%201.8%20.)
+
+[ArrayField](https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/fields/)
 
 #### Next Steps

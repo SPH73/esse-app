@@ -37,6 +37,7 @@ DJNAGO_APPS = [
     'django.contrib.admin', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.postgres',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -142,19 +143,21 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 # tell Django to use the CustomUser model instead of default User model
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+#  django-allauth settings
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
-ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SESSION_REMEMBER = True 
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1
 

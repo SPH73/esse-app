@@ -1,8 +1,17 @@
-from django.urls import reverse_lazy
-from django.views import generic
-from .forms import CustomUserCreationForm
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSerializer, GroupSerializer
 
-class SignupPageView(generic.CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
+User = get_user_model()
+
+class  UserViewSet(ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+    
+class  GroupViewSet(ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [IsAuthenticated]
