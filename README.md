@@ -162,6 +162,8 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [Cloudinary Dashboard](https://cloudinary.com/console/)  
 [Cloudinary Django SDK](https://cloudinary.com/documentation/django_image_and_video_upload)  
 [Cloudinary Django Library](https://github.com/cloudinary/pycloudinary)  
+[Cloudinary images](https://cloudinary.com/blog/user_generated_content_part_2_images_and_their_transformations)  
+[Clouindary videos](https://cloudinary.com/blog/user_generated_content_part_3_videos_and_their_transformations)  
 [cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)
 
 [Bootstrap Grid ref](https://getbootstrap.com/docs/4.5/layout/grid/)  
@@ -177,5 +179,7 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [UUID as Prinary ID](https://tech.serhatteker.com/post/2020-01/uuid-primary-key/#:~:text=In%20Django%20whenever%20we%20create,was%20added%20in%20Django%201.8%20.)
 
 [ArrayField](https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/fields/)
+
+[Django Lifecycle](https://rsinger86.github.io/django-lifecycle/)
 
 #### Next Steps
