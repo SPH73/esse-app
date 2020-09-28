@@ -17,9 +17,13 @@ class Portfolio(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     created_on = models.DateField(auto_now_add=True)
+    updated_date = models.DateField('last Updated', auto_now=True, null=True)
     
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('portfolio_detail', kwargs={'slug':str(self.id)})
 
 
 class Bucket(models.Model):
