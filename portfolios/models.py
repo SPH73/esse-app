@@ -43,9 +43,10 @@ class Bucket(models.Model):
     created_on = models.DateField(auto_now_add=True)
     updated_on = models.DateTimeField('Last Updated', auto_now=True)
     privacy = models.CharField('Type', max_length=10, choices=BUCKET_PRIVACY_CHOICES, default=PRIVATE)
-    whitelist = ArrayField(models.EmailField(max_length=50, blank=True), size=8)
+    whitelist = models.ManyToOneRel(privacy,limit_choices_to={'shared':True})
+    members = ArrayField(models.EmailField(max_length=50, blank=True), size=8)
    
-    
+     
     def __str__(self):
         return self.name
     
