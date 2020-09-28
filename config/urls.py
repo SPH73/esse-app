@@ -22,6 +22,9 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 
+admin.site.site_header = "PixPi Media Admin"
+admin.site.site_title = "PixPi Media Admin Portal"
+admin.site.index_title = "Welcome to PixPi Media Portal"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +32,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     
     path('', include('pages.urls')),
+       
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     
