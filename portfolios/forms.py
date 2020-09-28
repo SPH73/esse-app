@@ -9,4 +9,17 @@ class PortfolioForm(ModelForm):
 class BucketForm(ModelForm):
     class Meta:
         model = Bucket
-        fields = ['name']      
+        fields = ['__all__']
+        exclude = ['whitelist']
+        
+        def __init__(self, *args, **kwargs):
+            super(BucketForm, self).__init__(*args, **kwargs)
+            if self.instance:
+                if self.instance.privacy == 'shared':
+                    self.fields['whitelist'] = True
+                    
+                else:
+                    self.fields['whitelist'] = False
+                    del self.instance.fields['members']
+                    
+                    
