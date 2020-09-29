@@ -9,8 +9,7 @@ class PortfolioForm(ModelForm):
 class BucketForm(ModelForm):
     class Meta:
         model = Bucket
-        fields = ['__all__']
-        exclude = ['whitelist']
+        fields = ['name', 'privacy', 'members']
         
         def __init__(self, *args, **kwargs):
             super(BucketForm, self).__init__(*args, **kwargs)
