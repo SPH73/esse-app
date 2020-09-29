@@ -13,12 +13,10 @@ class BucketForm(ModelForm):
         
         def __init__(self, *args, **kwargs):
             super(BucketForm, self).__init__(*args, **kwargs)
-            if self.instance:
-                if self.instance.privacy == 'shared':
+            if self.instance.privacy == 'shared':
                     self.fields['whitelist'] = True
-                    
-                else:
-                    self.fields['whitelist'] = False
-                    del self.instance.fields['members']
+            else:
+                self.fields['whitelist'] = False
+                del self.instance.fields['members']
                     
                     

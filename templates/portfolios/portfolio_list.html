@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+
+
+{% block title %}Portfolios{% endblock title %}
+
+{% block content %}
+<h1>{% trans "Portfolios" %}</h1>
+
+{% for portfolio in portfolio_list %}
+<div>
+    <a href="{{ portfolio.name }}"></a>
+</div>
+<div>
+    <a href="{{ portfolio.name }}"></a>
+</div>
+{% endfor %}
+
+
+{% endblock content %}

@@ -40,7 +40,7 @@ class PortfolioDeleteView(DeleteView):
 
 class BucketCreateView(FormView):
     form_class = BucketForm
-    template_name = 'portfolios/bucket_form.html'
+    template_name = 'portfolios/create_bucket.html'
     success_url = 'bucket_list'
     
     def form_valid(self, form):
