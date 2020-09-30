@@ -4,8 +4,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.urls import reverse
 
-
-
 User = get_user_model()
 
 class Portfolio(models.Model):
@@ -15,7 +13,8 @@ class Portfolio(models.Model):
         editable=False
     )
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    name = models.CharField('Give your portfolio a name', max_length=50)
+    description = models.TextField('Describe the contents or purpose for your this portfolio')
     created_on = models.DateField(auto_now_add=True)
     updated_date = models.DateField('last Updated', auto_now=True, null=True)
     
@@ -23,7 +22,7 @@ class Portfolio(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('portfolio_detail', kwargs={'slug':str(self.id)})
+        return reverse('portfolio_detail', args=[str(self.id)])
 
 
 class Bucket(models.Model):
@@ -55,4 +54,4 @@ class Bucket(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('bucket_detail', kwargs={'slug':str(self.slug)})
+        return reverse('bucket_detail', kwargs={'pk': str(self.pk)})

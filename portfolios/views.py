@@ -1,74 +1,68 @@
 from  django.urls import reverse_lazy
-
+from django.shortcuts import redirect
 from django.views.generic import (
-    FormView, UpdateView, DeleteView, ListView, DetailView)
+    CreateView, UpdateView, DeleteView, ListView, DetailView)
 
-from .forms import PortfolioForm, BucketForm
 from .models import Portfolio, Bucket
 
-class PortfolioCreateView(FormView):
-    form_class = PortfolioForm
-    template_name = 'portfolios/create_portfolio.html'
+class PortfolioCreateView(CreateView):
+    model = Portfolio
+    fields = ['name', 'description']
     success_url = 'portfolio_list'
     
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-        
+    def post(self, request, *args, **kwargs):
+        portfolio_form = PortfolioCreateView(request.POST)
+        if portfolio_form.is_valid():
+            portfolio = Portfolio(
+            owner=request.user,
+            name=portfolio_form.cleaned_data['name']
+            )
+            portfolio.save()
+        else:
+            raise Exception
+        return redirect(reverse_lazy('portfolio_detail', args=[self.get_object().id]))
+    
 class PortfolioListView(ListView):
     model = Portfolio
     context_object_name = 'portfolio_list'
-    template_name = 'portfolios/portfolio_list.html'
+
+
+class BucketCreateView(CreateView):
+    model = Bucket
+    fields = '__all__'
+    success_url = 'bucket_list'
+
+class BucketListView(ListView):
+    model = Bucket
+    context_object_name = 'bucket_list'
     
 class PortfolioDetailView(DetailView):
     model = Portfolio
-    context_object_name = 'portfolio'
-    template_name = 'portfolios/portfolio_detail.html'
+            
+    def get_context_data(self, *args,  **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['bucket_list'] = BucketListView()
+        return context
+
+class BucketDetailView(DetailView):
+    model = Bucket
+   
 
 class PortfolioUpdateView(UpdateView):
     fields = ['name']
     success_url = 'portfolio_detail'
     
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
     
 class PortfolioDeleteView(DeleteView):
     model = Portfolio
     success_url = 'portfolio_list'
 
-
-class BucketCreateView(FormView):
-    form_class = BucketForm
-    template_name = 'portfolios/create_bucket.html'
-    success_url = 'bucket_list'
-    
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-    
-class BucketListView(ListView):
-    model = Bucket
-    context_object_name = 'buckets'
-    template_name = 'portfolios/bucket_list.html'
-
-class BucketDetailView(DetailView):
-    model = Bucket
-    context_object_name = 'bucket'
-    template_name = 'portfolios/bucket_detail.html'
-    
+   
 class BucketUpdateView(UpdateView):
-    fields = [
-        'name',
-        'privacy',
-        'members'
-    ]
+    fields = '__all__'
     success_url = 'bucket_detail.html'
     
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-    
+        
 class BucketDeleteView(DeleteView):
     model = Bucket
     success_url = 'bucket_list.html'

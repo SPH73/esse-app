@@ -1,21 +1,17 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 
-{% load i18n %}
-
-
 {% block title %}Portfolios{% endblock title %}
 
 {% block content %}
-<h1>{% trans "Portfolios" %}</h1>
+<h1>Portfolios</h1>
 
 {% for portfolio in portfolio_list %}
+{% if request.user == portfolio.owner %}
 <div>
-    <a href="{{ portfolio.name }}"></a>
+    <a href="{{ portfolio.get_absolute_url }}">{{ portfolio.name }}</a>
 </div>
-<div>
-    <a href="{{ portfolio.name }}"></a>
-</div>
+{% endif %}
 {% endfor %}
 
 
