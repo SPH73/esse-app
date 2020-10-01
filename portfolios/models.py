@@ -1,8 +1,11 @@
+
 import uuid
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
+
 
 User = get_user_model()
 
@@ -12,14 +15,20 @@ class Portfolio(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     name = models.CharField('Give your portfolio a name', max_length=50)
-    description = models.TextField('Describe the contents or purpose for your this portfolio')
+    slug = models.SlugField(max_length=150)
+    description = models.TextField('Portfolio description')
     created_on = models.DateField(auto_now_add=True)
-    updated_date = models.DateField('last Updated', auto_now=True, null=True)
+    updated_date = models.DateField('last updated', auto_now=True, null=True)
     
+
     def __str__(self):
         return self.name
+    
+    def save(self):
+        self.slug = '%s%s' % (slugify(self.user.username), slugify(self.name))
+        super(Portfolio, self).save()
     
     def get_absolute_url(self):
         return reverse('portfolio_detail', args=[str(self.id)])
@@ -42,16 +51,23 @@ class Bucket(models.Model):
     )
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=100)
     created_on = models.DateField(auto_now_add=True)
     updated_on = models.DateTimeField('Last Updated', auto_now=True)
-    privacy = models.CharField('Type', max_length=10, choices=BUCKET_PRIVACY_CHOICES, default=PRIVATE)
-    whitelist = models.BooleanField(default=False)
-    members = ArrayField(models.EmailField(max_length=50, blank=True), size=8, null=True, blank=True)
+    access_list = ArrayField(models.EmailField(max_length=50, blank=True), size=8, null=True, blank=True)
+    make_public = models.BooleanField(default=False)
      
-     
+    def user_portfolios(self):
+        user_portfolio_qs = Portfolio.objects.filter(self.request.user)
+        self.save()
+         
     def __str__(self):
         return self.name
     
+    def save(self):
+        self.user = self.request.user 
+        self.slug = '%s%s' % (slugify(self.user.username), slugify(self.name))
+        super(Portfolio, self).save()
+    
     def get_absolute_url(self):
-        return reverse('bucket_detail', kwargs={'pk': str(self.pk)})
+        return reverse('bucket_detail', args=[str(self.id)])
