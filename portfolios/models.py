@@ -17,18 +17,16 @@ class Portfolio(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     name = models.CharField('Give your portfolio a name', max_length=50)
-    slug = models.SlugField(max_length=150)
+    slug = models.SlugField(max_length=150, unique_for_date='created_on')
     description = models.TextField('Portfolio description')
-    created_on = models.DateField(auto_now_add=True)
-    updated_date = models.DateField('last updated', auto_now=True, null=True)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField('last updated', auto_now=True, null=True)
     
-
+    class Meta:
+        ordering = ('-created',)
+    
     def __str__(self):
         return self.name
-    
-    def save(self):
-        self.slug = '%s%s' % (slugify(self.user.username), slugify(self.name))
-        super(Portfolio, self).save()
     
     def get_absolute_url(self):
         return reverse('portfolio_detail', args=[str(self.id)])
@@ -51,15 +49,14 @@ class Bucket(models.Model):
     )
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=100)
-    created_on = models.DateField(auto_now_add=True)
-    updated_on = models.DateTimeField('Last Updated', auto_now=True)
+    slug = models.SlugField(max_length=100, unique_for_date='created')
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateTimeField('Last Updated', auto_now=True)
     access_list = ArrayField(models.EmailField(max_length=50, blank=True), size=8, null=True, blank=True)
     make_public = models.BooleanField(default=False)
      
-    def user_portfolios(self):
-        user_portfolio_qs = Portfolio.objects.filter(self.request.user)
-        self.save()
+    class Meta:
+        ordering = ('-created',)
          
     def __str__(self):
         return self.name
