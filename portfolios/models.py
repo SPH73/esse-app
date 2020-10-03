@@ -17,7 +17,7 @@ class Portfolio(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     name = models.CharField('Give your portfolio a name', max_length=50)
-    slug = models.SlugField(max_length=150, unique_for_date='created_on')
+    slug = models.SlugField(max_length=150, unique_for_date='created')
     description = models.TextField('Portfolio description')
     created = models.DateField(auto_now_add=True)
     updated = models.DateField('last updated', auto_now=True, null=True)
@@ -60,11 +60,6 @@ class Bucket(models.Model):
          
     def __str__(self):
         return self.name
-    
-    def save(self):
-        self.user = self.request.user 
-        self.slug = '%s%s' % (slugify(self.user.username), slugify(self.name))
-        super(Portfolio, self).save()
-    
-    def get_absolute_url(self):
-        return reverse('bucket_detail', args=[str(self.id)])
+        
+    # def get_absolute_url(self):
+    #     return reverse('bucket_detail', args=[str(self.id)])
