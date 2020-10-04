@@ -15,8 +15,8 @@ class Portfolio(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
-    name = models.CharField('Give your portfolio a name', max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, related_name='portfolios')
+    name = models.CharField(help_text='Give your portfolio a relevant name. ', max_length=50)
     slug = models.SlugField(max_length=150, unique_for_date='created')
     description = models.TextField('Portfolio description')
     created = models.DateField(auto_now_add=True)
@@ -47,12 +47,12 @@ class Bucket(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name='buckets')
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=100, unique_for_date='created')
     created = models.DateField(auto_now_add=True)
     updated = models.DateTimeField('Last Updated', auto_now=True)
-    access_list = ArrayField(models.EmailField(max_length=50, blank=True), size=8, null=True, blank=True)
+    access_list = ArrayField(models.EmailField(max_length=50, blank=True), size=8, null=True, blank=True, help_text="Comma separated list of up to 8 email addresses that you want to share this bucket with. Not used on public buckets.")
     make_public = models.BooleanField(default=False)
      
     class Meta:

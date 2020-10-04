@@ -5,4 +5,9 @@ from .models import Portfolio, Bucket
 class PortfolioForm(ModelForm):
     class Meta:
         model = Portfolio
-        fields = ['name', 'user', 'description']
+        fields = ['name', 'description']
+
+class BucketForm(ModelForm):
+    class Meta:
+        model = Bucket
+        fields = ['name', 'access_list', 'make_public']
