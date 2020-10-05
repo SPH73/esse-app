@@ -36,7 +36,7 @@ urlpatterns = [
     
     path('', include('pages.urls')),
     
-    path('', include('portfolios.urls')),
+    path('portfolios/', include('portfolios.urls', namespace='portfolios')),
     
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

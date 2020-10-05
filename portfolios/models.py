@@ -1,11 +1,9 @@
-
 import uuid
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
-
 
 User = get_user_model()
 
@@ -15,7 +13,7 @@ class Portfolio(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, related_name='portfolios')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     name = models.CharField(help_text='Give your portfolio a relevant name. ', max_length=50)
     slug = models.SlugField(max_length=150, unique_for_date='created')
     description = models.TextField('Portfolio description')

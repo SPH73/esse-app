@@ -2,10 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from .models import Portfolio, Bucket
 from django.contrib.auth import get_user_model
 from .forms import BucketForm
-def portfolio_list(request, user):
-    portfolios = Portfolio.objects.all()
-    user = get_user_model()
-    context = {'portfolios':portfolios, 'user':user}
+
+def portfolio_list(request):
+    User = get_user_model()
+    user = User.objects.get(username=request.user.username)
+    portfolios = Portfolio.objects.filter(user=user)
+    context = {'portfolios':portfolios}
     return render(request, 'portfolios/portfolio_list.html', context)
 
 def portfolio_detail(request, year, month, day, portfolio):
