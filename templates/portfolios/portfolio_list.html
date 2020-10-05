@@ -11,7 +11,7 @@
 
 {% for portfolio in portfolios %}
 <h2>
-    <a href="{{ portfolios.get_absolute_url }}"> {{ portfolio.name }}</a>
+    <a href="{{ portfolio.get_absolute_url }}"> {{ portfolio.name }}</a>
 </h2>
 <p>Last updated on {{ portfolio.updated }}</p>
 {% if portfolio.description %}

@@ -27,7 +27,11 @@ class Portfolio(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('portfolio_detail', args=[str(self.id)])
+        return reverse('portfolios:portfolio_detail',
+                       args=[self.created.year,
+                             self.created.month,
+                             self.created.day,
+                             self.slug])
 
 
 class Bucket(models.Model):

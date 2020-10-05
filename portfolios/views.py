@@ -5,17 +5,17 @@ from .forms import BucketForm
 
 def portfolio_list(request):
     User = get_user_model()
-    user = User.objects.get(username=request.user.username)
+    user = User.objects.get(username=request.user.user)
     portfolios = Portfolio.objects.filter(user=user)
     context = {'portfolios':portfolios}
     return render(request, 'portfolios/portfolio_list.html', context)
 
 def portfolio_detail(request, year, month, day, portfolio):
     portfolio = get_object_or_404(Portfolio, 
-                                  slug=portfolio,
-                                  updated__year=year,
-                                  updated__month=month,
-                                  updated__day=day)
+                                  created__year=year,
+                                  created__month=month,
+                                  created__day=day,
+                                  slug=portfolio)
     buckets = portfolio.buckets.all()
     new_bucket = None
     if request.method == 'POST':
