@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 from .models import Portfolio, Bucket
 from django.contrib.auth import get_user_model
@@ -5,7 +6,7 @@ from .forms import BucketForm
 
 def portfolio_list(request):
     User = get_user_model()
-    user = User.objects.get(username=request.user.user)
+    user = User.objects.get(username=request.user.username)
     portfolios = Portfolio.objects.filter(user=user)
     context = {'portfolios':portfolios}
     return render(request, 'portfolios/portfolio_list.html', context)
@@ -24,8 +25,8 @@ def portfolio_detail(request, year, month, day, portfolio):
             new_bucket = bucket_form.save(commit=False)
             new_bucket.portfolio = portfolio
             new_bucket.save()
-        else:
-            bucket_form = BucketForm()        
+    else:
+        bucket_form = BucketForm()        
     context = {'portfolio': portfolio, 'buckets': buckets, 'new_bucket':new_bucket, 'bucket_form': bucket_form}
     return render(request, 'portfolios/portfolio_detail.html', context)
 
