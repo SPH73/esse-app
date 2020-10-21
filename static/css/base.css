@@ -10,6 +10,23 @@ body {
     overscroll-behavior: none;
 }
 
+/* messages with bootstrap toasts */
+/* credit CI - Boutique Ado project */
+.message-container {
+    position: fixed;
+    top: 50px;
+    right: 15px;
+    z-index: 100;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
+
 /* Footer */
 footer {
     text-align: center;
