@@ -2,6 +2,7 @@ from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 from .models import Portfolio, Bucket
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from .forms import BucketForm
 
 def portfolio_list(request):
@@ -25,6 +26,9 @@ def portfolio_detail(request, year, month, day, portfolio):
             new_bucket = bucket_form.save(commit=False)
             new_bucket.portfolio = portfolio
             new_bucket.save()
+            messages.success(request, 'Bucket created successfully')
+        else:
+            messages.error(request, 'Error creating your bucket')
     else:
         bucket_form = BucketForm()        
     context = {'portfolio': portfolio, 'buckets': buckets, 'new_bucket':new_bucket, 'bucket_form': bucket_form}
