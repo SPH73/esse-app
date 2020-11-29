@@ -27,11 +27,21 @@ body {
     height: 2px;
 }
 
+
+/* spacing */
+
+.bt-5 {
+    height: 100px;
+}
+
 /* Footer */
 footer {
+    background-color: rgb(71, 65, 65);
+    color: white;
     text-align: center;
+    align-self: auto;
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 10px;
+    padding: 20px 10px;
 }
