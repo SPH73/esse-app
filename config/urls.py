@@ -25,9 +25,9 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 
-admin.site.site_header = "PixPi Media Admin"
-admin.site.site_title = "PixPi Media Admin Portal"
-admin.site.index_title = "Welcome to PixPi Media Portal"
+admin.site.site_header = "FamilyHub Admin"
+admin.site.site_title = "FamilyHub Admin Portal"
+admin.site.index_title = "Welcome to FamilyHub Portal"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
