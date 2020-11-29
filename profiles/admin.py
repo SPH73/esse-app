@@ -10,4 +10,4 @@ class ProfileAdmin(admin.ModelAdmin):
     )
     ordering = ('-updated',)
 
-# Register your models here.
+admin.site.register(Profile, ProfileAdmin)

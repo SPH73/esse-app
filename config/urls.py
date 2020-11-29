@@ -36,6 +36,8 @@ urlpatterns = [
     
     path('', include('pages.urls')),
     
+    path('profiles/', include('profiles.urls', namespace='profiles')),
+    
     path('portfolios/', include('portfolios.urls', namespace='portfolios')),
     
     path('', include(router.urls)),
