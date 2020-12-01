@@ -34,6 +34,14 @@ body {
     height: 100px;
 }
 
+.page-icon {
+    color: rgb(47, 81, 159)
+}
+
+.page-icon:hover {
+    color: rgb(47, 81, 159)
+}
+
 /* Footer */
 footer {
     background-color: rgb(131, 159, 237);

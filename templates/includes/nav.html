@@ -8,10 +8,11 @@
             {% if user.is_authenticated %}
             <img src="" alt="">
             <a class="p-2 text-dark" href="{% url 'profiles:profile' %}">{{request.user}}</a>
-            <a class="p-2 text-dark" href="{% url 'account_logout' %}">Log Out</a>
+            <a class="p-2 text-dark" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i></a>
             {% else %}
-            <a class="p-2 text-dark" href="{% url 'account_login' %}">Log In</a>
-            <a class="btn btn-outline-primary" href="{% url 'account_signup' %}">Sign Up</a>
+            <a class="p-2 text-dark" href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt"></i></a>
+
+            <a class="btn" href="{% url 'account_signup' %}">Get started</a>
             {% endif %}
         </nav>
     </div>
