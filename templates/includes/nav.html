@@ -1,18 +1,22 @@
 {% load static %}
 <header>
-    <div class="navbar navbar-light" style="background-color: #fff;">
-        <a href=" {% url 'home' %}" class="navbar-brand my-0 mr-md-auto"><img src="{% static 'images/logos/Esse.svg'%}"
-                width="150" height="100" alt="Esse"></a>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="">Public Site</a>
+    <!-- <div class="top-line mw-100 h-20"></div> -->
+    <div class="navbar navbar-light">
+        <!-- TO DO include hamburger menu here for slide in nav-items-->
+        <a href="{% url 'home' %}" class="navbar-brand my-0 ml-2 mr-md-auto"><img
+                src="{% static 'images/logos/Esse.svg'%}" width="75" height="50" alt="Esse"></a>
+        <nav class="my-1 my-md-0 mr-md-3">
+            <a class="p-1" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
             {% if user.is_authenticated %}
-            <img src="" alt="">
-            <a class="p-2 text-dark" href="{% url 'profiles:profile' %}">{{request.user}}</a>
-            <a class="p-2 text-dark" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i></a>
+            <a class="p-1 my-auto" href="{% url 'profiles:profile' %}"><img class="rounded-circle" width="50"
+                    height="50" src="{{ request.user.profile.avatar.url }}" alt="{{request.user}}"></a>
+            <a class="p-1" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i></a>
             {% else %}
-            <a class="p-2 text-dark" href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt"></i></a>
+            <a class="p-1" href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt"></i></a>
 
-            <a class="btn" href="{% url 'account_signup' %}">Get started</a>
+            <button type="submit" class="signup-btn"><a class="signup-btn" href="{% url 'account_signup' %}"><i
+                        class="fas fa-pencil-alt"></i>Sign
+                    Up</a></button>
             {% endif %}
         </nav>
     </div>

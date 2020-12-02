@@ -1,17 +1,30 @@
 {% extends '_base.html' %}
 
-{% block title %}Home{% endblock title %}
+{% block extra_title %}Home{% endblock extra_title %}
 
 {% block content %}
 
-{% if user.is_authenticated %}
-<p>Welcome, {{ user.username|upper }}!</p>
+<span class="page-icon" style="font-size:1.9rem;cursor:pointer" onclick="openNav()"><i class="fas fa-bars"></i></span>
+<div id="homeNav" class="sidenav">
+    <a href="javascript:void(0)" class="close-btn page-icon" onclick="closeNav()"><i
+            class="far fa-window-close"></i></a>
+    <a href="{% url 'profiles:profile' %}"><img class="rounded-circle" width="30" height="30"
+            src="{{ request.user.profile.avatar.url }}" alt="{{ request.user }}">&nbsp;Profile</a>
+    <a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends</a>
+    <a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family</a>
+    <a href=""><i class="page-icon fas fa-photo-video">&nbsp;</i>Portfolio</a>
+    <a href=""><i class="page-icon fas fa-calendar-alt">&nbsp;</i>&nbsp;Calendar</a>
+</div>
 
-{% else %}
-<p>Welcome, user. Login or sign up here.</p>
-<a href="{% url 'account_login' %}">Log In</a><br>
-<a href="{% url 'account_signup' %}">Sign Up</a>
-{% endif %}
+<script>
+    function openNav() {
+        document.getElementById("homeNav").style.width = "250px";
+    }
 
-<h1>Homepage</h1>
+    function closeNav() {
+        document.getElementById("homeNav").style.width = "0";
+    }
+</script>
+
+
 {% endblock content %}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bilbo&display=swap');
+
 html,
 body {
     font-family: 'Muli', sans-serif;
@@ -8,6 +10,113 @@ body {
     margin: 0;
     padding: 0;
     overscroll-behavior: none;
+}
+
+.top-bar {
+    background-image: linear-gradient(to bottom, rgba(23, 162, 184, 1), rgba(23, 162, 184, 0));
+    color: rgb(47, 81, 159);
+    padding: 10px 4px;
+}
+
+/* nav */
+
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+nav a {
+    font-family: 'Bilbo', cursive;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: rgb(53, 87, 162);
+    text-decoration: none;
+}
+
+nav a:hover {
+    font-family: 'Bilbo', cursive;
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: rgb(23, 162, 184);
+    text-decoration: none;
+}
+
+.signup-btn {
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    background-color: rgb(23, 162, 184);
+    color: #fff;
+    padding: 2px 5px;
+
+}
+
+.signup-btn:hover {
+    border: none;
+    background-color: transparent;
+    color: rgb(23, 162, 184);
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: rgb(47, 81, 159);
+    display: block;
+    transition: 0.4s;
+}
+
+.sidenav a:hover {
+    color: rgb(23, 162, 184);
+}
+
+.sidenav .close-btn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.account-p {
+    /* font-family: 'Bilbo', cursive;
+    font-weight: 400; */
+    color: rgb(53, 87, 162);
+    font-style: italic;
+}
+
+.cancel {
+    float: right
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Bilbo', cursive;
+    font-weight: 600;
+    color: rgb(53, 87, 162);
 }
 
 /* messages with bootstrap toasts */
@@ -29,27 +138,49 @@ body {
 
 
 /* spacing */
-
 .bt-5 {
     height: 100px;
 }
 
+/* icons */
 .page-icon {
-    color: rgb(47, 81, 159)
+    color: rgb(47, 81, 159);
 }
 
 .page-icon:hover {
-    color: rgb(47, 81, 159)
+    color: rgb(23, 162, 184);
 }
 
 /* Footer */
 footer {
-    background-color: rgb(131, 159, 237);
-    color: white;
+
+    background-image: linear-gradient(to bottom, rgba(23, 162, 184, 0), rgba(23, 162, 184, 1));
+    color: rgb(47, 81, 159);
     text-align: center;
     align-self: auto;
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 20px 10px;
+    padding: 15px 8px;
+}
+
+footer a {
+    color: rgb(47, 81, 159);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: rgba(47, 81, 159, 0.5);
+    text-decoration: none;
+}
+
+/* media queries */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 1.15rem;
+    }
 }
