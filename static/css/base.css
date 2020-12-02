@@ -64,7 +64,6 @@ nav a:hover {
 }
 
 .sidenav {
-    height: auto;
     width: 0;
     position: fixed;
     z-index: 1;
@@ -80,7 +79,8 @@ nav a:hover {
     text-decoration: none;
     font-size: 1.5rem;
     color: rgb(47, 81, 159);
-    display: block;
+    display: flex;
+    align-items: center;
     transition: 0.5s;
 }
 
