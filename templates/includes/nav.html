@@ -19,5 +19,25 @@
                     Up</a></button>
             {% endif %}
         </nav>
+
     </div>
 </header>
+<div id="homeNav" class="sidenav">
+    <a href="javascript:void(0)" class="close-btn page-icon" onclick="closeNav()"><i
+            class="far fa-window-close"></i></a>
+    <a href="{% url 'profiles:profile' %}"><img class="rounded-circle" width="30" height="30"
+            src="{{ request.user.profile.avatar.url }}" alt="{{ request.user }}">&nbsp;Profile</a>
+    <a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends</a>
+    <a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family</a>
+    <a href=""><i class="page-icon fas fa-photo-video">&nbsp;</i>Portfolio</a>
+    <a href=""><i class="page-icon fas fa-calendar-alt">&nbsp;</i>&nbsp;Calendar</a>
+</div>
+<script>
+    function openNav() {
+        document.getElementById("homeNav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("homeNav").style.width = "0";
+    }
+</script>
