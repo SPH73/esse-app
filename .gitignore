@@ -9,3 +9,5 @@ htmlcov
 config/__pycache__/
 
 
+icons.html
+docker-compose-prod.yml

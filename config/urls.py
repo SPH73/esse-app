@@ -25,12 +25,12 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 
-admin.site.site_header = "FamilyHub Admin"
-admin.site.site_title = "FamilyHub Admin Portal"
-admin.site.index_title = "Welcome to FamilyHub Portal"
+admin.site.site_header = "Esse Admin"
+admin.site.site_title = "Esse Admin Portal"
+admin.site.index_title = "Welcome to Esse Portal"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('backoffice/', admin.site.urls),
   
     path('accounts/', include('allauth.urls')),
     

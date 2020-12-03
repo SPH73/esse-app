@@ -1,10 +1,12 @@
-# PIXPI MEDIA
+# Full Stack Frameworks Project | Code Institute | Software development Diploma
 
-Our heart is in everything!
+<img src="{% static 'images/logos/Esse.svg' %}"
+width="150" height="100" alt="Site logo"
+style="float: left; vertical-align: middle;"/>
 
 ## Introduction
 
-A platform for sharing memories, special occasions and events.
+A social media platform for families and friends sharing memories, special occasions and events.
 
 ### Table of Contents
 

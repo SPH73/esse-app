@@ -1,10 +1,29 @@
 <footer>
     <div class="footer">
-        <p><small>
-                Copyright &copy;<script>
-                    document.write(new Date().getFullYear())
-                </script> PixPiMedia
-            </small>
-        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a class="p-2" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="p-2" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="p-2" href=""><i class="fab fa-google-plus-g"></i></a>
+                    <a class="p-2" href=""><i class="fab fa-instagram-square"></i></a>
+                </div>
+                <div class="col">
+                    <a class="p-2" href="{% url 'about' %}">About</a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p><small>
+                            Copyright &copy;<script>
+                                document.write(new Date().getFullYear())
+                            </script> PixPiMedia
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </footer>

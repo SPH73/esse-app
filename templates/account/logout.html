@@ -5,12 +5,12 @@
 
 
 {% block content %}
-<h1>Log Out</h1>
-
-<p>Are you sure you want to log out?</p>
-
+<h1>Sign Out</h1>
+<a href="{% url 'home' %}" class="btn btn-outline-danger cancel" type="submit"><i class="far fa-window-close"></i></a>
+<p class="account-p">Are you sure you want to sign out now?</p>
 <form method="POST">
     {% csrf_token %} {{ form|crispy }}
-    <button class="btn btn-outline-danger" type="submit">Log Out</button>
+    <button class="btn btn-outline-danger" type="submit"><i class="fas fa-sign-out-alt"></i></button>
 </form>
+
 {% endblock content %}

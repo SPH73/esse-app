@@ -1,19 +1,55 @@
+{% load static %}
 <header>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4
-    mb-3 bg-white border-bottom shadow-sm">
-        <a href="{% url 'home' %}" class="navbar-brand my-0 mr-md-auto
-     font-weight-normal">FamilyHub</a>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="">Public Site</a>
+    <div class="navbar navbar-light">
+        <span style="font-size:1.9rem;cursor:pointer" aria-label="Open menu" onclick="openNav()"><i
+                class="page-icon fas fa-bars"></i></span>
+        <a href="{% url 'home' %}" class="navbar-brand my-0"><img src="{% static 'images/logos/Esse.svg'%}" width="75"
+                height="50" alt="Esse"></a>
+        <nav class=" nav my-1 my-md-0 mr-md-3">
+            <a aria-label="Home" class="p-1" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
             {% if user.is_authenticated %}
-            <img src="{" alt="">
-            <a class="p-2 text-dark" href="{% url 'profiles:profile' %}">{{request.user}}</a>
-            <a class="p-2 text-dark" href="{% url 'account_logout' %}">Log Out</a>
+            <a class="p-1 my-auto" href="{% url 'profiles:profile' %}"><img class="rounded-circle" width="50"
+                    height="50" src="{{ request.user.profile.avatar.url }}" alt="{{request.user}}"></a>
+            <a aria-label="Sign out" class="p-1" href="{% url 'account_logout' %}"><i
+                    class="fas fa-sign-out-alt"></i></a>
             {% else %}
-            <a class="p-2 text-dark" href="{% url 'about' %}">About</a>
-            <a class="p-2 text-dark" href="{% url 'account_login' %}">Log In</a>
-            <a class="btn btn-outline-primary" href="{% url 'account_signup' %}">Sign Up</a>
+            <a aria-label="Sign in" class="p-1" href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt"></i></a>
+            <button type="submit" class="signup-btn"><a class="signup-btn" href="{% url 'account_signup' %}"><i
+                        class="fas fa-pencil-alt"></i>Sign
+                    Up</a></button>
             {% endif %}
         </nav>
     </div>
 </header>
+<nav id="sideNav" class=" nav sidenav">
+    {% include 'includes/topbar.html' %}
+    <div id="sideNavHead">
+        <a href="javascript:void(0)" class="close-btn" aria-label="Close menu" onclick="closeNav()"
+            style="font-size:1.9rem;cursor:pointer;"><i class="page-icon far fa-window-close"></i></a>
+    </div>
+    <div id="SideNavItems" class="sidenav-items">
+        <div class="col"><a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends
+                <span class="col text-right my-auto">{{ request.user.profile.get_friends_count }}</span></a></div>
+        <div class="col"><a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family
+                <span class="col text-right my-auto">{{ request.user.profile.get_relations_count }}</span></a>
+        </div>
+        <div class="col">
+            <a href=""><i class="page-icon fas fa-photo-video">&nbsp;</i>Portfolio</a>
+        </div>
+        <div class="col">
+            <a href=""><i class="page-icon fas fa-calendar-alt">&nbsp;</i>&nbsp;Calendar</a>
+        </div>
+    </div>
+</nav>
+
+{% block postload_js %}
+<script>
+    function openNav() {
+        document.getElementById("sideNav").style.width = "10rem";
+    }
+
+    function closeNav() {
+        document.getElementById("sideNav").style.width = "0";
+    }
+</script>
+{% endblock postload_js %}

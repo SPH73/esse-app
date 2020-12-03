@@ -15,5 +15,18 @@ class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
+    
+    def get_friends(self):
+        return self.friends.all()
+    
+    def get_friends_count(self):
+        return self.friends.all().count()
+    
+    def get_relations(self):
+        return self.relations.all()
+    
+    def get_relations_count(self):
+        return self.relations.all().count()
+    
     def __str__(self):
         return str(self.user.username)
