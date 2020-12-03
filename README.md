@@ -117,7 +117,8 @@ Produce a project that I am proud of.
 [Psycopg2-binary](https://pypi.org/project/psycopg2-binary/) psycopg2 - Python-PostgreSQL Database Adapter (for development)  
 [environs with django suppoort](https://pypi.org/project/environs/#usage-with-django) for separation and parsing of environment variables which installs [dj-database-url](https://pypi.org/project/dj-database-url/) as a dependency.  
 [Django-Crispy-forms](https://pypi.org/project/django-crispy-forms/) prestyled bootstrap forms  
-[Django-allauth](https://pypi.org/project/django-allauth/)
+[Django-allauth](https://pypi.org/project/django-allauth/)  
+[Font Awesome 5](https://fontawesome.com/)
 
 ### Database
 
@@ -144,12 +145,13 @@ Thanks to Adam Johnson and this blog post [Getting a Django Application to 100% 
 
 ## Credits
 
-Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://medium.com/@Zaccc123/django-tests-with-nose-and-coverage-dff5d3633b4b) for the additional line of code in manage.py to generate a coverage html report.
+Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://medium.com/@Zaccc123/django-tests-with-nose-and-coverage-dff5d3633b4b) for the additional line of code in manage.py to generate a coverage html report automatically.
 
 ## Acknowledgements
 
 ### Resources
 
+[Docker](https://docs.docker.com/compose/django/)  
 [Django source code](https://github.com/django/django)  
 [Django Docs](https://www.djangoproject.com/)  
 [Django packages](https://djangopackages.org/)  

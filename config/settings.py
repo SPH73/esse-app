@@ -56,11 +56,10 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
-    'portfolios.apps.PortfoliosConfig',
     'posts.apps.PostsConfig',
     'membership.apps.MembershipConfig',
     'profiles.apps.ProfilesConfig',
-
+    'albums.apps.AlbumsConfig',
 ]
 
 INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
