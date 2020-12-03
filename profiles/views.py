@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .models import Profile
+from albums.models import Album, Private, Public
 from .forms import ProfileModelForm
 
 
@@ -14,13 +15,15 @@ def profile(request):
             messages.success(request, "Profile updated successfully")
             
     form = ProfileModelForm(instance=profile)
-    portfolios = profile.portfolios.all()
+    public_albums = profile.public_albums.all()
+    private_albums = profile.private_albums.all()
     
     template = 'profiles/profile.html'
     context = {
         'profile': profile,
         'form':form,
-        'portfolios': portfolios
+        'private_albums': private_albums,
+        'public_albums': public_albums
     }
     
     return render(request, template, context)
