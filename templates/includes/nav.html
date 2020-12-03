@@ -2,8 +2,8 @@
 <header>
     <div class="navbar navbar-light">
         <span style="font-size:1.9rem;cursor:pointer" onclick="openNav()"><i class="page-icon fas fa-bars"></i></span>
-        <a href="{% url 'home' %}" class="navbar-brand ml-4 my-0"><img src="{% static 'images/logos/Esse.svg'%}"
-                width="75" height="50" alt="Esse"></a>
+        <a href="{% url 'home' %}" class="navbar-brand my-0"><img src="{% static 'images/logos/Esse.svg'%}" width="75"
+                height="50" alt="Esse"></a>
         <nav class=" nav my-1 my-md-0 mr-md-3">
             <a class="p-1" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
             {% if user.is_authenticated %}
@@ -27,14 +27,21 @@
                 class="page-icon far fa-window-close"></i></a>
     </div>
 
-    <div id="SideNavItems" class="sidenav-items color">
-        <a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends</a>
-        <a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family</a>
-        <a href=""><i class="page-icon fas fa-photo-video">&nbsp;</i>Portfolio</a>
-        <a href=""><i class="page-icon fas fa-calendar-alt">&nbsp;</i>&nbsp;Calendar</a>
+    <div id="SideNavItems" class="sidenav-items">
+        <div class="col"><a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends
+                <span class="col count text-right my-auto">{{ request.user.profile.get_friends_count }}</span></a></div>
+        <div class="col"><a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family
+                <span class="col count text-right my-auto">{{ request.user.profile.get_relations_count }}</span></a>
+        </div>
+        <div class="col">
+            <a href=""><i class="page-icon fas fa-photo-video">&nbsp;</i>Portfolio</a>
+        </div>
+        <div class="col">
+            <a href=""><i class="page-icon fas fa-calendar-alt">&nbsp;</i>&nbsp;Calendar</a>
+        </div>
     </div>
-
 </nav>
+
 {% block postload_js %}
 <script>
     function openNav() {
