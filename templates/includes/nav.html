@@ -1,7 +1,8 @@
 {% load static %}
 <header>
     <div class="navbar navbar-light">
-        <span style="font-size:1.9rem;cursor:pointer" onclick="openNav()"><i class="page-icon fas fa-bars"></i></span>
+        <span style="font-size:1.9rem;cursor:pointer" aria-label="Open menu" onclick="openNav()"><i
+                class="page-icon fas fa-bars"></i></span>
         <a href="{% url 'home' %}" class="navbar-brand my-0"><img src="{% static 'images/logos/Esse.svg'%}" width="75"
                 height="50" alt="Esse"></a>
         <nav class=" nav my-1 my-md-0 mr-md-3">
@@ -22,16 +23,15 @@
 </header>
 <nav id="sideNav" class=" nav sidenav">
     {% include 'includes/topbar.html' %}
-    <div class="sidenav-head">
-        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()" style="font-size:1.9rem;cursor:pointer;"><i
-                class="page-icon far fa-window-close"></i></a>
+    <div id="sideNavHead">
+        <a href="javascript:void(0)" class="close-btn" aria-label="Close menu" onclick="closeNav()"
+            style="font-size:1.9rem;cursor:pointer;"><i class="page-icon far fa-window-close"></i></a>
     </div>
-
     <div id="SideNavItems" class="sidenav-items">
         <div class="col"><a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends
-                <span class="col count text-right my-auto">{{ request.user.profile.get_friends_count }}</span></a></div>
+                <span class="col text-right my-auto">{{ request.user.profile.get_friends_count }}</span></a></div>
         <div class="col"><a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family
-                <span class="col count text-right my-auto">{{ request.user.profile.get_relations_count }}</span></a>
+                <span class="col text-right my-auto">{{ request.user.profile.get_relations_count }}</span></a>
         </div>
         <div class="col">
             <a href=""><i class="page-icon fas fa-photo-video">&nbsp;</i>Portfolio</a>
