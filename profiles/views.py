@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .models import Profile
-# from albums.models import Album, Private, Public
+from albums.models import Album
 from .forms import ProfileModelForm
 
 
