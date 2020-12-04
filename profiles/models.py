@@ -9,7 +9,7 @@ def user_dir(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(unique=True, blank=True)
     avatar = models.ImageField(default='avatar.png',upload_to=user_dir)
     status = models.TextField(max_length=350, default='No status ...')
     relations = models.ManyToManyField(User, related_name='relations', blank=True)

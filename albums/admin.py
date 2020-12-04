@@ -1,21 +1,15 @@
 from django.contrib import admin
-from .models import Album, Private, Public
+from .models import Album
 
-class PublicModelAdmin(admin.ModelAdmin):
+class AlbumModelAdmin(admin.ModelAdmin):
     list_display = (
         'profile',
+        'slug',
         'created',
         'updated',
+        'is_public',
     )
     ordering = ('-updated',)
     
-class PrivateModelAdmin(admin.ModelAdmin):
-    list_display = (
-        'profile',
-        'created',
-        'updated',
-    )
-    ordering = ('-updated',)
+admin.site.register(Album, AlbumModelAdmin)
 
-admin.site.register(Private, PrivateModelAdmin)
-admin.site.register(Public, PrivateModelAdmin)
