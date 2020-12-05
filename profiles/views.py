@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.contrib import messages
 from .models import Profile
 from albums.models import Album
@@ -16,12 +16,16 @@ def profile(request):
             
     form = ProfileModelForm(instance=profile)
     albums = profile.albums.all()
-    
+    plc_albums = albums.exclude(is_public=False)
+    pvt_albums = albums.exclude(is_public=True)
+   
     template = 'profiles/profile.html'
     context = {
         'profile': profile,
         'form':form,
         'albums': albums,
+        'plc_albums': plc_albums,
+        'pvt_albums': pvt_albums,
     }
     
     return render(request, template, context)

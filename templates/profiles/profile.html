@@ -26,11 +26,37 @@
     </div>
 </div>
 <hr>
-<div id="portfolio" class="row text-center">
-    <div class="col-12 portfolio">
-        **table for portfolio goes here**
+<h2 class="text-center">Albums: {{ albums|length }}</h2>
+<div id="portfolio" class="row">
+    <hr>
+    <div class="col-6 portfolio">
+        <h3>Public: {{ plc_albums|length }}</h3>
+        {% for album in plc_albums %}
+        <ul>
+            <li>
+                <a href=""><span class="title"></span>{{ album.title|title }}</span></a>
+                <p class="description">{{album.description}}</p>
+
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+    <hr>
+    <div class="col-6 portfolio">
+        <h3>Private: {{pvt_albums|length}}</h3>
+        {% for album in pvt_albums %}
+        <ul>
+            <li>
+                <span class="title"><a href="">{{ album.title|title }}</a></span>
+                <span class="description">
+                    <p>{{album.description.capitalize}}</p>
+                </span>
+            </li>
+        </ul>
+        {% endfor %}
     </div>
 </div>
+
 <!-- profile edit modal -->
 <div class="row mt-3">
     <div class="col">
