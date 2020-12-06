@@ -46,6 +46,8 @@ STATUS_CHOICES = (
 class FriendRequest(models.Model):
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_user')
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_user')
-    is_relation = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES)
+    
+    def __str__(self):
+        return f'From {from_user}, to {to_user} on {created}'
