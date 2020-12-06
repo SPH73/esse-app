@@ -207,7 +207,7 @@ SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=True)
 CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=True)
 
 cloudinary.config(
-  cloud_name = 'CLOUDINARY_CLOUD_NAME',
-  api_key =  'CLOUDINARY_API_KEY',
-  api_secret = 'CLOUDINARY_API_SECRET'
+  cloud_name = env.str('CLOUDINARY_CLOUD_NAME'),
+  api_key =  env.str('CLOUDINARY_API_KEY'),
+  api_secret = env.str('CLOUDINARY_API_SECRET')
 )
