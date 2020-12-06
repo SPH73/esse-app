@@ -11,12 +11,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
 from environs import Env
-
 env = Env()
 env.read_env()
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +53,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'taggit',
+    'cloudinary',
 ]
 
 LOCAL_APPS = [
@@ -195,7 +197,7 @@ else:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
-    DEFAULT_FROM_EMAIL = 'admin@pixpimedia.com'
+    DEFAULT_FROM_EMAIL = 'esse@pixpimedia.com'
 
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)
 SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', default=2592000)
@@ -203,3 +205,9 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('SECURE_HSTS_INCLUDE_SUBDOMAINS', defa
 SECURE_HSTS_PRELOAD = env.bool('SECURE_HSTS_PRELOAD', default=True)
 SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=True)
 CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=True)
+
+cloudinary.config(
+  cloud_name = 'CLOUDINARY_CLOUD_NAME',
+  api_key =  'CLOUDINARY_API_KEY',
+  api_secret = 'CLOUDINARY_API_SECRET'
+)
