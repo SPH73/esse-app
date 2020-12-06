@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Album
+from .models import Album, MediaUploads
 
 class AlbumModelAdmin(admin.ModelAdmin):
     list_display = (
@@ -12,4 +12,5 @@ class AlbumModelAdmin(admin.ModelAdmin):
     ordering = ('-updated',)
     
 admin.site.register(Album, AlbumModelAdmin)
+admin.site.register(MediaUploads)
 

@@ -168,7 +168,8 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [Cloudinary Django Library](https://github.com/cloudinary/pycloudinary)  
 [Cloudinary images](https://cloudinary.com/blog/user_generated_content_part_2_images_and_their_transformations)  
 [Clouindary videos](https://cloudinary.com/blog/user_generated_content_part_3_videos_and_their_transformations)  
-[cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)
+[cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)  
+[Django Cloudinary Storage](https://github.com/klis87/django-cloudinary-storage)
 
 [Bootstrap Grid ref](https://getbootstrap.com/docs/4.5/layout/grid/)  
 [Bootstrap Icons](https://icons.getbootstrap.com/)
