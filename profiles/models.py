@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 User = get_user_model()
 
 def user_dir(instance, filename):
-    return f'avatars/user_{instance.user.username}/{filename}'
+    return f'Esse/user_uploads/avatars/user_{instance.user.username}/{filename}'
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,7 +29,7 @@ class Profile(models.Model):
     
     def get_relations_count(self):
         return self.relations.all().count()
-    
+       
     def __str__(self):
         return str(self.user.username)
     
@@ -37,6 +37,7 @@ class Profile(models.Model):
         add_slug = str(self.user)
         self.slug = add_slug
         super().save(*args, **kwargs)
+        
     
 STATUS_CHOICES = (
         ('Requested', 'Requested'),
