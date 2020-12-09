@@ -38,6 +38,8 @@ urlpatterns = [
     
     path('profiles/', include('profiles.urls', namespace='profiles')),
     
+    path('albums/', include('albums.urls', namespace='albums')),
+    
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     
