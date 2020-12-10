@@ -5,25 +5,22 @@
 
 {% block content %}
 <div id="assets" class="container">
-    <h1>{{ album.title }}</h1>
-    <div class="col-12 col-sm-6 col-lg-3 asset">
-        {% for asset in assets %}
-        {{ asset.title }}
-        <img class="w-100" src="{{ asset.media.url }}" alt="{{ asset.title }}">
-        {{ asset.description }}
-    </div>
-    {% empty %}
-    <p>This album is currently empty.</p>
-    {% endfor %}
-    {% if asset %}
-    <h2>Your media has been added.</h2>
-    {% else %}
+    <h1>{{ album.title|title }}</h1>
     <!-- button for asset modal -->
     <button id="addMediaBtn" type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".add-media"><i
             class="fas fa-photo-video"></i>
     </button>
-
-    {% endif %}
+    {% for asset in assets %}
+    <div class="col-12 col-sm-6 col-lg-3 asset">
+        {{ asset.title|title }}
+        <img class="w-100" src="{{ asset.media.url }}" alt="{{ asset.title }}">
+        {{ asset.description }}
+    </div>
+    {% empty %}
+    <div>
+        <p>Use the media button to add to this album
+    </div>
+    {% endfor %}
 
     <!-- add media modal -->
     <div class="row mt-3">
@@ -32,15 +29,16 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="container p-2">
-                            <a href="{% url 'albums:album_detail' %}" class="mb-3 btn btn-outline-danger cancel"
-                                type="submit"><i class="far fa-window-close"></i></a>
+                            <a href="{% url 'albums:album_detail' album.slug %}"
+                                class="mb-3 btn btn-outline-danger cancel" type="submit"><i
+                                    class="far fa-window-close"></i></a>
                             <div class="asset-form">
                                 <h3>Add Media</h3>
-                                <form action="{% url 'albums:album_detail' %}" method="post">
+                                <form action="{% url 'albums:album_detail' album.slug %}" method="post">
                                     {% csrf_token %}
                                     {{ asset_form|crispy }}
-                                    <button class="btn btn-success btn-sm" type="submit"><i
-                                            class="fas fa-cloud-upload-alt"></button>
+                                    <button type="submit" class="btn btn-outline-success"><i
+                                            class="fas fa-user-lock"></i></button>
                                 </form>
                             </div>
                         </div>

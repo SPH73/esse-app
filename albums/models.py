@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.shortcuts import reverse, redirect
+from django.shortcuts import reverse, redirect, resolve_url
 from profiles.models import Profile
 from django.template.defaultfilters import slugify
 from utils.slug import get_slug_suffix
@@ -38,14 +38,14 @@ class Album(models.Model):
         return self.assets.all()
     
     def get_slug(self):
-        return self.alug
+        return self.slug
     
     def get_asset_count(self):
         return self.assets.all().count()
        
     def get_absolute_url(self):
-        return redirect(reverse('albums:album_detail', args=[self.slug]))
-
+        return reverse('albums:album_detail', args=[self.slug])
+    
 
 def album_media_dir(instance, filename):
     return f'Esse/user_uploads/albums/user_{instance.profile}/{instance.album.slug}/{filename}'

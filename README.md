@@ -1,6 +1,6 @@
 # Full Stack Frameworks Project | Code Institute | Software development Diploma
 
-<img src="{% static 'images/logos/Esse.svg' %}"
+<img src="static/images/logos/Esse.svg"
 width="150" height="100" alt="Site logo"
 style="float: left; vertical-align: middle;"/>
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django import forms
 from .models import Album, Asset
@@ -31,10 +31,12 @@ def album_detail(request, album):
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
     album = albums.get(slug=album)
+    print(album)
     assets = album.assets.all()
     asset = None
     if request.method == 'POST':
-        asset_form = AssetModelForm(request.Post, request.FILES)
+        asset_form = AssetModelForm(request.POST, request.FILES)
+        print(request.POST, request.FILES)
         if asset_form.is_valid():
             asset = asset_form.save(commit=False)
             asset.album = album
@@ -45,9 +47,12 @@ def album_detail(request, album):
     else:
         asset_form = AssetModelForm()
     template = 'albums/album_detail.html'    
-    context = {'album': album, 
-               'assets': assets, 
-               'asset':asset, 
-               'asset_form': asset_form}
+    context = {
+        'profile': profile,
+        'albums': albums,
+        'album': album, 
+        'assets': assets, 
+        'asset':asset, 
+        'asset_form': asset_form}
     return render(request, template, context)
 
