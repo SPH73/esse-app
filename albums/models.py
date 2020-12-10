@@ -52,7 +52,6 @@ def album_media_dir(instance, filename):
 
 
 class Asset(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, blank=True, null=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='assets')
     media = models.FileField(upload_to=album_media_dir)
     title = models.CharField(max_length=100)
