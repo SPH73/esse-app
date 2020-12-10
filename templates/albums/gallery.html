@@ -27,8 +27,9 @@
                 {% else %}
                 <p class="card-text">No description for this album</p>
                 {% endif %}
-                <a href="{% url 'album-detail' album.slug %}" class="btn btn-outine-info">View</a>
+                <a href="{% url 'albums:album_detail' album.slug %}" class="btn btn-outine-info">View</a>
             </div>
+
             <div class="card-footer text-muted">
                 Last updated {{ album.updated|timesince }} ago
             </div>

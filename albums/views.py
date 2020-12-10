@@ -8,7 +8,6 @@ from .forms import AssetModelForm, CreateAlbumModelForm
 def gallery(request):
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
-    album = None
     if request.method == 'POST':
         album_form = CreateAlbumModelForm(request.POST)
         if album_form.is_valid():
@@ -31,7 +30,7 @@ def gallery(request):
 def album_detail(request, album):
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
-    album = get_object_or_404(Album, slug=album)
+    album = albums.object.get(slug=album)
     assets = album.assets.all()
     asset = None
     if request.method == 'POST':
@@ -45,7 +44,7 @@ def album_detail(request, album):
             messages.error(request, 'Error adding your media')
     else:
         asset_form = AssetModelForm()
-    template = 'albums/album-detail.html'    
+    template = 'albums/album_detail.html'    
     context = {'album': album, 
                'assets': assets, 
                'asset':asset, 

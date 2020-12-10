@@ -4,6 +4,7 @@ from .models import Album, Asset
 class AlbumModelAdmin(admin.ModelAdmin):
     list_display = (
         'profile',
+        'id',
         'slug',
         'created',
         'updated',
