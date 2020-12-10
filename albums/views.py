@@ -30,7 +30,7 @@ def gallery(request):
 def album_detail(request, album):
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
-    album = albums.object.get(slug=album)
+    album = albums.get(slug=album)
     assets = album.assets.all()
     asset = None
     if request.method == 'POST':
