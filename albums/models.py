@@ -35,13 +35,13 @@ class Album(models.Model):
         return self.slug
     
     def get_assets(self):
-        return self.asset_set.all()
+        return self.assets.all()
     
     def get_asset_count(self):
-        return self.asset_set.all().count()
-    
+        return self.assets.all().count()
+       
     def get_absolute_url(self):
-        return reverse('album-detail', args=[self.slug])
+        return reverse('albums:album-detail', kargs={'slug':self.slug})
 
 
 def album_media_dir(instance, filename):
@@ -50,7 +50,7 @@ def album_media_dir(instance, filename):
 
 class Asset(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, blank=True, null=True)
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='assets')
     media = models.FileField(upload_to=album_media_dir)
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
