@@ -32,11 +32,11 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="container p-2">
-                            <a href="{% url 'albums:album-detail' %}" class="mb-3 btn btn-outline-danger cancel"
+                            <a href="{% url 'albums:album_detail' %}" class="mb-3 btn btn-outline-danger cancel"
                                 type="submit"><i class="far fa-window-close"></i></a>
                             <div class="asset-form">
                                 <h3>Add Media</h3>
-                                <form action="{% url 'albums:album-detail' %}" method="post">
+                                <form action="{% url 'albums:album_detail' %}" method="post">
                                     {% csrf_token %}
                                     {{ asset_form|crispy }}
                                     <button class="btn btn-success btn-sm" type="submit"><i
@@ -53,10 +53,3 @@
 </div>
 
 {% endblock content %}
-
-<h3>Add Media</h3>
-<form action="{% url 'albums:album-detail' %}" method="post">
-    {% csrf_token %}
-    {{ asset_form|crispy }}
-    <button class="btn btn-success btn-sm" type="submit"><i class="fas fa-cloud-upload-alt"></button>
-</form>
