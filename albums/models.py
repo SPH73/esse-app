@@ -11,7 +11,6 @@ class Album(models.Model):
     title = models.CharField(max_length=50)
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, related_name='albums', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(max_length=200, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=True)
@@ -56,7 +55,6 @@ class Asset(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='assets')
     media = models.FileField(upload_to=album_media_dir)
     title = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)
     slug = slug = models.SlugField(unique=True, blank=True)
     tags = TaggableManager()
     
