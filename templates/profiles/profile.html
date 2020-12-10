@@ -4,8 +4,8 @@
 {% block extra_title %}{{request.user}}{% endblock extra_title %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row" id="profile">
+<div id="profile" class="container">
+    <div class="row">
         <div class="col-12 profile">
             <div class="col my-auto avatar">
                 <img class="img-thumbnail" width="100" height="100" src="{{ profile.avatar.url }}"
@@ -24,67 +24,64 @@
             </div>
         </div>
     </div>
-</div>
-<hr>
-<h2 class="text-center">Albums: {{ albums|length }}</h2>
-<div id="portfolio" class="row">
-    <hr>
-    <div class="col-6 portfolio">
-        <h3>Public: {{ plc_albums|length }}</h3>
-        {% for album in plc_albums %}
-        <ul>
-            <li>
-                <a href=""><span class="title"></span>{{ album.title|title }}</span></a>
-                <p class="description">{{album.description}}</p>
 
-            </li>
-        </ul>
-        {% endfor %}
-    </div>
     <hr>
-    <div class="col-6 portfolio">
-        <h3>Private: {{pvt_albums|length}}</h3>
-        {% for album in pvt_albums %}
-        <ul>
-            <li>
-                <span class="title"><a href="">{{ album.title|title }}</a></span>
-                <span class="description">
-                    <p>{{album.description.capitalize}}</p>
-                </span>
-            </li>
-        </ul>
-        {% endfor %}
-    </div>
-</div>
+    <h2 class="text-center">Albums: {{ albums|length }}</h2>
+    <div id="profile-gallery" class="row">
+        <hr>
+        <div class="col-6 portfolio">
+            <h3>Public: {{ plc_albums|length }}</h3>
+            {% for album in plc_albums %}
+            <ul>
+                <li>
+                    <a href=""><span class="title"></span>{{ album.title|title }}</span></a>
+                    <p class="description">{{album.description}}</p>
 
-<!-- profile edit modal -->
-<div class="row mt-3">
-    <div class="col">
-        <div class="modal fade profile-update" tabindex="1" role="dialog" aria-labelledby="ProfileUpdate"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="container p-2">
-                        <a href="{% url 'profiles:profile' %}" class="mb-3 btn btn-outline-danger cancel"
-                            type="submit"><i class="far fa-window-close"></i></a>
-                        <form action="{% url 'profiles:profile' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <button type="submit" class="btn btn-outline-success"><i
-                                    class="fas fa-user-lock"></i></button>
-                        </form>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="col-6 portfolio">
+            <h3>Private: {{pvt_albums|length}}</h3>
+            {% for album in pvt_albums %}
+            <ul>
+                <li>
+                    <span class="title"><a href="">{{ album.title|title }}</a></span>
+                    <span class="description">
+                        <p>{{album.description.capitalize}}</p>
+                        <p>{{ album.get_asset_count }}</p>
+                    </span>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- profile edit modal -->
+    <div class="row mt-3">
+        <div class="col">
+            <div class="modal fade profile-update" tabindex="1" role="dialog" aria-labelledby="ProfileUpdate"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="container p-2">
+                            <a href="{% url 'profiles:profile' %}" class="mb-3 btn btn-outline-danger cancel"
+                                type="submit"><i class="far fa-window-close"></i></a>
+                            <form action="{% url 'profiles:profile' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-outline-success"><i
+                                        class="fas fa-user-lock"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row bt-5">
+
+    </div>
 </div>
-
-
-<div class="row bt-5">
-
-</div>
-
-</div>
-
 {% endblock content %}
