@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .models import Profile
 from albums.models import Album
