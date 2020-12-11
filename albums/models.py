@@ -36,6 +36,9 @@ class Album(models.Model):
     def get_assets(self):
         return self.assets.all()
     
+    def get_thumb(self):
+        return self.assets.last()
+    
     def get_slug(self):
         return self.slug
     
