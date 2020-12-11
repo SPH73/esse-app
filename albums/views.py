@@ -26,7 +26,7 @@ def gallery(request):
     template = 'albums/gallery.html'
     context = {
         'albums': albums,
-        'album_form': album_form
+        'album_form': album_form,
     }
     return render(request, template, context)
    
@@ -36,7 +36,6 @@ def album_detail(request, album):
     """
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
-    # get the album
     album = albums.get(slug=album)
     assets = album.assets.all()
     if request.method == 'POST':
@@ -45,7 +44,6 @@ def album_detail(request, album):
             asset = asset_form.save(commit=False)
             asset.album = album
             asset.profile = profile
-            print(album)
             asset.save()
             messages.success(request, 'Media added successfully')
         else:
@@ -58,7 +56,6 @@ def album_detail(request, album):
         'albums': albums,
         'album': album, 
         'assets': assets, 
-        'asset':asset, 
         'asset_form': asset_form}
     return render(request, template, context)
 

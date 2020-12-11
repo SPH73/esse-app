@@ -1,17 +1,27 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
+{% load crispy_forms_field %}
 {% load cloudinary %}
 {% block extra_title %}{{ album.title }}{% endblock extra_title %}
 
 {% block content %}
 <div id="assets" class="container">
     <h1>{{ album.title|title }}</h1>
-    <!-- button for asset modal -->
-    <button id="addMediaBtn" type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".add-media"><i
-            class="fas fa-photo-video"></i>
-    </button>
+    <div class="row">
+        <div class="col">
+            <!-- button for asset modal -->
+            <button id="addMediaBtn" type="button" class="btn btn-outline-info" data-toggle="modal"
+                data-target=".add-media"><i class="fas fa-photo-video"></i>
+            </button>
+            <!-- back to albums -->
+            <a href="{% url 'albums:gallery' %}" type="button" class="btn btn-outline-info"><i
+                    class="fas fa-backward"></i></a>
+
+        </div>
+    </div>
+    <!-- assets -->
     {% for asset in assets %}
-    <div class="col-12 col-sm-6 col-lg-3 asset">
+    <div class="col-12 col-md-6 col-lg-3" style="display:inline-block">
         {{ asset.title|title }}
         <img class="w-100" src="{{ asset.media.url }}" alt="{{ asset.title }}">
         {{ asset.description }}
@@ -34,7 +44,8 @@
                                     class="far fa-window-close"></i></a>
                             <div class="asset-form">
                                 <h3>Add Media</h3>
-                                <form action="{% url 'albums:album_detail' album.slug %}" method="post">
+                                <form action="{% url 'albums:album_detail' album.slug %}" method="post"
+                                    enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {{ asset_form|crispy }}
                                     <button type="submit" class="btn btn-outline-success"><i
@@ -49,5 +60,11 @@
     </div>
     <div class="row bt-5"></div>
 </div>
-
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 {% endblock content %}
