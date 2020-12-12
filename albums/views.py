@@ -38,8 +38,8 @@ def album_detail(request, album):
     albums = profile.albums.all()
     album = albums.get(slug=album)
     assets = album.assets.all()
-    display = assets.order_by('-added')[1:]
-    featured = assets.last()
+    featured = album.assets.order_by('-added')
+    display = album.assets.all()
     if request.method == 'POST':
         asset_form = AssetModelForm(request.POST, request.FILES)
         if asset_form.is_valid():
