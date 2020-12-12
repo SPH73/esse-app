@@ -12,6 +12,16 @@ class AlbumModelAdmin(admin.ModelAdmin):
     )
     ordering = ('-updated',)
     
+class AssetModelAdmin(admin.ModelAdmin):
+    list_display = (
+        'profile',
+        'media',
+        'id',
+        'slug',
+        'added',
+    )
+    ordering = ('-added',)
+    
 admin.site.register(Album, AlbumModelAdmin)
-admin.site.register(Asset)
+admin.site.register(Asset, AssetModelAdmin)
 
