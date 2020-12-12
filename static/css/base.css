@@ -4,7 +4,7 @@ html,
 body {
     font-family: 'Muli', sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 2vw;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -130,6 +130,10 @@ nav a:active {
     margin-right: 0.5rem;
 }
 
+.pages-p {
+    color: rgb(53, 87, 162);
+}
+
 .account-p {
     color: rgb(53, 87, 162);
     font-style: italic;
@@ -202,7 +206,6 @@ li {
     list-style: none;
 }
 
-
 .title a {
     font-family: 'Bilbo';
     color: rgb(53, 87, 162);
@@ -220,6 +223,37 @@ li {
 
 .description {
     color: rgb(53, 87, 162);
+}
+
+/* assets */
+
+.assets p {
+    font-size: 1.5em;
+    font-style: italic;
+    font-family: 'Bilbo';
+    color: rgb(23, 162, 184);
+}
+
+.assets {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.assets>* {
+    flex: 1 1 10rem;
+    margin: 0.7em;
+}
+
+.assets img {
+    width: 100%;
+    border: 0.15em solid rgb(23, 162, 184);
+    border-radius: 10%;
+    background-color: rgb(23, 162, 184);
+    object-fit: cover;
+    image-orientation: from-image;
 }
 
 /* Footer */
