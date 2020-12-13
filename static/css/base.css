@@ -14,7 +14,6 @@ body {
 
 .top-bar {
     background-image: linear-gradient(to bottom, rgba(23, 162, 184, 1), rgba(23, 162, 184, 0));
-    color: rgb(47, 81, 159);
     padding: 0.625rem 0.25rem;
 }
 
@@ -112,12 +111,6 @@ nav a:active {
     top: 3rem;
     left: 0.5rem;
     font-size: 1.9em;
-}
-
-.side-logo {
-    position: absolute;
-    top: 2.25rem;
-    left: 4.2rem;
 }
 
 .sidenav-items {
@@ -254,6 +247,12 @@ li {
     background-color: rgb(23, 162, 184);
     object-fit: cover;
     image-orientation: from-image;
+}
+
+.img-thumb img {
+    border: 0.15em solid rgb(23, 162, 184);
+    border-radius: 10%;
+    background-color: rgb(23, 162, 184);
 }
 
 /* Footer */
