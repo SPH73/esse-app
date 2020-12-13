@@ -4,9 +4,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Row, Column
 from crispy_forms.layout import Field
 from django.forms import widgets
+from cloudinary.forms import CloudinaryFileField
 
-class CustomFileField(Field):
-    template = 'layout/fields/field_file.html'
 
 class CreateAlbumModelForm(forms.ModelForm):
       class Meta:
@@ -39,7 +38,9 @@ class CreateAlbumModelForm(forms.ModelForm):
                   'title',
                   ),
             )
-           
+
+def album_media_dir(instance, filename):
+    return f'Esse/user_uploads/albums/user_{instance.profile}/{instance.album.slug}/{filename}'           
 
 class AssetModelForm(forms.ModelForm):
       class Meta:
@@ -52,11 +53,13 @@ class AssetModelForm(forms.ModelForm):
             required = True,
       )
       
-      media = forms.FileField(
-            label = '',
-            required = True,
-            allow_empty_file = False, 
-            max_length = None,
+      media = CloudinaryFileField(
+            options = {
+            'folder': 'Esse/user_uploads/albums',
+            'use_filename': True,
+            'resource_type': 'auto',
+            'auto_tagging': 0.8
+            }
       )
       
       tags = forms.CharField(
@@ -77,4 +80,5 @@ class AssetModelForm(forms.ModelForm):
                   'media',
                   'title',
                   'tags',
-                  ))
+                  )
+            )

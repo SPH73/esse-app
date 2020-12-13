@@ -22,26 +22,36 @@
         {% for album in albums %}
         <div class="card mt-2 ">
             <div class="card-header">
-                <h3 class="title"><a href="{{ album.get_absolute_url }}">
-                        {{ album.title|title }}
-                    </a></h3>
-
-                <p class="pages-p card-text">Assets: {{ album.get_asset_count }}</p>
-                {% if album.is_public %}
-                <p class="page-icon"><i class="far fa-eye"></i></p>
-                {% else %}
-                <p class="page-icon"><i class="far fa-eye-slash"></i></p>
-                {% endif %}
+                <div class="row">
+                    <div class="col">
+                        <h3 class="title">
+                            <a href="{{ album.get_absolute_url }}">
+                                {{ album.title|title }}
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="col">
+                        <p class="pages-p card-text">Assets: {{ album.get_asset_count }}</p>
+                    </div>
+                    <div class="col">
+                        {% if album.is_public %}
+                        <p class="page-icon"><i class="far fa-eye"></i></p>
+                        {% else %}
+                        <p class="page-icon"><i class="far fa-eye-slash"></i></p>
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <p class="page-icon"><i class="fas fa-folder-minus"></i></p>
+                    </div>
+                </div>
             </div>
-
             <div>
                 {% if album.get_thumb %}
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <div class="div">
-                                <img class="img-thumbnail text-center" src="{{ album.get_thumb.media.url }}" width="20%"
-                                    height="auto">
+                            <div class="img-thumb">
+                                {% cloudinary album.get_thumb.media.url gravity="auto" width=120 crop="thumb" %}
                             </div>
                         </div>
                     </div>
@@ -98,8 +108,8 @@
     <div class="row bt-5">
 
     </div>
-<script>
-    
-</script>
+    <script>
+
+    </script>
 </div>
 {% endblock content %}

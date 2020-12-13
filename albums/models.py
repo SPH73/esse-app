@@ -5,6 +5,7 @@ from profiles.models import Profile
 from django.template.defaultfilters import slugify
 from utils.slug import get_slug_suffix
 from taggit.managers import TaggableManager
+from cloudinary.models import CloudinaryField
 
 
 class Album(models.Model):
@@ -49,14 +50,14 @@ class Album(models.Model):
         return reverse('albums:album_detail', args=[self.slug])
     
 
-def album_media_dir(instance, filename):
-    return f'Esse/user_uploads/albums/user_{instance.profile}/{instance.album.slug}/{filename}'
+def album_media_dir(instance, media):
+    return f'Esse/user_uploads/albums/user_{instance.profile}/{instance.album.slug}/{media}'
 
 
 class Asset(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, blank=True, null=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='assets')
-    media = models.FileField(upload_to=album_media_dir)
+    media = CloudinaryField('media', folder=album_media_dir, use_filename=True, unique_filename=False, resource_type='auto')
     added = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=100)
     slug = slug = models.SlugField(unique=True, blank=True)
