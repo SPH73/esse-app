@@ -236,14 +236,14 @@ li {
 }
 
 .assets>* {
-    flex: 1 1 10rem;
+    flex: 1 1 6rem;
     margin: 0.7em;
 }
 
 .assets img {
     width: 100%;
     border: 0.15em solid rgb(23, 162, 184);
-    border-radius: 10%;
+    border-radius: 7.5%;
     background-color: rgb(23, 162, 184);
     object-fit: cover;
     image-orientation: from-image;
@@ -251,7 +251,7 @@ li {
 
 .img-thumb img {
     border: 0.15em solid rgb(23, 162, 184);
-    border-radius: 10%;
+    border-radius: 3%;
     background-color: rgb(23, 162, 184);
 }
 

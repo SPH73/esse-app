@@ -8,7 +8,7 @@
 <style>
 
 </style>
-<div id="assets" class="container">
+<div id="assets" class="container-fluid">
     <h1>{{ album.title|title }}</h1>
     <div class="row">
         <div class="col mb-3">
@@ -31,11 +31,8 @@
         {% for asset in display %}
         <div class="row">
             <div class="display">
-                {# Renders an IMG tag for a CloudinaryImage objects. #}
-                {# THUMBNAIL defined in context_processors #}
-                {% cloudinary asset.media.url %}
+                {% cloudinary asset.media.url fetch_format="auto" gravity="auto" width=200 crop="thumb" %}
                 <p class="caption">{{ asset.title|title }}</p>
-               
             </div>
         </div>
         {% endfor %}
