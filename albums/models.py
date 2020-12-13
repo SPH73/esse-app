@@ -59,7 +59,7 @@ class Asset(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='assets')
     media = CloudinaryField('media', folder=album_media_dir, use_filename=True, unique_filename=False, resource_type='auto')
     added = models.DateField(auto_now_add=True)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=15)
     slug = slug = models.SlugField(unique=True, blank=True)
     tags = TaggableManager()
     
