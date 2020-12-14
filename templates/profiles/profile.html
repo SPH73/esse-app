@@ -24,34 +24,26 @@
             </div>
         </div>
     </div>
-
     <hr>
     <h2 class="text-center">Albums: {{ albums|length }}</h2>
     <div id="profile-gallery" class="row">
-        <hr>
         <div class="col-6 portfolio">
-            <h3>Public: {{ plc_albums|length }}</h3>
+            <h3 class="text-center">Public: {{ plc_albums|length }}</h3>
             {% for album in plc_albums %}
             <ul>
                 <li>
-                    <a href=""><span class="title"></span>{{ album.title|title }}</span></a>
-                    <p class="description">{{album.description}}</p>
-
+                    <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
                 </li>
             </ul>
             {% endfor %}
         </div>
         <hr>
         <div class="col-6 portfolio">
-            <h3>Private: {{pvt_albums|length}}</h3>
+            <h3>Private: {{ pvt_albums|length }}</h3>
             {% for album in pvt_albums %}
             <ul>
                 <li>
-                    <span class="title"><a href="">{{ album.title|title }}</a></span>
-                    <span class="description">
-                        <p>{{album.description.capitalize}}</p>
-                        <p>{{ album.get_asset_count }}</p>
-                    </span>
+                    <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
                 </li>
             </ul>
             {% endfor %}
