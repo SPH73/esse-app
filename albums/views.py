@@ -63,3 +63,33 @@ def album_detail(request, album):
         'asset_form': asset_form}
     return render(request, template, context)
 
+def asset_detail(request):
+    pass
+
+def album_delete_view(request, album):
+    profile = get_object_or_404(Profile, user=request.user)
+    albums = profile.albums.all()
+    album = albums.get(slug=album)      
+    
+    if request.method == "POST": 
+        album.delete()
+    
+    template = 'album/gallery.html'
+    context = {
+        'album':album,
+    }
+    
+    return render(request, template, context) 
+
+def asset_delete_view(request, asset): 
+    asset = get_object_or_404(Asset, slug=asset) 
+    
+    template = 'album/detail_view.html'
+    context = {
+        'asset':asset
+    }
+    
+    if request.method == "POST":
+        asset.delete()
+    
+    return render(request, template, context) 
