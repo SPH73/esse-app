@@ -32,13 +32,13 @@ def gallery(request):
    
 def album_detail(request, album):
     """
-    Get the authenticated user profile to generate the cloud storage folder if not already created, use the profile related name to retieve and display the assets stored in a single album, render a form and add the chosen asset to the album.
+   Get the user profile to retrieve all related albums and list the assets and generate a form to add assets.
     """
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
+    print('Albums: ', albums)
     album = albums.get(slug=album)
-    assets = album.assets.all()
-    featured = album.assets.order_by('-added')
+    print('Album: ', album)
     display = album.assets.all()
     if request.method == 'POST':
         asset_form = AssetModelForm(request.POST, request.FILES)
@@ -57,39 +57,58 @@ def album_detail(request, album):
         'profile': profile,
         'albums': albums,
         'album': album, 
-        'assets': assets,
         'display': display,
-        'featured': featured,
         'asset_form': asset_form}
     return render(request, template, context)
 
-def asset_detail(request):
-    pass
-
-def album_delete_view(request, album):
+def album_delete(request, album):
+    """
+    Find and delete the album instance and all related assets from the database.
+    """
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
-    album = albums.get(slug=album)      
+    album = get_object_or_404(Album, slug=album) 
+    template = 'albums/gallery.html'
+    context = {
+        'album':album,
+        'albums':albums,
+    }
     
     if request.method == "POST": 
         album.delete()
-    
-    template = 'album/gallery.html'
-    context = {
-        'album':album,
-    }
-    
+        messages.success(request, "Album deleted")
+        
     return render(request, template, context) 
 
-def asset_delete_view(request, asset): 
-    asset = get_object_or_404(Asset, slug=asset) 
-    
-    template = 'album/detail_view.html'
+def asset_detail(request, album, asset):
+    """
+    Get the asset from the album
+    """
+    album = get_object_or_404(slug=album)
+    asset = album.asset.get(slug=asset)
+
+    template = 'albums/album_detail.html'    
     context = {
-        'asset':asset
-    }
+        'album':album,
+        'asset': asset
+        }
     
-    if request.method == "POST":
-        asset.delete()
+    return render(request, template, context)
+
+
+# def asset_delete(request, album, asset): 
+#     profile = get_object_or_404(Profile, user=request.user)
+#     albums = profile.albums.all()
+#     album = albums.get(slug=album)
+#     assets = album.assets.all()
+#     asset = assets.get(slug=asset)
+#     template = 'albums/asset_view.html'
+#     context = {
+#         'asset':asset,
+#         'album':album,
+#     }
     
-    return render(request, template, context) 
+#     if request.method == "POST":
+#         asset.delete()
+    
+#     return render(request, template, context) 
