@@ -57,7 +57,7 @@ def album_media_dir(instance, media):
 class Asset(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, blank=True, null=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='assets')
-    media = CloudinaryField('media', folder=album_media_dir, use_filename=True, unique_filename=False, resource_type='auto')
+    media = CloudinaryField('media')
     added = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=15)
     slug = slug = models.SlugField(unique=True, blank=True)
@@ -74,3 +74,6 @@ class Asset(models.Model):
         
     def __str__(self):
         return self.slug
+    
+    def get_absolute_url(self):
+        return reverse('albums:asset_detail', args=[album.slug, self.slug])
