@@ -1,0 +1,55 @@
+% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load cloudinary %}
+{% block extra_title %}{{ asset.title }}{% endblock extra_title %}
+
+{% block content %}
+
+<div id="asset" class="container-fluid">
+    <div class="row">
+
+    </div>
+    <h1>{{ asset.title|title }}</h1>
+    <div class="assets text-center">
+        <!-- delete asset button -->
+        <button id="deleteAssetBtn" type="button" class="btn btn-outline-info" data-toggle="modal"
+            data-target=".delete-asset"><i class="far fa-trash-alt"></i>
+        </button>
+        <!-- delete asset modal -->
+        <div class="row mt-3">
+            <div class="col">
+                <div class="modal fade delete-album" tabindex="1" role="dialog" aria-labelledby="DeleteAsset"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="container p-2">
+                                <a href="{% url 'albums:gallery %}" class="mb-3 btn btn-outline-danger cancel"
+                                    type="submit"><i class="far fa-window-close"></i></a>
+                                <h3>Confirm delete</h3>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <p class="pages-p">Are you sure you want to delete <span
+                                            class="">{{ asset.title }}</span>
+                                    </p>
+                                    <button class="btn btn-outline-danger" type="submit"><i
+                                            class="far fa-trash-alt"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="display">
+                    {% cloudinary asset.media.url fetch_format="auto" gravity="auto" width=200 crop="thumb" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bt-5"></div>
+</div>
+
+{% endblock content %}
