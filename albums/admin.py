@@ -14,9 +14,9 @@ class AlbumModelAdmin(admin.ModelAdmin):
     
 class AssetModelAdmin(admin.ModelAdmin):
     list_display = (
-        'profile',
+        'album',
+        'title',
         'media',
-        'id',
         'slug',
         'added',
     )
