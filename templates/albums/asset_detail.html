@@ -1,4 +1,4 @@
-% extends '_base.html' %}
+{% extends '_base.html' %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_field %}
 {% load cloudinary %}
@@ -10,24 +10,28 @@
     <div class="row">
 
     </div>
-    <h1>{{ asset.title|title }}</h1>
+    <h1>{{ asset.title }}</h1>
     <div class="assets text-center">
         <!-- delete asset button -->
         <button id="deleteAssetBtn" type="button" class="btn btn-outline-info" data-toggle="modal"
             data-target=".delete-asset"><i class="far fa-trash-alt"></i>
         </button>
+        <!-- back to album -->
+        <a href="{% url 'albums:album_detail' album.slug %}" type="button" class="btn btn-outline-info"><i
+                class="fas fa-backward"></i></a>
         <!-- delete asset modal -->
         <div class="row mt-3">
             <div class="col">
-                <div class="modal fade delete-album" tabindex="1" role="dialog" aria-labelledby="DeleteAsset"
+                <div class="modal fade delete-asset" tabindex="1" role="dialog" aria-labelledby="DeleteAsset"
                     aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                             <div class="container p-2">
-                                <a href="{% url 'albums:gallery %}" class="mb-3 btn btn-outline-danger cancel"
-                                    type="submit"><i class="far fa-window-close"></i></a>
+                                <a href="{% url 'albums:album_detail' album.slug %}"
+                                    class="mb-3 btn btn-outline-danger cancel" type="submit"><i
+                                        class="far fa-window-close"></i></a>
                                 <h3>Confirm delete</h3>
-                                <form action="" method="post">
+                                <form action="{% url 'albums:delete_asset' album.slug asset.slug %}" method="post">
                                     {% csrf_token %}
                                     <p class="pages-p">Are you sure you want to delete <span
                                             class="">{{ asset.title }}</span>
