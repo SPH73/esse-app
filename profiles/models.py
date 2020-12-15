@@ -49,6 +49,7 @@ class FriendRequest(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_user')
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES)
+    is_family = models.BooleanField(default=False)
     
     def __str__(self):
         return f'From {from_user}, to {to_user} on {created}'
