@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from accounts.views import UserViewSet, GroupViewSet
-from portfolios import views
+
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -38,7 +38,7 @@ urlpatterns = [
     
     path('profiles/', include('profiles.urls', namespace='profiles')),
     
-    path('portfolios/', include('portfolios.urls', namespace='portfolios')),
+    path('albums/', include('albums.urls', namespace='albums')),
     
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

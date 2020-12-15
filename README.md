@@ -1,6 +1,6 @@
 # Full Stack Frameworks Project | Code Institute | Software development Diploma
 
-<img src="{% static 'images/logos/Esse.svg' %}"
+<img src="static/images/logos/Esse.svg"
 width="150" height="100" alt="Site logo"
 style="float: left; vertical-align: middle;"/>
 
@@ -117,7 +117,8 @@ Produce a project that I am proud of.
 [Psycopg2-binary](https://pypi.org/project/psycopg2-binary/) psycopg2 - Python-PostgreSQL Database Adapter (for development)  
 [environs with django suppoort](https://pypi.org/project/environs/#usage-with-django) for separation and parsing of environment variables which installs [dj-database-url](https://pypi.org/project/dj-database-url/) as a dependency.  
 [Django-Crispy-forms](https://pypi.org/project/django-crispy-forms/) prestyled bootstrap forms  
-[Django-allauth](https://pypi.org/project/django-allauth/)
+[Django-allauth](https://pypi.org/project/django-allauth/)  
+[Font Awesome 5](https://fontawesome.com/)
 
 ### Database
 
@@ -144,12 +145,13 @@ Thanks to Adam Johnson and this blog post [Getting a Django Application to 100% 
 
 ## Credits
 
-Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://medium.com/@Zaccc123/django-tests-with-nose-and-coverage-dff5d3633b4b) for the additional line of code in manage.py to generate a coverage html report.
+Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://medium.com/@Zaccc123/django-tests-with-nose-and-coverage-dff5d3633b4b) for the additional line of code in manage.py to generate a coverage html report automatically.
 
 ## Acknowledgements
 
 ### Resources
 
+[Docker](https://docs.docker.com/compose/django/)  
 [Django source code](https://github.com/django/django)  
 [Django Docs](https://www.djangoproject.com/)  
 [Django packages](https://djangopackages.org/)  
@@ -166,7 +168,8 @@ Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://mediu
 [Cloudinary Django Library](https://github.com/cloudinary/pycloudinary)  
 [Cloudinary images](https://cloudinary.com/blog/user_generated_content_part_2_images_and_their_transformations)  
 [Clouindary videos](https://cloudinary.com/blog/user_generated_content_part_3_videos_and_their_transformations)  
-[cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)
+[cloudinary-Heroku](https://devcenter.heroku.com/articles/cloudinary)  
+[Django Cloudinary Storage](https://github.com/klis87/django-cloudinary-storage)
 
 [Bootstrap Grid ref](https://getbootstrap.com/docs/4.5/layout/grid/)  
 [Bootstrap Icons](https://icons.getbootstrap.com/)
