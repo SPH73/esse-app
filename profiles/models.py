@@ -54,4 +54,4 @@ class FriendRequest(models.Model):
 
 
     def __str__(self):
-        return f'From {from_user}, to {to_user} on {created}'
+        return f"From {self.from_user}, to {self.to_user} on {self.created.strftime('%d-%m-%Y')}"
