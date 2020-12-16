@@ -10,7 +10,7 @@ User = get_user_model()
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True)
-    avatar = CloudinaryField('avatar', default='avatar.png')
+    avatar = CloudinaryField('avatar', default='Esse/avatar.png')
     status = models.TextField(max_length=350, default='No status ...')
     relations = models.ManyToManyField(User, related_name='relations', blank=True)
     friends = models.ManyToManyField(User, related_name='friends', blank=True)
