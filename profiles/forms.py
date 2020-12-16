@@ -10,14 +10,13 @@ def avatar_media_dir():
       folder_name = 'Esse/user_uploads/avatars/user_{instance.user.username}/{filename}'
       return folder_name
 
-
 class ProfileModelForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('status', 'avatar')
     
     status = forms.CharField(
-            label = '',
+        label = '',
       )
     
     avatar = CloudinaryFileField(
