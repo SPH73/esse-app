@@ -68,7 +68,11 @@ def album_delete(request, album):
         'album':album,
     }
     
-    if request.method == "POST": 
+    if request.method == "POST":
+        if not profile:
+            messages.warning(request, "This album belongs to another profile, you cannot delete it.")
+            return redirect('home')
+        
         album.delete()
         messages.success(request, "Album deleted")
         
@@ -101,9 +105,14 @@ def asset_delete(request, album, asset):
         'profile': profile
     }
     
-    if request.method == "POST": 
+    if request.method == "POST":
+        if not profile:
+            messages.warning(request, "This album belongs to another profile, you cannot delete it's assets.")
+            return redirect('home')
+        
         asset.delete()
         messages.success(request, "Asset deleted successfully")
+        
         return render(request, 'albums/album_detail.html')
     
     return render(request, template, context)
