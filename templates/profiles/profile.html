@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
+{% load cloudinary %}
 
 {% block extra_title %}{{request.user}}{% endblock extra_title %}
 
@@ -7,9 +8,8 @@
 <div id="profile" class="container">
     <div class="row">
         <div class="col-12 profile">
-            <div class="col my-auto mx-auto avatar">
-                <img class="img-thumbnail" width="150" height="auto" src="{{ profile.avatar.url }}"
-                    alt="{{ profile.avatar }}">
+            <div class="col my-auto mx-auto avatar img-thumb">
+                {% cloudinary profile.avatar.url fetch_format="auto" gravity="faces" crop="thumb" %}
             </div>
             <div class="col-8 status">
                 <i class="page-icon fas fa-quote-left"></i>
@@ -36,41 +36,55 @@
                 {{ rec_f_requests }}
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <p class="pages-p">
+                    <a href="{% url 'profiles:find_friends' %}">Find</a> people you may know
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        {% if profile.get_friends %}
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Friends</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     {% for friend in profile.get_friends %}
-                    <td>{{ friend.profile.avatar.media.url }}</td>
-                    <td>{{ friend.profile.user }}</td>
+                    <td class="profile-thumb">
+                        {% cloudinary friend.profile.avatar.url fetch_format="auto" gravity="faces" crop="thumb" %}
+                    </td>
+                    <td><a href="{{ friend.profile.get_absolute_url }}">{{ friend.profile.user|title }}</a></td>
                     <td>{{ friend.profile.status }}</td>
                     {% endfor %}
                 </tr>
             </tbody>
         </table>
+        {% endif %}
+        {% if profile.get_relations %}
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Family</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                <tr>
                     {% for relation in profile.get_relations %}
-                    <td>{{ relation.profile.avatar.media.url }}</td>
-                    <td>{{ relation.profile.user }}</td>
-                    <td>{{ relation.profile.status }}</td>
+                    <td class="profile-thumb">
+                        {% cloudinary relation.profile.avatar.url fetch_format="auto" gravity="faces" crop="thumb" %}
+                    </td>
+                    <td class=""><a href="{{ relation.profile.get_absolute_url }}">{{ relation.profile.user|title }}</a>
+                    </td>
+                    <td class="text-left">{{ relation.profile.status }}</td>
                     {% endfor %}
-                </tr>
                 </tr>
             </tbody>
         </table>
@@ -84,7 +98,8 @@
         {% for album in plc_albums %}
         <ul>
             <li>
-                <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
+                <span class="title"><a href="{{ album.get_absolute_url }}">{{ album.title|title }}:
+                        {{ album.get_asset_count }}</a></span>
             </li>
         </ul>
         {% endfor %}
@@ -95,7 +110,8 @@
         {% for album in pvt_albums %}
         <ul>
             <li>
-                <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
+                <span class="title"><a href="{ album.get_absolute_url }}">{{ album.title|title }}:
+                        {{ album.get_asset_count }}</a></span>
             </li>
         </ul>
         {% endfor %}
