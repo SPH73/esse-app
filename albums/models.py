@@ -15,13 +15,13 @@ class Album(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=True)
-    
+
     class Meta:
         ordering = ('-updated',)
         constraints = [
             models.UniqueConstraint(fields=['title', 'profile'], name='unique_album')
         ]
-        
+
     def save(self, *args, **kwargs):
         """
         Auto generate the slug using the title and profile and append a random suffix
@@ -33,22 +33,21 @@ class Album(models.Model):
 
     def __str__(self):
         return self.slug
-    
+
     def get_assets(self):
         return self.assets.all()
-    
+
     def get_thumb(self):
         return self.assets.last()
-    
+
     def get_slug(self):
         return self.slug
-    
+
     def get_asset_count(self):
         return self.assets.all().count()
-       
+
     def get_absolute_url(self):
         return reverse('albums:album_detail', args=[self.slug])
-    
 
 def album_media_dir(instance, media):
     return f'Esse/user_uploads/albums/user_{instance.profile}/{instance.album.slug}/{media}'
@@ -60,9 +59,9 @@ class Asset(models.Model):
     media = CloudinaryField('media')
     added = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=15)
-    slug = slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True)
     tags = TaggableManager()
-    
+
     def save(self, *args, **kwargs):
         """
         Auto generate the slug using the title and album and append a random suffix
@@ -71,9 +70,6 @@ class Asset(models.Model):
         add_slug = slugify(f'{self.title}-{self.album}-{suffix}')
         self.slug = add_slug
         super().save(*args, **kwargs)
-        
+ 
     def __str__(self):
         return self.slug
-    
-    def get_absolute_url(self):
-        return reverse('albums:asset_detail', args=[album.slug, self.slug])
