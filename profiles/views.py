@@ -33,15 +33,23 @@ def profile(request):
     return render(request, template, context)
 
 def all_profiles(request):
-    profile = get_object_or_404(Profile, user=request.user)
-    all_profiles = Profile.objects.exclude(user=request.user)
+    """
+    Create a find_list of the current users friends friends. Only add them if they haven't already been added.
+    """
+    find_list = []
+    profiles = Profile.objects.exclude(user=request.user)
 
-
+    for profile in profiles:
+        friends = profile.friends.all()
+        for friend in friends:
+            if friend in find_list:
+                find_list = friends.exclude(profile=friend.profile)
+            find_list+=friend
+            
     template = 'profiles/all_profiles.html'
     context = {
-        
+        'find_list': find_list,
     }
-
 
     return render(request, template, context)
 
