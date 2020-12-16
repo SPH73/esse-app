@@ -7,8 +7,8 @@
 <div id="profile" class="container">
     <div class="row">
         <div class="col-12 profile">
-            <div class="col my-auto avatar">
-                <img class="img-thumbnail" width="100" height="100" src="{{ profile.avatar.url }}"
+            <div class="col my-auto mx-auto avatar">
+                <img class="img-thumbnail" width="150" height="auto" src="{{ profile.avatar.url }}"
                     alt="{{ profile.avatar }}">
             </div>
             <div class="col-8 status">
@@ -17,7 +17,7 @@
                 <i class="page-icon fas fa-quote-right"></i>
             </div>
             <div class="col my-auto edit">
-                <!-- button for modal -->
+                <!-- button for edit profile modal -->
                 <button id="profileUpdateBtn" type="button" class="btn btn-outline-info" data-toggle="modal"
                     data-target=".profile-update"><i class="fas fa-user-edit"></i>
                 </button>
@@ -25,48 +25,99 @@
         </div>
     </div>
     <hr>
-    <h2 class="text-center">Albums: {{ albums|length }}</h2>
-    <div id="profile-gallery" class="row">
-        <div class="col-6 portfolio">
-            <h3 class="text-center">Public: {{ plc_albums|length }}</h3>
-            {% for album in plc_albums %}
-            <ul>
-                <li>
-                    <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
-                </li>
-            </ul>
-            {% endfor %}
+    <div id="friends">
+        {% if request.user == profile.user %}
+        <div class="row">
+            <div class="col">
+                <p>Sent friend requests: {{ sent_f_requests }}</p>
+            </div>
+            <div class="col">
+                <p>Received friend requests: {{ rec_f_requests }}</p>
+                {{ rec_f_requests }}
+            </div>
         </div>
-        <hr>
-        <div class="col-6 portfolio">
-            <h3>Private: {{ pvt_albums|length }}</h3>
-            {% for album in pvt_albums %}
-            <ul>
-                <li>
-                    <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
-                </li>
-            </ul>
-            {% endfor %}
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Friends</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for friend in profile.get_friends %}
+                    <td>{{ friend.profile.avatar.media.url }}</td>
+                    <td>{{ friend.profile.user }}</td>
+                    <td>{{ friend.profile.status }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Family</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <tr>
+                    {% for relation in profile.get_relations %}
+                    <td>{{ relation.profile.avatar.media.url }}</td>
+                    <td>{{ relation.profile.user }}</td>
+                    <td>{{ relation.profile.status }}</td>
+                    {% endfor %}
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
     </div>
+</div>
+<h2 class="text-center">Albums: {{ albums|length }}</h2>
+<div id="profile-gallery" class="row">
+    <div class="col-6 portfolio">
+        <h3 class="text-center">Public: {{ plc_albums|length }}</h3>
+        {% for album in plc_albums %}
+        <ul>
+            <li>
+                <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+    <hr>
+    <div class="col-6 portfolio">
+        <h3>Private: {{ pvt_albums|length }}</h3>
+        {% for album in pvt_albums %}
+        <ul>
+            <li>
+                <span class="title"><a href="">{{ album.title|title }}: {{ album.get_asset_count }}</a></span>
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+</div>
 
-    <!-- profile edit modal -->
-    <div class="row mt-3">
-        <div class="col">
-            <div class="modal fade profile-update" tabindex="1" role="dialog" aria-labelledby="ProfileUpdate"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="container p-2">
-                            <a href="{% url 'profiles:profile' %}" class="mb-3 btn btn-outline-danger cancel"
-                                type="submit"><i class="far fa-window-close"></i></a>
-                            <form action="{% url 'profiles:profile' %}" method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                {{ form|crispy }}
-                                <button type="submit" class="btn btn-outline-success"><i
-                                        class="fas fa-user-lock"></i></button>
-                            </form>
-                        </div>
+<!-- profile edit modal -->
+<div class="row mt-3">
+    <div class="col">
+        <div class="modal fade profile-update" tabindex="1" role="dialog" aria-labelledby="ProfileUpdate"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="container p-2">
+                        <a href="{% url 'profiles:profile' %}" class="mb-3 btn btn-outline-danger cancel"
+                            type="submit"><i class="far fa-window-close"></i></a>
+                        <form action="{% url 'profiles:profile' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button type="submit" class="btn btn-outline-success"><i
+                                    class="fas fa-user-lock"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -76,4 +127,6 @@
 
     </div>
 </div>
+
+
 {% endblock content %}
