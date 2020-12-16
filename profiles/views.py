@@ -32,9 +32,9 @@ def profile(request):
 
     return render(request, template, context)
 
-def all_profiles(request):
+def find_friends(request):
     """
-    Create a find_list of the current users friends friends. Only add them if they haven't already been added.
+    Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile. 
     """
     find_list = []
     profiles = Profile.objects.exclude(user=request.user)
@@ -46,17 +46,25 @@ def all_profiles(request):
                 find_list = friends.exclude(profile=friend.profile)
             find_list+=friend
             
-    template = 'profiles/all_profiles.html'
+    ex_friends = request.user.profile.friends.all()
+    
+    for profile in ex_friends:
+        if profile in find_list:
+            find_list.remove(profile)
+    if request.user.profile in find_list:
+        find_list.remove(request.user.profile)
+
+    template = 'profiles/find_friends.html'
     context = {
         'find_list': find_list,
     }
 
     return render(request, template, context)
 
-def search(request):
+def search_profiles(request):
     users = Profile.objects.exclude(user=request.user)
 
-    template = 'profiles/search.html'
+    template = 'profiles/search_profiles.html'
     context = {
         'users':users,
     }

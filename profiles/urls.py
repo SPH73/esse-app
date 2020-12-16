@@ -4,6 +4,6 @@ from . import views
 app_name = 'profiles'
 urlpatterns = [
     path('', views.profile, name='profile'),
-    path('users/', views.all_profiles, name='users'),
-    path('search/', views.search, name='search'),
+    path('find-friends/', views.find_friends, name='find_friends'),
+    path('search-profiles/', views.search_profiles, name='search_profiles'),
 ]
