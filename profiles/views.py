@@ -10,17 +10,16 @@ def profile(request):
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
     pvt_albums = albums.exclude(is_public=True)
-    # friends = Profile.friends.all()
-    # family = Profile.relations.all()
-    
+
+
     if request.method == 'POST':
         form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, "Profile updated successfully")
-            
+
     form = ProfileModelForm(instance=profile)
-   
+
     template = 'profiles/profile.html'
     context = {
         'profile': profile,
@@ -28,22 +27,21 @@ def profile(request):
         'albums': albums,
         'plc_albums': plc_albums,
         'pvt_albums': pvt_albums,
-        # 'friends': friends,
-        # 'family': family,
+
     }
-    
+
     return render(request, template, context)
 
 def all_profiles(request):
     profile = get_object_or_404(Profile, user=request.user)
     all_profiles = Profile.objects.exclude(user=request.user)
-    friends_profiles = profile.friends.all()
-    family_profiles = profile.relations.all()
+
 
     template = 'profiles/all_profiles.html'
     context = {
-        'all_profiles': all_profiles,
+        
     }
+
 
     return render(request, template, context)
 

@@ -46,8 +46,8 @@
             </thead>
             <tbody>
                 <tr>
-                    {% for friend in friends %}
-                    <td>{{ friend.profile.avatar }}</td>
+                    {% for friend in profile.get_friends %}
+                    <td>{{ friend.profile.avatar.media.url }}</td>
                     <td>{{ friend.profile.user }}</td>
                     <td>{{ friend.profile.status }}</td>
                     {% endfor %}
@@ -65,8 +65,8 @@
             <tbody>
                 <tr>
                 <tr>
-                    {% for relation in relations %}
-                    <td>{{ relation.profile.avatar }}</td>
+                    {% for relation in profile.get_relations %}
+                    <td>{{ relation.profile.avatar.media.url }}</td>
                     <td>{{ relation.profile.user }}</td>
                     <td>{{ relation.profile.status }}</td>
                     {% endfor %}
