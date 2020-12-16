@@ -62,7 +62,6 @@ LOCAL_APPS = [
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
     'posts.apps.PostsConfig',
-    'membership.apps.MembershipConfig',
     'profiles.apps.ProfilesConfig',
     'albums.apps.AlbumsConfig',
 ]
