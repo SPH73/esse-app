@@ -35,15 +35,21 @@ def profile(request):
 
     return render(request, template, context)
 
-# def profile_search_detail(request):
-#     # make the same as profile to be viewed by other users
+def user_detail(request, slug):
+    # need to put in a check if request.user is friend or family to  view albums
+    profile = Profile.objects.get(slug=slug)
+    albums = profile.albums.all()
+    plc_albums = albums.exclude(is_public=False)
+    pvt_albums = albums.exclude(is_public=True)
+    friends = profile.friends.all()
+
     
-#     template = ''
-#     context = {
-        
-#     }
+    template = 'profiles/profile_detail.html'
+    context = {
+        'profile': profile,
+    }
     
-#     return render(request, template, context)
+    return render(request, template, context)
 
 def find_friends(request):
     """

@@ -13,10 +13,10 @@
                 <img src="{{ result.user.profile.avatar.url }}" class="col img-thumbnail" alt="{{ result.user }}">
                 <div class="col">
                     <p class="pages-p">{{ result.user.profile.status }}.</p>
-                    <a href="{{ result.user.profile.get_absolute_url }}" class="btn btn-outline-info">View</a>
+                    <a href="{% url 'profiles:user_detail' result.user.profile.slug %}"
+                        class="btn btn-outline-info">View</a>
                 </div>
             </div>
-
             {% endfor %}
         </div>
         {% else %}
