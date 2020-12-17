@@ -1,0 +1,59 @@
+{% extends '_base.html' %}
+
+{% block extra_title %}Home{% endblock extra_title %}
+
+{% block content %}
+<div class="container">
+    <form>
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                </div>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-info"><i class="page-icon fas fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% if not users %}
+            <p class="pages-p">No user found with that username
+            </p>
+            {% else %}
+            {% for user in profile_list %}
+            <div class="user-card .stretched-link" style="width: 18rem;">
+                <img src="{{ request.user.profile.avatar.url }}" class="col img-thumbnail" alt="{{ user }}">
+                <div class="col">
+                    <h5 class="title">{{ request.user }}</h5>
+                    <p class="pages-p">{{ requset.user.profile.status }}.</p>
+                    <a href="{{ request.user.profile.get_absolute_url }}" class="rounded-circle"
+                        class="btn btn-outline-info">View</a>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="user-card .stretched-link">
+                <img src="{{ request.user.profile.avatar.url }}" class="col img-thumbnail" alt="{{ user }}">
+                <div class="col">
+                    <h5 class="title">{{ request.user }}</h5>
+                    <p class="pages-p">{{ request.user.profile.status }}.</p>
+                    <a href="{{ request.user.profile.get_absolute_url }}" class="btn btn-outline-info">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

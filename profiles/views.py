@@ -3,6 +3,9 @@ from django.contrib import messages
 from .models import Profile, FriendRequest
 from albums.models import Album
 from .forms import ProfileModelForm
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 def profile(request):
@@ -31,6 +34,9 @@ def profile(request):
     }
 
     return render(request, template, context)
+
+def friends_profiles(request):
+    pass
 
 def find_friends(request):
     """
@@ -62,11 +68,12 @@ def find_friends(request):
     return render(request, template, context)
 
 def search_profiles(request):
-    users = Profile.objects.exclude(user=request.user)
+    search = request.GET.get('find')
+    profile_list = User.objects.filter(username=search)
 
     template = 'profiles/search_profiles.html'
     context = {
-        'users':users,
+        'profile_list':profile_list,
     }
 
     return render(request, template, context)
