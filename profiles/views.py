@@ -35,8 +35,15 @@ def profile(request):
 
     return render(request, template, context)
 
-def friends_profiles(request):
-    pass
+# def profile_search_detail(request):
+#     # make the same as profile to be viewed by other users
+    
+#     template = ''
+#     context = {
+        
+#     }
+    
+#     return render(request, template, context)
 
 def find_friends(request):
     """
@@ -68,12 +75,12 @@ def find_friends(request):
     return render(request, template, context)
 
 def search_profiles(request):
-    search = request.GET.get('find')
-    profile_list = User.objects.filter(username=search)
-
+    query = request.GET.get('q')
+    results = Profile.objects.filter(user__username__icontains=query)
     template = 'profiles/search_profiles.html'
     context = {
-        'profile_list':profile_list,
+        'results': results,
+        'query': query
     }
 
     return render(request, template, context)
