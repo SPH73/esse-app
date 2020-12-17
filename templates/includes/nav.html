@@ -35,8 +35,9 @@
                 <span class="col text-right my-auto">{{ request.user.profile.get_friends_count }}</span></a></div>
         <div class="col"><a href=""><i class="page-icon fas fa-user-plus">&nbsp;</i>Requests
                 <span class="col text-right my-auto">{{ request.user.profile.get_friend_req_count }}</span></a></div>
-        <div class="col"><a href=""><i class="fpage-icon fas fa-search"></i>&nbsp;</i>Find
-                <span class="col text-right my-auto">{{ request.user.profile.get_friend_req_count }}</span></a></div>
+        <div class="col"><a href="{% url 'profiles:search_profiles' %}"><i
+                    class="page-icon fas fa-search"></i>&nbsp;</i>Find
+                <span class="col text-right my-auto"></span></a></div>
         <div class="col">
             <a href="{% url 'albums:gallery' %}"><i class="page-icon fas fa-photo-video">&nbsp;</i>Portfolio</a>
         </div>
