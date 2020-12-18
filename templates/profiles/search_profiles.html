@@ -1,27 +1,30 @@
 {% extends '_base.html' %}
+{% load cloudinary %}
 
 {% block extra_title %}Home{% endblock extra_title %}
 
 {% block content %}
 <div class="container">
     {% if results %}
-    {% for result in results %}
-    <div class="row">
-        <div class="card m-auto">
-            <h5 class="card-title text-center mt-2 mb-0">{{ result.user.profile }}</h5>
-            <div class="card-body" style="width: 18rem;">
-                <img src="{{ result.user.profile.avatar.url }}" class="col img-thumbnail" alt="{{ result.user }}">
-                <div class="col">
-                    <p class="pages-p">{{ result.user.profile.status }}.</p>
-                    <a href="{% url 'profiles:user_detail' result.user.profile.slug %}"
-                        class="btn btn-outline-info">View</a>
+    <h3>{{ request.user}} we found {{ results|length }} users matching your query "{{ query }}"</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center mx-auto">
+        {% for result in results %}
+        <div class="col mb-4">
+            <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
+                <div class="card-body mt-2" id="profile-card-body">
+                    <h5 class="card-title">{{ result.user.profile|title }}</h5>
+                    <img src="{{ result.user.profile.avatar.url }}" class="img-thumbnail" alt="{{ result.user }}"
+                        width="auto" height="2em">
+                    <p class="card-text pages-p p-1">{{ result.user.profile.status }}</p>
                 </div>
+                <a href="{% url 'profiles:user_detail' result.user.profile.slug %}"
+                    class="btn btn-outline-info">View</a>
             </div>
-            {% endfor %}
         </div>
-        {% else %}
-        <p>Nothing matches the uername {{ query }}</p>
-        {% endif %}
+        {% endfor %}
     </div>
+    {% else %}
+    <p>No profile found matching {{ query }}</p>
+    {% endif %}
 </div>
 {% endblock content %}
