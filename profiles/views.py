@@ -58,15 +58,15 @@ def find_friends(request):
     """
     find_list = []
     me = request.user
+    my_friends = me.profile.friends.all()
     # sent_request =[]
     profiles = Profile.objects.exclude(user=request.user)
     for user in profiles:
         user_friends = user.friends.all()
         for friend in user_friends:
             if friend not in find_list and friend != me:
-                find_list.append(friend)
-                print(friend, 'added to list')
-            print(friend, 'Not added to list')
+                if friend not in my_friends:
+                    find_list.append(friend)         
 
     template = 'profiles/find_friends.html'
     context = {
