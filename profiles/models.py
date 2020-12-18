@@ -16,7 +16,9 @@ class Profile(models.Model):
     friends = models.ManyToManyField(User, related_name='friends', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-     
+    
+    def get_url_path(self):
+        return '/profiles/%s/' % self.slug 
     
     def get_friends(self):
         return self.friends.all()
@@ -43,6 +45,7 @@ STATUS_CHOICES = (
         ('Requested', 'Requested'),
         ('Confirmed', 'Confirmed')
 )
+
 
 
 class FriendRequest(models.Model):
