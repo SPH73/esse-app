@@ -4,6 +4,7 @@ from .models import Profile, FriendRequest
 from albums.models import Album
 from .forms import ProfileModelForm
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseRedirect
 
 User = get_user_model()
 
@@ -36,7 +37,7 @@ def profile(request):
     return render(request, template, context)
 
 def user_detail(request, slug):
-    # need to put in a check if request.user is friend or family to  view albums
+    # need to put in a check if request.user is friend or family to view albums
     profile = Profile.objects.get(slug=slug)
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
@@ -53,25 +54,19 @@ def user_detail(request, slug):
 
 def find_friends(request):
     """
-    Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile. 
+    Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile.
     """
     find_list = []
+    me = request.user
+    # sent_request =[]
     profiles = Profile.objects.exclude(user=request.user)
-
-    for profile in profiles:
-        friends = profile.friends.all()
-        for friend in friends:
-            if friend in find_list:
-                find_list = friends.exclude(profile=friend.profile)
-            find_list+=friend
-            
-    ex_friends = request.user.profile.friends.all()
-    
-    for profile in ex_friends:
-        if profile in find_list:
-            find_list.remove(profile)
-    if request.user.profile in find_list:
-        find_list.remove(request.user.profile)
+    for user in profiles:
+        user_friends = user.friends.all()
+        for friend in user_friends:
+            if friend not in find_list and friend != me:
+                find_list.append(friend)
+                print(friend, 'added to list')
+            print(friend, 'Not added to list')
 
     template = 'profiles/find_friends.html'
     context = {
@@ -91,9 +86,17 @@ def search_profiles(request):
 
     return render(request, template, context)
 
+def send_request(request, slug):
+    profile = get_object_or_404(profile, slug=slug)
+    f_request, created = FriendRequest.objects.get_or_create(
+        from_user=request.user,
+        to_user=profile
+    )
+    return HttpResponseRedirect('/profiles/{profile.slug}')
+
 def friend_requests(request):
-    sent_f_requests = FriendRequest.objects.filter(from_user=profile)
-    rec_f_requests = FriendRequest.objects.filter(to_user=profile)
+    sent_f_requests = FriendRequest.objects.filter(from_user=request.user)
+    rec_f_requests = FriendRequest.objects.filter(to_user=profile.slug)
 
     template = ''
     context = {
@@ -101,4 +104,9 @@ def friend_requests(request):
         'rec_f_requests': rec_f_requests,
     }
 
-    return render('profiles/friend_request.html')
+    return render('profiles/profile.html')
+
+def accept_request(request, slug):
+    from_user = get_object_or_404(Profile, slug=slug)
+    f_request = FriendRequest.objects.filter(from_user=from_user, to_user=request.user)
+    
