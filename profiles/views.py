@@ -94,7 +94,7 @@ def send_request(request, id):
         f'Your friend request to {user} has been sent.'
     )
     
-    return redirect('profiles/profile.html')
+    return redirect('/profiles/%s/' % user.profile.slug)
 
 def cancel_request(request, id):
     user = get_object_or_404(User, id=id)
@@ -108,7 +108,7 @@ def cancel_request(request, id):
         f'Your friend request to {user} has been cancelled.'
     )
     
-    return redirect('profiles/profile.html')
+    return redirect('/profiles/%s/' % user.profile.slug)
 
 def delete_request(request, slug):
     from_user = get_object_or_404(Profile, slug=slug)
@@ -121,7 +121,7 @@ def delete_request(request, slug):
         request, 
         f'Your friend request from {from_user} has been removed.'
     )
-    return redirect('profiles/profile.html')
+    return redirect('/profiles/%s/' % request.user.profile.slug)
 
 
 def accept_request(request, slug):
@@ -131,12 +131,8 @@ def accept_request(request, slug):
         to_user=request.user
     )
     # TODO logic to accept request, add to friends and delete request
-    messages.success(
-        request, 
-        f'You are now friends with {from_user}'
-    )
-    
-    return redirect('profiles/profile.html')
+    messages.succes(request, 'You are now friends with {from_user}')
+    return redirect('/profiles/%s/' % request.user.profile.slug)
 
 
 def search_profiles(request):
