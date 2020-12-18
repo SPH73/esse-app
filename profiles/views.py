@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Profile, FriendRequest
 from albums.models import Album
@@ -51,16 +51,22 @@ def user_detail(request, slug):
     }
     
     return render(request, template, context)
-
+# TODO add logic for buttons
 def find_friends(request):
     """
-    Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile.
+    Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile. 
     """
     find_list = []
+    sent_request = []
+    sent_f_requests = FriendRequest.objects.filter(
+        from_user=request.user
+    )
+    print(sent_f_requests)
     me = request.user
     my_friends = me.profile.friends.all()
-    # sent_request =[]
-    profiles = Profile.objects.exclude(user=request.user)
+    profiles = Profile.objects.exclude(
+        user=request.user
+    )
     for user in profiles:
         user_friends = user.friends.all()
         for friend in user_friends:
@@ -71,9 +77,67 @@ def find_friends(request):
     template = 'profiles/find_friends.html'
     context = {
         'find_list': find_list,
+        'sent': sent_f_requests
     }
 
     return render(request, template, context)
+
+def send_request(request, id):
+    user = get_object_or_404(User, id=id)
+    print(profile)
+    f_request, created = FriendRequest.objects.get_or_create(
+        from_user=request.user,
+        to_user=user
+    )
+    messages.success(
+        request,
+        f'Your friend request to {user} has been sent.'
+    )
+    
+    return redirect('profiles/profile.html')
+
+def cancel_request(request, id):
+    user = get_object_or_404(User, id=id)
+    f_request = FriendRequest.objects.filter(
+        from_user=request.user,
+        to_user=user
+    )
+    f_request.delete()
+    messages.success(
+        request, 
+        f'Your friend request to {user} has been cancelled.'
+    )
+    
+    return redirect('profiles/profile.html')
+
+def delete_request(request, slug):
+    from_user = get_object_or_404(Profile, slug=slug)
+    f_request = FriendRequest.objects.filter(
+        from_user=from_user,
+        to_user=request.user
+    )
+    f_request.delete()
+    messages.success(
+        request, 
+        f'Your friend request from {from_user} has been removed.'
+    )
+    return redirect('profiles/profile.html')
+
+
+def accept_request(request, slug):
+    from_user = get_object_or_404(Profile, slug=slug)
+    f_request = FriendRequest.objects.filter(
+        from_user=from_user,
+        to_user=request.user
+    )
+    # TODO logic to accept request, add to friends and delete request
+    messages.success(
+        request, 
+        f'You are now friends with {from_user}'
+    )
+    
+    return redirect('profiles/profile.html')
+
 
 def search_profiles(request):
     query = request.GET.get('q')
@@ -85,28 +149,3 @@ def search_profiles(request):
     }
 
     return render(request, template, context)
-
-def send_request(request, slug):
-    profile = get_object_or_404(profile, slug=slug)
-    f_request, created = FriendRequest.objects.get_or_create(
-        from_user=request.user,
-        to_user=profile
-    )
-    return HttpResponseRedirect('/profiles/{profile.slug}')
-
-def friend_requests(request):
-    sent_f_requests = FriendRequest.objects.filter(from_user=request.user)
-    rec_f_requests = FriendRequest.objects.filter(to_user=profile.slug)
-
-    template = ''
-    context = {
-        'sent_f_requests': sent_f_requests,
-        'rec_f_requests': rec_f_requests,
-    }
-
-    return render('profiles/profile.html')
-
-def accept_request(request, slug):
-    from_user = get_object_or_404(Profile, slug=slug)
-    f_request = FriendRequest.objects.filter(from_user=from_user, to_user=request.user)
-    
