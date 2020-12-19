@@ -26,8 +26,20 @@
                         width="auto" height="2em">
                     <p class="card-text pages-p p-1">{{ result.profile.status }}</p>
                 </div>
-                <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info"><i
-                        class="fas fa-user-plus"></i></a>
+                <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info" data-toggle="tooltip"
+                    data-placement="top" title="Send friend request"><i class="fas fa-user-plus"></i></a>
+                {# if request aleady sent cancel request #}
+                <a href="{% url 'profiles:cancel_request' result.id %}" class="btn btn-outline-info data-toggle="
+                    data-toggle="tooltip" data-placement="top" title="Cancel friend request"><i
+                        class=" fas fa-user-minus"></i></a>
+                {# if request received delete request #}
+                <a href="{% url 'profiles:delete_request' result.id %}" class="btn btn-outline-info"
+                    data-toggle="tooltip" data-placement="top" title="Delete friend request"><i
+                        class="fas fa-user-times"></i></a>
+                {# if request received accept request #}
+                <a href="{% url 'profiles:accept_request' result.id %}" class="btn btn-outline-info"
+                    data-toggle="tooltip" data-placement="top" title="Accept friend request"><i
+                        class="fas fa-user-check"></i></a>
             </div>
             <!-- TODO add logic to change button is friend request already sent -->
         </div>
@@ -44,4 +56,10 @@
     </div>
     {% endif %}
 </div>
+<script>
+    //enable all tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 {% endblock content %}
