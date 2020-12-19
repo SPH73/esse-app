@@ -57,12 +57,16 @@ def find_friends(request):
     """
     Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile. 
     """
-    find_list = []
-    sent_request = []
+    find_list = [] # consider changing to set() if time
+    sent_requests = set()
+    rec_requests = set()
     sent_f_requests = FriendRequest.objects.filter(
         from_user=request.user
     )
-    print(sent_f_requests)
+    rec_f_requests = FriendRequest.objects.filter(
+        to_user=request.user
+    )
+    print(rec_requests)
     me = request.user
     my_friends = me.profile.friends.all()
     profiles = Profile.objects.exclude(
@@ -75,10 +79,20 @@ def find_friends(request):
                 if friend not in my_friends:
                     find_list.append(friend)         
 
+    for sent in sent_f_requests:
+        print('Sent', sent)
+        sent_requests.add(sent)
+    
+    
+    for rec in rec_f_requests:
+        print('Rec', rec)
+        rec_requests.add(rec)
+    
     template = 'profiles/find_friends.html'
     context = {
         'find_list': find_list,
-        'sent': sent_f_requests
+        'sent': sent_requests,
+        'rec': rec_requests,
     }
 
     return render(request, template, context)
