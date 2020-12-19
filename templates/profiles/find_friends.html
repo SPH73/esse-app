@@ -9,7 +9,7 @@
     <div class="row">
         <!-- TODO create email invite -->
         <div class="col">
-            <h2>{{ request.user}} we weren't able to make any suggestions just yet; would you like to send an email
+            <h2>{{ request.user }} we weren't able to make any suggestions just yet; would you like to send an email
                 invite?</h2>
             <a href="" class="btn btn-outline-info"><i class="fas fa-share-alt"></i></a>
         </div>
@@ -26,14 +26,8 @@
                         width="auto" height="2em">
                     <p class="card-text pages-p p-1">{{ result.profile.status }}</p>
                 </div>
-                {% if result in sent %}
-                <a href="{% url 'profiles:cancel_request' result.id %}" class="btn btn-outline-info data-toggle="
-                    data-toggle="tooltip" data-placement="top" title="Cancel friend request"><i
-                        class=" fas fa-user-minus"></i></a>
-                {% else %}
                 <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info" data-toggle="tooltip"
                     data-placement="top" title="Send friend request"><i class="fas fa-user-plus"></i></a>
-                {% endif %}
             </div>
         </div>
         {% endfor %}
@@ -65,3 +59,13 @@
     data-toggle="tooltip" data-placement="top" title="Accept friend request"><i
         class="fas fa-user-check"></i></a>
 {% endif %#}
+
+<!-- logic for sent f-req -->
+{#% if result in sent %}
+<a href="{% url 'profiles:cancel_request' result.id %}" class="btn btn-outline-info data-toggle="
+    data-toggle="tooltip" data-placement="top" title="Cancel friend request"><i
+        class=" fas fa-user-minus"></i></a>
+{#% else %#}
+<!-- <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info" data-toggle="tooltip"
+    data-placement="top" title="Send friend request"><i class="fas fa-user-plus"></i></a> -->
+{#% endif %#}
