@@ -1,11 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
+from django.conf import settings
 from .models import Profile, FriendRequest
 from albums.models import Album
 from .forms import ProfileModelForm, EmailInviteForm
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import get_template
 
 User = get_user_model()
 
@@ -164,20 +166,31 @@ def search_profiles(request):
 # TODO complete email invite
 # https://docs.djangoproject.com/en/3.1/topics/email/
 # use signal?
-def email_invite(request, slug):
-    # how to attach to user for invites sent?
-    # how to send to multiple recipients at once?
+def email_invite(request):
     profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
         form = EmailInviteForm(request.POST)
         if form.is_valid():
-            # how to do logic to send email?
+            cd = form.cleaned_data
+            name = f'{cd["name"]}'
+            subject = f'{cd["name"]} has sent you a invitation'
+            email = f'{cd["email"]}'
+            to = [f'{cd["to"]}']
+            comment = f'{cd["comment"]}'
+            with open(str(settings.BASE_DIR.joinpath('templates/profiles/email/email_invite_message.txt'))) as f:
+                invite_message = f.read()
+            html_template = get_template('profiles/email/email_invite_message.html').render()
+            msg = EmailMultiAlternatives(subject, comment, invite_message, [email], [to], name)
+            msg.attach_alternative(html_template, "text/html")
+            msg.send()
             messages.success(request, 'Your email has been sent')
+            return redirect('home')
+            # return HttpResponseRedirect(reverse('profiles:find_friends'))
     else:
          form = EmailInviteForm()
     
-    template = 'profiles/find_friends.html'
+    template = 'profiles/email_invite.html'
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, template, context)
