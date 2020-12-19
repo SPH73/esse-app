@@ -7,6 +7,13 @@ from django.forms import widgets
 from cloudinary.forms import CloudinaryFileField
 
 
+class EmailInviteForm(forms.Form):
+    name = forms.CharField(max_length=30)
+    email = forms.EmailField()
+    recipient = forms.EmailField()
+    body = forms.CharField(max_length=300, widget=forms.Textarea)
+
+
 def avatar_media_dir():
     folder = 'Esse/user_uploads/avatars'
     return folder
