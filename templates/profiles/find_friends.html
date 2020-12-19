@@ -11,7 +11,8 @@
         <div class="col">
             <h2>{{ request.user }} we weren't able to make any suggestions just yet; would you like to send an email
                 invite?</h2>
-            <a href="" class="btn btn-outline-info"><i class="fas fa-share-alt"></i></a>
+            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i
+                    class="fas fa-share-alt"></i></a>
         </div>
     </div>
     {% else %}
@@ -38,7 +39,8 @@
         <div class="col">
             <h3>Do you want to let your friends and family know
                 you would like to share your albums with them?</h3>
-            <a href="" class="btn btn-outline-info"><i class="fas fa-share-alt"></i></a>
+            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i
+                    class="fas fa-share-alt"></i></a>
         </div>
     </div>
     {% endif %}
