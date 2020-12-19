@@ -1,0 +1,19 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block extra_title %}Email an invite{% endblock extra_title %}
+
+{% block content %}
+<div class="container">
+    <h1>Send a friend an invite to join you</h1>
+    <p class="pages-p">
+        Use the form to invite a friend or family member to sign up.
+
+    </p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-outline-success"><i class="fas fa-envelope"></i></button>
+    </form>
+</div>
+{% endblock content %}

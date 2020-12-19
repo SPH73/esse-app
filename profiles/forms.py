@@ -6,12 +6,33 @@ from crispy_forms.layout import Field
 from django.forms import widgets
 from cloudinary.forms import CloudinaryFileField
 
-
+# TODO how to add google captcha?
 class EmailInviteForm(forms.Form):
-    name = forms.CharField(max_length=30)
+    name = forms.CharField(max_length=30,)
     email = forms.EmailField()
-    recipient = forms.EmailField()
-    body = forms.CharField(max_length=300, widget=forms.Textarea)
+    to = forms.EmailField()
+    comment = forms.CharField(required=False, max_length=300, widget=forms.Textarea)
+    
+    def __init__(self, *args, **kwargs):
+        """
+        Use placeholders instead of labels and autofocus the first field
+        """
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            'name': 'Your name',
+            'email': 'Your email',
+            'to': 'Recipient email',
+            'comment': 'Add a personal message?',
+        }
+
+        self.fields['name'].widget.attrs['autofocus'] = True
+        for field in self.fields:
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].label = False
 
 
 def avatar_media_dir():
@@ -49,5 +70,9 @@ class ProfileModelForm(forms.ModelForm):
 
         self.fields['status'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            self.fields[field].widget.attrs['placeholder'] = placeholders
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].label = False
