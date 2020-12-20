@@ -7,7 +7,7 @@ from cloudinary.models import CloudinaryField
 
 User = get_user_model()
 
-  
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True)
@@ -43,7 +43,7 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         return reverse('profiles:user_detail', args=[self.slug])
-
+  
 
 STATUS_CHOICES = (
         ('Requested', 'Requested'),
