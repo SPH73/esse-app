@@ -7,7 +7,8 @@ from .forms import ProfileModelForm, EmailInviteForm
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail, EmailMultiAlternatives
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string
+from django.utils.html import strip_tags
 
 User = get_user_model()
 
@@ -163,11 +164,8 @@ def search_profiles(request):
 
     return render(request, template, context)
 
-# TODO complete email invite
-# https://docs.djangoproject.com/en/3.1/topics/email/
-# use signal?
+# TODO try to work out how to keep track of email send by the user not important
 def email_invite(request):
-    profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
         form = EmailInviteForm(request.POST)
         if form.is_valid():
@@ -177,15 +175,13 @@ def email_invite(request):
             email = f'{cd["email"]}'
             to = [f'{cd["to"]}']
             comment = f'{cd["comment"]}'
-            with open(str(settings.BASE_DIR.joinpath('templates/profiles/email/email_invite_message.txt'))) as f:
-                invite_message = f.read()
             html_template = get_template('profiles/email/email_invite_message.html').render()
-            msg = EmailMultiAlternatives(subject, comment, invite_message, [email], [to], name)
+            msg = EmailMultiAlternatives(subject, comment, [email], [to])
             msg.attach_alternative(html_template, "text/html")
             msg.send()
+            print(msg)
             messages.success(request, 'Your email has been sent')
-            return redirect('home')
-            # return HttpResponseRedirect(reverse('profiles:find_friends'))
+            return HttpResponseRedirect(reverse('profiles:find_friends'))
     else:
          form = EmailInviteForm()
     
