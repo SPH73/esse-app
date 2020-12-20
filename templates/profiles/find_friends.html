@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load cloudinary %}
 
-{% block extra_title %}Home{% endblock extra_title %}
+{% block extra_title %}Find friends{% endblock extra_title %}
 
 {% block content %}
 <div class="container-fluid">
@@ -9,20 +9,22 @@
     <div class="row">
         <!-- TODO create email invite -->
         <div class="col">
-            <h2>{{ request.user }} we weren't able to make any suggestions just yet; would you like to send an email
+            <h2>{{ request.user|title }} we weren't able to make any suggestions just yet; would you like to send an
+                email
                 invite?</h2>
             <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i
                     class="fas fa-share-alt"></i></a>
         </div>
     </div>
     {% else %}
-    <h3>{{ request.user }} we found {{ find_list|length }} users we think you may know</h3>
+    <h3>{{ request.user|title }} we found {{ find_list|length }} users we think you may know</h3>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 text-center mx-auto">
         {% for result in find_list %}
         <div class="col mb-4">
             <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
                 <div class="card-body mt-2" id="profile-card-body">
-                    <h5 class="card-title">{{ result.profile|title }}</h5>
+                    <h5 class="card-title"><a
+                            href="{{ result.profile.get_absolute_url }}">{{ result.profile|title }}</a></h5>
                     <img src="{{ result.profile.avatar.url }}" class="img-thumbnail" alt="{{ result.user }}"
                         width="auto" height="2em">
                     <p class="card-text pages-p p-1">{{ result.profile.status }}</p>

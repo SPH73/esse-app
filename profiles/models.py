@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 from cloudinary.models import CloudinaryField
@@ -39,6 +40,9 @@ class Profile(models.Model):
         add_slug = str(self.user)
         self.slug = add_slug
         super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('profiles:user_detail', args=[self.slug])
 
 
 STATUS_CHOICES = (
