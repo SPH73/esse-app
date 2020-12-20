@@ -164,7 +164,7 @@ def search_profiles(request):
 
     return render(request, template, context)
 
-# TODO try to work out how to keep track of email send by the user not important
+# TODO try to work out how to keep track of email sent by the user not important
 def email_invite(request):
     if request.method == 'POST':
         form = EmailInviteForm(request.POST)
@@ -177,9 +177,8 @@ def email_invite(request):
             comment = f'{cd["comment"]}'
             html_template = get_template('profiles/email/email_invite_message.html').render()
             msg = EmailMultiAlternatives(subject, comment, [email], [to])
-            msg.attach_alternative(html_template, "text/html")
+            msg.attach_alternative
             msg.send()
-            print(msg)
             messages.success(request, 'Your email has been sent')
             return HttpResponseRedirect(reverse('profiles:find_friends'))
     else:
