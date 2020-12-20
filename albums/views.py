@@ -57,6 +57,33 @@ def album_detail(request, album):
         'asset_form': asset_form}
     return render(request, template, context)
 
+def user_album(request, album):
+    # need to put in a check if request.user is friend or family to view albums
+    album = get_object_or_404(Album, slug=album)
+    assets = album.assets.all()
+  
+    template = 'albums/user_album.html'
+    context = {
+        'album': album,
+        'assets': assets,
+    }
+    
+    return render(request, template, context)
+
+def album_asset(request, album, asset):
+    """
+    Get the asset from the album
+    """
+    album = get_object_or_404(Album, slug=album) 
+    asset = get_object_or_404(Asset, slug=asset)
+    template = 'albums/album_asset.html'    
+    context = {
+        'album':album,
+        'asset': asset
+        }
+    
+    return render(request, template, context)
+
 def album_delete(request, album):
     """
     Find and delete the album instance and all related assets from the database.

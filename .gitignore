@@ -9,6 +9,6 @@ htmlcov
 config/__pycache__/
 media/*
 
-
 icons.html
 docker-compose-prod.yml
+default.profraw

@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load cloudinary %}
+{% block extra_title %}{{ album.title }}{% endblock extra_title %}
+
+{% block content %}
+
+<div id="assets" class="container-fluid">
+    <!-- back to user_detail -->
+    <a href="{% url 'profiles:user_detail' album.profile.slug %}" type="button" class="btn btn-outline-info"><i
+            class="fas fa-backward"></i></a>
+    <h2>{{ album.title|title }}</h2>
+    <div class="assets text-center">
+        {% for asset in assets %}
+        <div class="row">
+            <div class="display">
+                {% cloudinary asset.media.url fetch_format="auto" gravity="auto" width=200 crop="thumb" %}
+                <h2 class="title">
+                    <a href="{% url 'albums:album_asset' album.slug asset.slug %}">
+                        {{ asset.title|title }}
+                    </a>
+                </h2>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row bt-5"></div>
+</div>
+{% endblock content %}

@@ -54,7 +54,10 @@ class ProfileModelForm(forms.ModelForm):
         'use_filename': True,
         'overwrite': True,
         'resource_type': 'auto',
-        'auto_tagging': 0.8,
+        'transformation': [
+            {'width': 400, 'height': 400, 'gravity': "face", 'radius': "max", 'crop': "crop"},
+            {'width': 200, 'crop': "scale"}
+        ]
     }
       )
         

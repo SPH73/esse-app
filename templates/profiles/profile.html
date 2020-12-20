@@ -26,7 +26,6 @@
     </div>
     <hr>
     <div id="friends">
-        {% if request.user == profile.user %}
         <div class="row">
             <div class="col">
                 <p>Sent friend requests: {{ sent_f_requests }}</p>
@@ -43,24 +42,23 @@
                 </p>
             </div>
         </div>
-        {% endif %}
         {% if profile.get_friends %}
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Friends</th>
-                    <th scope="col"></th>
+                    <th scope="col" class="status"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
+                {% for friend in profile.get_friends %}
                 <tr>
-                    {% for friend in profile.get_friends %}
                     <td class="profile-thumb">
-                        {% cloudinary friend.profile.avatar.url fetch_format="auto" gravity="faces" crop="thumb" %}
+                        {% cloudinary friend.profile.avatar.url fetch_format="auto" gravity="faces" %}
                     </td>
                     <td><a href="{{ friend.profile.get_absolute_url }}">{{ friend.profile.user|title }}</a></td>
-                    <td>{{ friend.profile.status }}</td>
+                    <td class="status">{{ friend.profile.status }}</td>
                     {% endfor %}
                 </tr>
             </tbody>
@@ -76,10 +74,10 @@
                 </tr>
             </thead>
             <tbody>
+                {% for relation in profile.get_relations %}
                 <tr>
-                    {% for relation in profile.get_relations %}
                     <td class="profile-thumb">
-                        {% cloudinary relation.profile.avatar.url fetch_format="auto" gravity="faces" crop="thumb" %}
+                        {% cloudinary relation.profile.avatar.url fetch_format="auto" gravity="faces" crop="fill" %}
                     </td>
                     <td class=""><a href="{{ relation.profile.get_absolute_url }}">{{ relation.profile.user|title }}</a>
                     </td>
@@ -98,7 +96,7 @@
         {% for album in plc_albums %}
         <ul>
             <li>
-                <span class="title"><a href="{{ album.get_absolute_url }}">{{ album.title|title }}:
+                <span class="title"><a href="{{ profile.album.get_absolute_url }}">{{ album.title|title }}:
                         {{ album.get_asset_count }}</a></span>
             </li>
         </ul>
@@ -110,7 +108,7 @@
         {% for album in pvt_albums %}
         <ul>
             <li>
-                <span class="title"><a href="{ album.get_absolute_url }}">{{ album.title|title }}:
+                <span class="title"><a href="{ profile.album.get_absolute_url }}">{{ album.title|title }}:
                         {{ album.get_asset_count }}</a></span>
             </li>
         </ul>

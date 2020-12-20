@@ -46,15 +46,26 @@ def user_detail(request, slug):
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
     pvt_albums = albums.exclude(is_public=True)
+    
     friends = profile.friends.all()
+    print(friends)
+    family = profile.relations.all()
+    print(family)
 
     
     template = 'profiles/profile_detail.html'
     context = {
         'profile': profile,
+        'friends': friends,
+        'family': family,
+        'albums': albums,
+        'plc_albums': plc_albums,
+        'pvt_albums': pvt_albums,
     }
     
     return render(request, template, context)
+
+
 # TODO add logic for buttons
 def find_friends(request):
     """

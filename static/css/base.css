@@ -160,6 +160,31 @@ h6 {
     color: rgb(53, 87, 162);
 }
 
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    font-family: 'Bilbo', cursive;
+    font-weight: 600;
+    color: rgb(53, 87, 162);
+    text-decoration: none
+}
+
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover {
+    font-family: 'Bilbo', cursive;
+    font-weight: 600;
+    color: rgb(23, 162, 184);
+    text-decoration: none
+}
+
 /* messages with bootstrap toasts */
 /* credit CI - Boutique Ado project */
 .message-container {
@@ -204,6 +229,9 @@ h6 {
     /* font-size: 1.2rem; */
 }
 
+td>.status {
+    font-size: 0.8em;
+}
 
 ul {
     padding-left: 0.7rem;
