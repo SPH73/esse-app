@@ -1,6 +1,5 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
-{% load crispy_forms_field %}
 {% load cloudinary %}
 {% block extra_title %}{{ asset.title }}{% endblock extra_title %}
 
@@ -9,7 +8,7 @@
 <div id="asset" class="container">
     <div class="row">
         <!-- back to album -->
-        <a href="% url 'albums:user_album' album.slug %}" type="button" class="btn btn-outline-info"><i
+        <a href="{% url 'albums:user_album' album.slug %}" type="button" class="btn btn-outline-info"><i
                 class="fas fa-backward"></i></a>
     </div>
     <h1>{{ asset.title }}</h1>

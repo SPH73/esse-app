@@ -70,7 +70,7 @@
         {% for album in plc_albums %}
         <ul>
             <li>
-                <span class="title"><a href="{% url 'albums:user_album' album.slug %}"">{{ album.title|title }}</a>:
+                <span class="title"><a href="{% url 'albums:user_album' album.slug %}">{{ album.title|title }}</a>:
                     {{ album.get_asset_count }}</span>
             </li>
         </ul>
@@ -78,16 +78,15 @@
     </div>
     <hr>
     <div class=" col-6 portfolio">
-                        <h3 class="text-center">Private: {{ pvt_albums|length }}</h3>
-                        {% for album in pvt_albums %}
-                        <ul>
-                            <li>
-                                <span class="title"><a
-                                        href="{% url 'albums:user_album' album.slug %}">{{ album.title|title }}:
-                                        {{ album.get_asset_count }}</a></span>
-                            </li>
-                        </ul>
-                        {% endfor %}
+        <h3 class="text-center">Private: {{ pvt_albums|length }}</h3>
+        {% for album in pvt_albums %}
+        <ul>
+            <li>
+                <span class="title"><a href="{% url 'albums:user_album' album.slug %}">{{ album.title|title }}:
+                        {{ album.get_asset_count }}</a></span>
+            </li>
+        </ul>
+        {% endfor %}
     </div>
 </div>
 {% endif %}
