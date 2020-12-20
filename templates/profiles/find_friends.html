@@ -23,10 +23,15 @@
         <div class="col mb-4">
             <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
                 <div class="card-body mt-2" id="profile-card-body">
-                    <h5 class="card-title"><a
-                            href="{{ result.profile.get_absolute_url }}">{{ result.profile|title }}</a></h5>
-                    <img src="{{ result.profile.avatar.url }}" class="img-thumbnail" alt="{{ result.user }}"
-                        width="auto" height="2em">
+                    <!-- transform applied to prevent stretch beyond card-title -->
+                    <h5 class="card-title" style="transform: rotate(0);">
+                        <a class="stretched-link"
+                            href="{{ result.profile.get_absolute_url }}">{{ result.profile|title }}</a>
+                    </h5>
+                    <a href="{{ result.profile.get_absolute_url }}" data-toggle="tooltip" data-placement="top"
+                        title="View this user">
+                        <img src="{{ result.profile.avatar.url }}" class="img-thumbnail" alt="{{ result.user }}"
+                            width="auto" height="2em"></a>
                     <p class="card-text pages-p p-1">{{ result.profile.status }}</p>
                 </div>
                 <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info" data-toggle="tooltip"
