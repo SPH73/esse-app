@@ -15,3 +15,7 @@ RUN pip install pipenv && pipenv install --system
 
 # Copy project
 COPY . /code/
+
+RUN python manage.py collectstatic --noinput
+
+CMD gunicorn config.wsgi:application --bind 0.0.0.0:$PORT

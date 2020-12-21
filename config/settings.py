@@ -19,6 +19,9 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+import os
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -66,10 +69,11 @@ LOCAL_APPS = [
     'albums.apps.AlbumsConfig',
 ]
 
-INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJNAGO_APPS
+INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -102,9 +106,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
+# }
+
 DATABASES = {
-    "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -190,7 +205,6 @@ if 'DEVELOPMENT':
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'admin@pixpimedia.com'
     
-
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
@@ -206,3 +220,5 @@ cloudinary.config(
   api_key =  env.str('CLOUDINARY_API_KEY'),
   api_secret = env.str('CLOUDINARY_API_SECRET')
 )
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
