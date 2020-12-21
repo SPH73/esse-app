@@ -41,7 +41,6 @@ DJNAGO_APPS = [
     'django.contrib.postgres',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.humanize',
@@ -49,6 +48,7 @@ DJNAGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'whitenoise.runserver_nostatic',
     'crispy_forms',
     'rest_framework',
     'allauth',
@@ -67,7 +67,7 @@ LOCAL_APPS = [
     'albums.apps.AlbumsConfig',
 ]
 
-INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJNAGO_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
