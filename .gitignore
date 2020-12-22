@@ -10,5 +10,5 @@ config/__pycache__/
 media/*
 cloudinary.yml
 icons.html
-docker-compose-prod.yml
+docker-compose.prod.yml
 default.profraw
