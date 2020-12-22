@@ -6,10 +6,38 @@ from crispy_forms.layout import Field
 from django.forms import widgets
 from cloudinary.forms import CloudinaryFileField
 
-def avatar_media_dir():
-      folder_name = 'Esse/user_uploads/avatars/user_{instance.user.username}/{filename}'
-      return folder_name
+# TODO how to add google captcha?
+class EmailInviteForm(forms.Form):
+    name = forms.CharField(max_length=30,)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comment = forms.CharField(required=False, max_length=300, widget=forms.Textarea)
+    
+    def __init__(self, *args, **kwargs):
+        """
+        Use placeholders instead of labels and autofocus the first field
+        """
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            'name': 'Your name',
+            'email': 'Your email',
+            'to': 'Recipient email',
+            'comment': 'Add a personal message?',
+        }
 
+        self.fields['name'].widget.attrs['autofocus'] = True
+        for field in self.fields:
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].label = False
+
+
+def avatar_media_dir():
+    folder = 'Esse/user_uploads/avatars'
+    return folder
 
 class ProfileModelForm(forms.ModelForm):
     class Meta:
@@ -17,15 +45,19 @@ class ProfileModelForm(forms.ModelForm):
         fields = ('status', 'avatar')
     
     status = forms.CharField(
-            label = '',
+        label = '',
       )
     
     avatar = CloudinaryFileField(
     options = {
-        'folder': avatar_media_dir(),
+        'folder': 'Esse/user_uploads/avatars',
         'use_filename': True,
+        'overwrite': True,
         'resource_type': 'auto',
-        'auto_tagging': 0.8
+        'transformation': [
+            {'width': 400, 'height': 400, 'gravity': "face", 'radius': "max", 'crop': "crop"},
+            {'width': 200, 'crop': "scale"}
+        ]
     }
       )
         
@@ -41,5 +73,9 @@ class ProfileModelForm(forms.ModelForm):
 
         self.fields['status'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            self.fields[field].widget.attrs['placeholder'] = placeholders
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].label = False

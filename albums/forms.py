@@ -11,7 +11,7 @@ class CreateAlbumModelForm(forms.ModelForm):
       class Meta:
             model = Album
             fields = ('title', 'is_public')
-            
+
       is_public = forms.TypedChoiceField(
             label = 'Who do you want to share this album with?',
             choices = ((1, "Everyone"), (0, "Family")),
@@ -48,13 +48,13 @@ class AssetModelForm(forms.ModelForm):
       class Meta:
             model = Asset
             fields = ('title', 'media', 'tags')
-      
+
       title = forms.CharField(
             label = 'Title',
             max_length = 80,
             required = True,
       )
-      
+
       media = CloudinaryFileField(
             options = {
             'folder': album_media_dir(),
@@ -63,14 +63,14 @@ class AssetModelForm(forms.ModelForm):
             'auto_tagging': 0.8
             }
       )
-      
+
       tags = forms.CharField(
             label = 'Tags',
             required = False,
             help_text = 'Comma, separated, list'
       )
-      
-      
+
+
       def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.helper = FormHelper()

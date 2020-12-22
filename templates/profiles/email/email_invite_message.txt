@@ -1,0 +1,4 @@
+Hello from ESSE!
+You're receiving this e-mail because {{ name }} has given your e-mail address to invite you to register an account on Esse.
+To accept, go to http://127.0.0.1:8000/
+Thank you, from Esse!

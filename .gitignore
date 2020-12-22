@@ -1,4 +1,5 @@
 docker-compose.yml
+docker-compose.prod.yml
 *.sqlite3
 .vscode/
 covhtml
@@ -8,7 +9,7 @@ htmlcov
 .env
 config/__pycache__/
 media/*
-
-
+cloudinary.yml
 icons.html
 docker-compose-prod.yml
+default.profraw

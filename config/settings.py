@@ -19,6 +19,8 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,9 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = env.str('SECRET_KEY')
 
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = env.bool('DEBUG', default=False)
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['esse-app.herokuapp.com','localhost', '127.0.0.1']
 
 # Application definition
 
@@ -64,12 +67,14 @@ LOCAL_APPS = [
     'posts.apps.PostsConfig',
     'profiles.apps.ProfilesConfig',
     'albums.apps.AlbumsConfig',
+    'donations.apps.DonationsConfig'
 ]
 
 INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,11 +105,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+#https://docs.djangoproject.com/en/3.1/ref/settings#settings
 
 DATABASES = {
     "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -152,6 +158,7 @@ STATICFILES_FINDERS = [
 
 NEDIA_URL = '/Esse/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -190,7 +197,6 @@ if 'DEVELOPMENT':
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'admin@pixpimedia.com'
     
-    
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
@@ -199,12 +205,17 @@ else:
     EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = 'esse@pixpimedia.com'
-
+    
+# Additional security best practices for production
+# Enforce encryption of traffic
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)
-SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', default=2592000)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=True)
-SECURE_HSTS_PRELOAD = env.bool('SECURE_HSTS_PRELOAD', default=True)
-SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=True)
+# Add Strict-Transport-Security header to enforce HTTPS
+SECURE_HSTS_SECONDS = env.int('HSTS_SECONDS', default=2592000)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('HSTS_INCLUDE_SUBDOMAINS', default=True)
+SECURE_HSTS_PRELOAD = env.bool('HSTS_PRELOAD', default=True)
+# Force cookes over HTTPS
+SESSION_COOKIE_SECURE = env.bool('COOKIE_SECURE', default=True)
+# Only cookies marked "secure" can be sent with an HTTPS connection
 CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=True)
 
 cloudinary.config(
@@ -212,3 +223,6 @@ cloudinary.config(
   api_key =  env.str('CLOUDINARY_API_KEY'),
   api_secret = env.str('CLOUDINARY_API_SECRET')
 )
+
+STRIPE_TEST_PUBLISHABLE_KEY = env.str('STRIPE_TEST_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = env.str('STRIPE_TEST_SECRET_KEY')

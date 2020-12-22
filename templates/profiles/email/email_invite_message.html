@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+    <h2>Hello from Esse!</h2>
+    <p>
+        You're receiving this e-mail because {{ name }} has given your e-mail address to invite you to register for an
+        account to share photo albums with friends and family. You are not obliged to share anything but {{ name }}
+        would like to share theirs with you.
+    </p>
+    <p>
+        Sign up is free and storage of your photos is in a secure cloud store with contigency
+        backups.</p>
+    <p> We are all about
+        preserving and sharing special memories with family and friends so, even if you
+        delete
+        your account by accident (it could happen!), your photos will not be deleted.</p>
+    <p>
+        If you delete your photos through our site though, they will no longer be stored.</p>
+    <p>
+        To register, go <a href="{% url 'account_signup' %}">here</a>
+    </p>
+    <p>To find out more go <a href="{% url 'about' %}">here</a></p>
+
+    <p>If you prefer to ignore this message please rest assured that your email address has not been saved and you will
+        not receive any spam from us!</p>
+
+    <p>Thank you!</p>
+    <img src="{% static 'images/logos/Esse.svg' %}" alt="Esse" width="2rem">
+</body>
+
+</html>

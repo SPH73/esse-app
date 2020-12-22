@@ -48,10 +48,12 @@ class Album(models.Model):
 
     def get_absolute_url(self):
         return reverse('albums:album_detail', args=[self.slug])
-
-def album_media_dir(instance, media):
-    return f'Esse/user_uploads/albums/user_{instance.profile}/{instance.album.slug}/{media}'
-
+    
+    def get_album_profile(self):
+        profile = self.profile
+        print(profile)
+        return profile
+    
 
 class Asset(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, blank=True, null=True)

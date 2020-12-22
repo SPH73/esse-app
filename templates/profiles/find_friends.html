@@ -1,0 +1,78 @@
+{% extends '_base.html' %}
+{% load cloudinary %}
+
+{% block extra_title %}Find friends{% endblock extra_title %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if find_list|length == 0 %}
+    <div class="row">
+        <!-- TODO create email invite -->
+        <div class="col">
+            <h2>{{ request.user|title }} we weren't able to make any suggestions just yet; would you like to send an
+                email
+                invite?</h2>
+            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i
+                    class="fas fa-share-alt"></i></a>
+        </div>
+    </div>
+    {% else %}
+    <h3>{{ request.user|title }} we found {{ find_list|length }} users we think you may know</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 text-center mx-auto">
+        {% for result in find_list %}
+        <div class="col mb-4">
+            <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
+                <div class="card-body mt-2" id="profile-card-body">
+                    <!-- transform applied to prevent stretch beyond card-title -->
+                    <h5 class="card-title" style="transform: rotate(0);">
+                        <a class="stretched-link"
+                            href="{{ result.profile.get_absolute_url }}">{{ result.profile|title }}</a>
+                    </h5>
+                    <a href="{{ result.profile.get_absolute_url }}" data-toggle="tooltip" data-placement="top"
+                        title="View this user">
+                        <img src="{{ result.profile.avatar.url }}" class="img-thumbnail" alt="{{ result.user }}"
+                            width="auto" height="2em"></a>
+                    <p class="card-text pages-p p-1">{{ result.profile.status }}</p>
+                </div>
+                <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info" data-toggle="tooltip"
+                    data-placement="top" title="Send friend request"><i class="fas fa-user-plus"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Do you want to let your friends and family know
+                you would like to share your albums with them?</h3>
+            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i
+                    class="fas fa-share-alt"></i></a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<script>
+    //enable all tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+{% endblock content %}
+<!-- logic for users in rec f_req -->
+{#% elif result in rec %}
+<a href="{% url 'profiles:delete_request' result.id %}" class="btn btn-outline-info"
+    data-toggle="tooltip" data-placement="top" title="Delete friend request"><i
+        class="fas fa-user-times"></i></a>
+<a href="{% url 'profiles:accept_request' result.id %}" class="btn btn-outline-info"
+    data-toggle="tooltip" data-placement="top" title="Accept friend request"><i
+        class="fas fa-user-check"></i></a>
+{% endif %#}
+
+<!-- logic for sent f-req -->
+{#% if result in sent %}
+<a href="{% url 'profiles:cancel_request' result.id %}" class="btn btn-outline-info data-toggle="
+    data-toggle="tooltip" data-placement="top" title="Cancel friend request"><i
+        class=" fas fa-user-minus"></i></a>
+{#% else %#}
+<!-- <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info" data-toggle="tooltip"
+    data-placement="top" title="Send friend request"><i class="fas fa-user-plus"></i></a> -->
+{#% endif %#}

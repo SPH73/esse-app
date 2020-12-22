@@ -57,6 +57,7 @@ def album_detail(request, album):
         'asset_form': asset_form}
     return render(request, template, context)
 
+
 def album_delete(request, album):
     """
     Find and delete the album instance and all related assets from the database.
@@ -68,7 +69,11 @@ def album_delete(request, album):
         'album':album,
     }
     
-    if request.method == "POST": 
+    if request.method == "POST":
+        if not profile:
+            messages.warning(request, "This album belongs to another profile, you cannot delete it.")
+            return redirect('home')
+        
         album.delete()
         messages.success(request, "Album deleted")
         
@@ -101,9 +106,44 @@ def asset_delete(request, album, asset):
         'profile': profile
     }
     
-    if request.method == "POST": 
+    if request.method == "POST":
+        if not profile:
+            messages.warning(request, "This album belongs to another profile, you cannot delete it's assets.")
+            return redirect('home')
+        
         asset.delete()
         messages.success(request, "Asset deleted successfully")
+        
         return render(request, 'albums/album_detail.html')
+    
+    return render(request, template, context)
+
+def user_album(request, album):
+    # need to put in a check if request.user is friend or family to view albums
+    album = get_object_or_404(Album, slug=album)
+    profile = album.get_album_profile()
+    
+    assets = album.assets.all()
+  
+    template = 'albums/user_album.html'
+    context = {
+        'album': album,
+        'assets': assets,
+        'profile': profile
+    }
+    
+    return render(request, template, context)
+
+def album_asset(request, album, asset):
+    """
+    Get the asset from the album
+    """
+    album = get_object_or_404(Album, slug=album) 
+    asset = get_object_or_404(Asset, slug=asset)
+    template = 'albums/album_asset.html'    
+    context = {
+        'album':album,
+        'asset': asset
+        }
     
     return render(request, template, context)
