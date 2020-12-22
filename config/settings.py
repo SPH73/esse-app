@@ -33,7 +33,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = ['.herokuapp.com','localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['esse-app.herokuapp.com','localhost', '127.0.0.1']
 
 # Application definition
 
@@ -67,6 +67,7 @@ LOCAL_APPS = [
     'posts.apps.PostsConfig',
     'profiles.apps.ProfilesConfig',
     'albums.apps.AlbumsConfig',
+    'donations.apps.DonationsConfig'
 ]
 
 INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -223,3 +224,5 @@ cloudinary.config(
   api_secret = env.str('CLOUDINARY_API_SECRET')
 )
 
+STRIPE_TEST_PUBLISHABLE_KEY = env.str('STRIPE_TEST_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = env.str('STRIPE_TEST_SECRET_KEY')

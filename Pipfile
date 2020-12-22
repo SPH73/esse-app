@@ -24,6 +24,7 @@ cloudinary = "*"
 django-cloudinary-storage = "*"
 whitenoise = "~=5.2.0"
 gunicorn = "~=20.0.4"
+stripe = "*"
 
 [requires]
 python_version = "3.8"
