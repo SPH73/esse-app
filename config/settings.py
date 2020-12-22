@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = env.str('SECRET_KEY')
 
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = ['esse-app.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 
