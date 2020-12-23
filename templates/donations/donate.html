@@ -1,0 +1,49 @@
+{% extends '_base.html' %}
+{% load cloudinary %}
+{% load static %}
+
+{% block extra_title %}Donate{% endblock extra_title %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/stripe.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Donate to the project!</h1>
+    <p class="pages-p">If you are enjoying using this site, please consider adding a small donations to the kitty so we
+        can keep
+        improving it.</p>
+    <div class="donate">
+        <p>Donate £5</p>
+        <form action="{% url 'donations:charge' %}" method="post" id="payment-form">
+            {% csrf_token %}
+            <div class="form-row">
+                <input type="email" name="email" id="email" class="form-control stripe-input" placeholder="Your email"
+                    style="color:#32325d;">
+                <input type="username" name="username" id="username" class="form-control stripe-input"
+                    placeholder="Your username" style="color:#32325d;">
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element" class="form-control">
+
+                </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+            </div>
+
+            <button class="btn btn-outline-success mt-1"><i class="fab fa-cc-stripe"></i></button>
+        </form>
+    </div>
+</div>
+
+{% block post_load_js %}
+{{ block.super }}
+<script src="{% static 'js/stripe.js' %}"></script>
+{% endblock post_load_js %}
+
+{% endblock content %}
