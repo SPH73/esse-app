@@ -28,11 +28,9 @@ router.register(r'groups', GroupViewSet)
 admin.site.site_header = "Esse Admin"
 admin.site.site_title = "Esse Admin Portal"
 admin.site.index_title = "Welcome to Esse Portal"
-from .views import ping
 
 urlpatterns = [
     path('backoffice/', admin.site.urls),
-    path('ping/', ping, name="ping"),
   
     path('accounts/', include('allauth.urls')),
     
@@ -41,6 +39,8 @@ urlpatterns = [
     path('profiles/', include('profiles.urls', namespace='profiles')),
     
     path('albums/', include('albums.urls', namespace='albums')),
+    
+    path('donations/', include('donations.urls', namespace='donations')),
     
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

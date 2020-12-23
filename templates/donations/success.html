@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+{% load cloudinary %}
+
+{% block extra_title %}Thanks!{% endblock extra_title %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <a href="{% url 'home' %}" type="button" class="btn btn-outline-info"><i class="fas fa-backward"></i></a>
+    <h1>Thanks!</h1>
+    <p class="pages-p">Thanks for your donation of £{{ amount }}!</p>
+    <p class="pages-p">Your donation helps with the continuation and improvement of this site.</p>
+</div>
+{% endblock content %}
