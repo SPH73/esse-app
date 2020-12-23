@@ -67,6 +67,7 @@ LOCAL_APPS = [
     'posts.apps.PostsConfig',
     'profiles.apps.ProfilesConfig',
     'albums.apps.AlbumsConfig',
+    'donations.apps.DonationsConfig'
 ]
 
 INSTALLED_APPS = DJNAGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -211,5 +212,4 @@ cloudinary.config(
   api_key =  env.str('CLOUDINARY_API_KEY'),
   api_secret = env.str('CLOUDINARY_API_SECRET')
 )
-
 
