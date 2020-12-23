@@ -23,4 +23,3 @@ def success(request, args):
     
     template = 'donations/success.html'
     return render(request, template, context)
-
