@@ -12,6 +12,7 @@
 {% block content %}
 
 <div class="container">
+    <a href="{% url 'home' %}" type="button" class="btn btn-outline-info"><i class="fas fa-backward"></i></a>
     <h1>Donate to the project!</h1>
     <p class="pages-p">If you are enjoying using this site, please consider adding a small donations to the kitty so we
         can keep
@@ -21,10 +22,6 @@
         <form action="{% url 'donations:charge' %}" method="post" id="payment-form">
             {% csrf_token %}
             <div class="form-row">
-                <input type="email" name="email" id="email" class="form-control stripe-input" placeholder="Your email"
-                    style="color:#32325d;">
-                <input type="username" name="username" id="username" class="form-control stripe-input"
-                    placeholder="Your username" style="color:#32325d;">
                 <label for="card-element">
                     Credit or debit card
                 </label>
