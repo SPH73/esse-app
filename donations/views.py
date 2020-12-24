@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 # import stripe
 
+
 # stripe.api_key = settings.STRIPE_TEST_PUBLISHABLE_KEY
 
 # def donate(request):
