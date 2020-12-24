@@ -20,6 +20,7 @@ import cloudinary.uploader
 import cloudinary.api
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = env.str('SECRET_KEY')
 
-DEBUG = env.bool('DEBUG')
+DEBUG = env.bool('DEBUG', default=False)
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = ['esse-app.herokuapp.com','localhost', '127.0.0.1']
@@ -205,6 +206,17 @@ else:
     EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = 'esse@pixpimedia.com'
     
+# Additional security best practices for production
+# Enforce encryption of traffic
+SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)
+# Add Strict-Transport-Security header to enforce HTTPS
+SECURE_HSTS_SECONDS = env.int('HSTS_SECONDS', default=2592000)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('HSTS_INCLUDE_SUBDOMAINS', default=True)
+SECURE_HSTS_PRELOAD = env.bool('HSTS_PRELOAD', default=True)
+# Force cookes over HTTPS
+SESSION_COOKIE_SECURE = env.bool('COOKIE_SECURE', default=True)
+# Only cookies marked "secure" can be sent with an HTTPS connection
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=True)
 
 cloudinary.config(
   cloud_name = env.str('CLOUDINARY_CLOUD_NAME'),
