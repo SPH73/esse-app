@@ -192,7 +192,11 @@ REST_FRAMEWORK = {
     ]
 }
 
-if ENVIRONMENT == 'production':
+if 'development':
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'admin@pixpimedia.com'
+    
+else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
     EMAIL_PORT = 587
@@ -201,10 +205,6 @@ if ENVIRONMENT == 'production':
     EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = env.str('DEFAULT_FROM_EMAIL')
     
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'admin@pixpimedia.com'
-   
 
 cloudinary.config(
   cloud_name = env.str('CLOUDINARY_CLOUD_NAME'),
