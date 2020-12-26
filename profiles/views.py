@@ -183,11 +183,10 @@ def email_invite(request):
             cd = form.cleaned_data
             name = f'{cd["name"]}'
             subject = f'{cd["name"]} has sent you a invitation'
-            email = f'{cd["email"]}'
             to = [f'{cd["to"]}']
             comment = f'{cd["comment"]}'
             html_template = get_template('profiles/email/email_invite_message.html').render()
-            msg = EmailMultiAlternatives(subject, comment, [email], [to])
+            msg = EmailMultiAlternatives(subject, comment, [to])
             msg.attach_alternative
             msg.send()
             messages.success(request, 'Your email has been sent')
