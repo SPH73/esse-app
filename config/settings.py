@@ -192,7 +192,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-if ENVIRONMENT == 'production':
+if 'production':
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
     EMAIL_PORT = 587
