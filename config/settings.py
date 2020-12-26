@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = env.str('SECRET_KEY')
 
-DEBUG = env.bool('DEBUG')
+DEBUG = env.bool('DEBUG', default=True)
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = ['esse-app.herokuapp.com','localhost', '127.0.0.1']
@@ -211,3 +211,6 @@ cloudinary.config(
   api_key =  env.str('CLOUDINARY_API_KEY'),
   api_secret = env.str('CLOUDINARY_API_SECRET')
 )
+
+STRIPE_TEST_PUBLISHABLE_KEY = env.str('STRIPE_TEST_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = env.str('STRIPE_TEST_SECRET_KEY')
