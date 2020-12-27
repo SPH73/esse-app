@@ -29,28 +29,37 @@
     <div class="row mt-3">
         <div class="col-auto ml-auto">
             <!-- buttons for friend actions -->
+            {% if profile in friends %}
+            <a href="" data-toggle="tooltip" data-placement="top" title="Delete friend" id="removeBtn" type="button"
+                class="btn btn-outline-danger"><i class="fas fa-times"></i>
+            </a>
+            <a href="" data-toggle="tooltip" data-placement="top" title="Add friend to family" id="familyBtn"
+                type="button" class="btn btn-outline-primary"><i class="fas fa-check"></i>
+            </a>
+            {% endif %}
+            {% for rec in rec_req %}
+            {% if rec.from_user %}
+            <a href="" data-toggle="tooltip" data-placement="top" title="Accept friend request" id="acceptBtn"
+                type="button" class="btn btn-outline-success"><i class="fas fa-user-check"></i>
+            </a>
+            <a href="{% url 'profiles:delete_request' request.user.id %}" data-toggle="tooltip" data-placement="top"
+                title="Delete friend request" id="deleteBtn" type="button" class="btn btn-outline-danger"><i
+                    class="fas fa-user-times"></i>
+            </a>
+            {% endif %}
+            {% endfor %}
             {% for sent in sent_req %}
             {% if sent.to_user %}
-            <a href="{% url 'profiles:cancel_request' profile.user.id %}" id="cancelBtn" type="button"
-                class="btn btn-outline-secondary"><i class="fas fa-user-minus"></i>
+            <a href="{% url 'profiles:cancel_request' profile.user.id %}" data-toggle="tooltip" data-placement="top"
+                title="Cancel friend request" id="cancelBtn" type="button" class="btn btn-outline-secondary"><i
+                    class="fas fa-user-minus"></i>
             </a>
             {% endif %}
-            {% empty %}
-            <a href="{% url 'profiles:send_request' profile.user.id %}" id="sendBtn" type="button"
-                class="btn btn-outline-info"><i class="fas fa-user-plus"></i>
-            </a>
             {% endfor %}
-            {% if rec.from_user  in rec_req %}
-            <a href="" id="acceptBtn" type="button" class="btn btn-outline-success"><i class="fas fa-user-check"></i>
-            </a>
-            <a href="{% url 'profiles:delete_request' request.user.id %}" id="deleteBtn" type="button"
-                class="btn btn-outline-danger"><i class="fas fa-user-times"></i>
-            </a>
-            {% endif %}
-            {% if profile in friends %}
-            <a href="" id="removeBtn" type="button" class="btn btn-outline-danger"><i class="fas fa-times"></i>
-            </a>
-            <a href="" id="familyBtn" type="button" class="btn btn-outline-primary"><i class="fas fa-check"></i>
+            {% if add_friend %}
+            <a href="{% url 'profiles:send_request' profile.user.id %}" data-toggle="tooltip" data-placement="top"
+                title="Send friend request" id="sendBtn" type="button" class="btn btn-outline-info"><i
+                    class="fas fa-user-plus"></i>
             </a>
             {% endif %}
         </div>
