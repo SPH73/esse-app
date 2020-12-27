@@ -25,23 +25,29 @@
         </div>
     </div>
     <hr>
+    <div class="row">
+        <div class="col">
+            <p class="pages-p">
+                <a href="{% url 'profiles:find_friends' %}">Find</a> people you may know
+            </p>
+        </div>
+    </div>
     <div id="friends">
         <div class="row">
             <div class="col">
-                <p>Sent friend requests: {{ sent_f_requests }}</p>
+                <p class="pages-p">Sent friend requests: {{ sent_req|length }}</p>
+                {% for sent in sent_req %}
+                <a href="{{ sent.to_user.profile.get_absolute_url }}"> {{ sent.to_user.profile|title }}</a>
+                {% endfor %}
             </div>
             <div class="col">
-                <p>Received friend requests: {{ rec_f_requests }}</p>
-                {{ rec_f_requests }}
+                <p class="pages-p">Received friend requests: {{ rec_req|length }}</p>
+                {% for rec in rec_req %}
+                <a href="{{ rec.from_user.profile.get_absolute_url }}">{{ rec.from_user.profile|title }}</a>
+                {% endfor %}
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <p class="pages-p">
-                    <a href="{% url 'profiles:find_friends' %}">Find</a> people you may know
-                </p>
-            </div>
-        </div>
+        <hr>
         {% if profile.get_friends %}
         <table class="table">
             <thead>

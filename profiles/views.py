@@ -18,7 +18,12 @@ def profile(request):
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
     pvt_albums = albums.exclude(is_public=True)
-
+    sent_f_requests = FriendRequest.objects.filter(
+        from_user=profile.user
+    )
+    rec_f_requests = FriendRequest.objects.filter(
+        to_user=profile.user
+    )
 
     if request.method == 'POST':
         form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
@@ -35,7 +40,8 @@ def profile(request):
         'albums': albums,
         'plc_albums': plc_albums,
         'pvt_albums': pvt_albums,
-
+        'sent_req': sent_f_requests,
+        'rec_req': rec_f_requests,
     }
 
     return render(request, template, context)
@@ -48,9 +54,18 @@ def user_detail(request, slug):
     pvt_albums = albums.exclude(is_public=True)
     
     friends = profile.friends.all()
-    print(friends)
+
     family = profile.relations.all()
-    print(family)
+
+    
+    sent_f_requests = FriendRequest.objects.filter(
+        to_user=profile.user
+    )
+    print('Sent: ', sent_f_requests)
+    rec_f_requests = FriendRequest.objects.filter(
+        from_user=profile.user
+    )
+    print('Rec: ', rec_f_requests)
 
     
     template = 'profiles/profile_detail.html'
@@ -61,6 +76,8 @@ def user_detail(request, slug):
         'albums': albums,
         'plc_albums': plc_albums,
         'pvt_albums': pvt_albums,
+        'sent_req': sent_f_requests,
+        'rec_req': rec_f_requests,
     }
     
     return render(request, template, context)
