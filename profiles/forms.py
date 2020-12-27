@@ -9,7 +9,6 @@ from cloudinary.forms import CloudinaryFileField
 # TODO how to add google captcha?
 class EmailInviteForm(forms.Form):
     name = forms.CharField(max_length=30,)
-    email = forms.EmailField()
     to = forms.EmailField()
     comment = forms.CharField(required=False, max_length=300, widget=forms.Textarea)
     
@@ -20,7 +19,6 @@ class EmailInviteForm(forms.Form):
         super().__init__(*args, **kwargs)
         placeholders = {
             'name': 'Your name',
-            'email': 'Your email',
             'to': 'Recipient email',
             'comment': 'Add a personal message?',
         }
