@@ -187,9 +187,9 @@ def email_invite(request):
             to = [f'{cd["to"]}']
             comment = f'{cd["comment"]}'
             html_template = get_template('profiles/email/email_invite_message.html').render()
-            msg = EmailMultiAlternatives(subject, comment, from_email [to], fail_silently=True)
-            msg.attach_alternative
-            msg.send()
+            msg = EmailMultiAlternatives(subject=subject, comment=comment, from_email=from_email,to=[cd['to']])
+            msg.attach_alternative(html_template, 'text/html')
+            msg.send(fail_silently=False)
             messages.success(request, 'Your email has been sent')
             return HttpResponseRedirect(reverse('profiles:find_friends'))
     else:
