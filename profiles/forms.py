@@ -33,10 +33,6 @@ class EmailInviteForm(forms.Form):
             self.fields[field].label = False
 
 
-def avatar_media_dir():
-    folder = 'Esse/user_uploads/avatars'
-    return folder
-
 class ProfileModelForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -53,8 +49,7 @@ class ProfileModelForm(forms.ModelForm):
         'overwrite': True,
         'resource_type': 'auto',
         'transformation': [
-            {'width': 400, 'height': 400, 'gravity': "face", 'radius': "max", 'crop': "crop"},
-            {'width': 200, 'crop': "scale"}
+            {'width': 200, 'gravity': "face", 'crop': "thumb"}
         ]
     }
       )
