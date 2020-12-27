@@ -29,16 +29,17 @@
     <div class="row mt-3">
         <div class="col-auto ml-auto">
             <!-- buttons for friend actions -->
-            {% if sent.to_user in sent_req %}
+            {% for sent in sent_req %}
+            {% if sent.to_user %}
             <a href="{% url 'profiles:cancel_request' profile.user.id %}" id="cancelBtn" type="button"
                 class="btn btn-outline-secondary"><i class="fas fa-user-minus"></i>
             </a>
-            {% else %}
+            {% endif %}
+            {% empty %}
             <a href="{% url 'profiles:send_request' profile.user.id %}" id="sendBtn" type="button"
                 class="btn btn-outline-info"><i class="fas fa-user-plus"></i>
             </a>
-            {% endif %}
-
+            {% endfor %}
             {% if rec.from_user  in rec_req %}
             <a href="" id="acceptBtn" type="button" class="btn btn-outline-success"><i class="fas fa-user-check"></i>
             </a>
