@@ -22,7 +22,7 @@
         <div class="col-auto">
             <!-- button for friend actions -->
             {# if not friend send friend request button else cancel friend request sent, if friend request received accept or delete request if friend delete friend button or add to family #}
-            <a href="{% url 'profiles:send_request' user.id %}" id="sendBtn" type="button"
+            <a href="{% url 'profiles:send_request' profile.user.id %}" id="sendBtn" type="button"
                 class="btn btn-outline-info"><i class="fas fa-user-plus"></i>
             </a>
             <a href="" id="cancelBtn" type="button" class="btn btn-outline-secondary"><i class="fas fa-user-minus"></i>
