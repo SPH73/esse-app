@@ -182,7 +182,7 @@ def email_invite(request):
         if form.is_valid():
             cd = form.cleaned_data
             name = f'{cd["name"]}'
-            subject = f'{cd["name"]} has sent you a invitation'
+            subject = f'{cd["name"]} has sent you an invitation'
             from_email = settings.DEFAULT_FROM_EMAIL
             comment = f'{cd["comment"]}'
             html_template = get_template('profiles/email/email_invite_message.html').render()
