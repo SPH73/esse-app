@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load account %}
 
-{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+{% block extra_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
 
 
 {% block content %}
@@ -21,7 +21,7 @@
 
         <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
                 {% csrf_token %}
-                <button class="btn btn-outline-primary" type="submit">{% trans 'Confirm' %}</button>
+                <button class="btn btn-outline-info btn-sm" type="submit">{% trans 'Confirm' %}</button>
         </form>
 
         {% else %}
