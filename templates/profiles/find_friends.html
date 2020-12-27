@@ -7,13 +7,11 @@
 <div class="container-fluid">
     {% if find_list|length == 0 %}
     <div class="row">
-        <!-- TODO create email invite -->
         <div class="col">
-            <h2>{{ request.user|title }} we weren't able to make any suggestions just yet; would you like to send an
-                email
-                invite?</h2>
-            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i
-                    class="fas fa-share-alt"></i></a>
+            <h2>{{ request.user|title }} we weren't able to make any suggestions just yet; would you like to share a
+                signup link?</h2>
+            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i class="fas fa-share-alt"
+                    data-toggle="tooltip" data-placement="top" title="Share a signup link"></i></a>
         </div>
     </div>
     {% else %}
@@ -44,18 +42,14 @@
         <div class="col">
             <h3>Do you want to let your friends and family know
                 you would like to share your albums with them?</h3>
-            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info"><i
-                    class="fas fa-share-alt"></i></a>
+            <a href="{% url 'profiles:email_invite' %}" class="btn btn-outline-info" data-toggle="tooltip"
+                data-placement="top" title="Share a signup link"><i class="fas fa-share-alt"></i></a>
         </div>
     </div>
     {% endif %}
 </div>
-<script>
-    //enable all tooltips
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
+{% block postloadjs %}
+{% endblock postloadjs %}
 {% endblock content %}
 <!-- logic for users in rec f_req -->
 {#% elif result in rec %}
