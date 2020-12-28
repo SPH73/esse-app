@@ -28,8 +28,8 @@
                     </h5>
                     <a href="{{ result.profile.get_absolute_url }}" data-toggle="tooltip" data-placement="top"
                         title="View this user">
-                        <img src="{{ result.profile.avatar.url }}" class="img-thumbnail" alt="{{ result.user }}"
-                            width="auto" height="2em"></a>
+                        <img src="{{ result.profile.avatar.url }}" class="img-thumbnail"
+                            alt="{{ result.profile|title }}" width="auto" height="2em"></a>
                     <p class="card-text pages-p p-1">{{ result.profile.status }}</p>
                 </div>
                 <a href="{% url 'profiles:send_request' result.id %}" class="btn btn-outline-info" data-toggle="tooltip"
