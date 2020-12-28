@@ -3,7 +3,8 @@ from . import views
 
 app_name = 'profiles'
 urlpatterns = [
-    path('', views.profile, name='profile'),
+    path('my-profile/', views.profile, name='profile'),
+    path('my-friends/', views.friend_list, name='my_friends'),
     path('email-invite/', views.email_invite, name='email_invite'),
     path('find-friends/', views.find_friends, name='find_friends'),
     path('search-result/', views.search_profiles, name='search_result'),

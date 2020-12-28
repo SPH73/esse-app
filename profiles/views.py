@@ -105,7 +105,7 @@ def find_friends(request):
     rec_f_requests = FriendRequest.objects.filter(
         to_user=request.user
     )
-    print(rec_requests)
+    
     me = request.user
     my_friends = me.profile.friends.all()
     profiles = Profile.objects.exclude(
@@ -124,6 +124,17 @@ def find_friends(request):
     }
 
     return render(request, template, context)
+
+def friend_list(request):
+    """
+    Render a list of the logged in users friends
+    """
+    profile = Profile.objects.get(user=request.user)
+    context = {
+        'profile': profile,
+    }
+   
+    return render(request, 'profiles/my_friends.html', context)
 
 def send_request(request, id):
     """

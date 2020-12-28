@@ -51,7 +51,8 @@
         <div class="col"><a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family
                 <span class="col text-right my-auto">{{ request.user.profile.get_relations_count }}</span></a>
         </div>
-        <div class="col"><a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends
+        <div class="col"><a href="{% url 'profiles:my_friends' %}"><i
+                    class="page-icon fas fa-user-friends">&nbsp;</i>Friends
                 <span class="col text-right my-auto">{{ request.user.profile.get_friends_count }}</span></a></div>
         <div class="col"><a href=""><i class="page-icon fas fa-user-plus">&nbsp;</i>Requests
                 <span class="col text-right my-auto">{{ request.user.profile.get_friend_req_count }}</span></a></div>
