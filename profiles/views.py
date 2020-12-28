@@ -5,14 +5,37 @@ from .models import Profile, FriendRequest
 from albums.models import Album
 from .forms import ProfileModelForm, EmailInviteForm
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import get_template, render_to_string
 from django.utils.html import strip_tags
+from profiles.forms import UserEditForm
 
 User = get_user_model()
 
-
+   
+def user_edit(request):
+    if request.method == 'POST':
+        edit_form = UserEditForm(request.POST, instance=request.user)
+        password_form = PasswordChangeForm(data=request.POST, user=request.user)
+        if edit_form.is_valid() and password_form.is_valid():
+            edit_form.save()
+            password_form.save()
+            messages.success(request, f'Your account has been updated')
+            return redirect('profiles:profile')
+        return redirect('profiles:update')
+    
+    edit_form = UserEditForm(instance=request.user)
+    password_form = PasswordChangeForm(user=request.user)
+    
+    context = {
+        'edit_form': edit_form,
+        'password_form': password_form,
+    }
+    template = 'profiles/update.html'
+    return render(request, template, context)
+    
 def profile(request):
     #TODO ADD IN ACCOUNT UPDATE FORM TO THIS VIEW
     """
@@ -146,6 +169,22 @@ def family_list(request):
     }
    
     return render(request, 'profiles/my_family.html', context)
+
+def requests(request):
+    """
+    A view to display the logged in users friend requests
+    """
+    profile = get_object_or_404(Profile, user=request.user)
+    rec_req = FriendRequest.objects.filter(
+        to_user=profile.user
+    )
+   
+    context = {
+        'profile': profile,
+        'rec_req': rec_req,
+    }
+   
+    return render(request, 'profiles/my_requests.html', context)
 
 def send_request(request, id):
     """

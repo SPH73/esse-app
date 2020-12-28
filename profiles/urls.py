@@ -4,8 +4,10 @@ from . import views
 app_name = 'profiles'
 urlpatterns = [
     path('my-profile/', views.profile, name='profile'),
+    path('update/', views.user_edit, name='update'),
     path('my-friends/', views.friend_list, name='my_friends'),
     path('my-family/', views.family_list, name='my_family'),
+    path('my-requests/', views.requests, name='my_requests'),
     path('email-invite/', views.email_invite, name='email_invite'),
     path('find-friends/', views.find_friends, name='find_friends'),
     path('search-result/', views.search_profiles, name='search_result'),

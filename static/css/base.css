@@ -91,6 +91,14 @@ nav img {
     transition: 0.5s;
 }
 
+.form-signin a {
+    color: white;
+}
+
+#hint_id_password {
+    display: none;
+}
+
 .sidenav a {
     text-decoration: none;
     font-size: 1.5rem;
