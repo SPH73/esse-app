@@ -127,7 +127,7 @@ def find_friends(request):
 
 def friend_list(request):
     """
-    Render a list of the logged in users friends
+    Get the profile of the logged in user to access and render their list of friends
     """
     profile = Profile.objects.get(user=request.user)
     context = {
@@ -135,6 +135,17 @@ def friend_list(request):
     }
    
     return render(request, 'profiles/my_friends.html', context)
+
+def family_list(request):
+    """
+    Get the profile of the logged in user to access and render their list of family
+    """
+    profile = Profile.objects.get(user=request.user)
+    context = {
+        'profile': profile,
+    }
+   
+    return render(request, 'profiles/my_family.html', context)
 
 def send_request(request, id):
     """
