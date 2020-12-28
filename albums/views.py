@@ -7,7 +7,7 @@ from .forms import AssetModelForm, CreateAlbumModelForm
 
 def gallery(request):
     """
-    Render a view to create and display a gallery of users albums
+    Render a view to create and display a gallery of the logged in users album portfolio
     """
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
