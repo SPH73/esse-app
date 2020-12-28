@@ -49,7 +49,7 @@ class ProfileModelForm(forms.ModelForm):
         'overwrite': True,
         'resource_type': 'auto',
         'transformation': [
-            {'width': 200, 'gravity': "face", 'crop': "thumb"}
+            {'width': 200, 'height': 200, 'gravity': "face", 'crop': "thumb"}
         ]
     }
       )
