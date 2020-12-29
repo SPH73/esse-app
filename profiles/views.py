@@ -77,8 +77,8 @@ def user_detail(request, slug):
     """
     Profile view of all users and if seen by profile owner then the view will seen from the persective of another user
     """
-    
-    profile = Profile.objects.get(slug=slug)
+    user = request.user
+    profile = Profile.objects.get(slug=slug)  
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
     pvt_albums = albums.exclude(is_public=True)
@@ -86,19 +86,22 @@ def user_detail(request, slug):
     friends = profile.friends.all()
     family = profile.relations.all()
 
-    sent_f_requests = FriendRequest.objects.filter(
-        to_user=profile.user
-    )
-    rec_f_requests = FriendRequest.objects.filter(
-        from_user=profile.user
-    )
-    
-    add_friend = False
-    if profile not in request.user.profile.friends.all():
-        if len(sent_f_requests) == 0:
-            if len(rec_f_requests) == 0:
-                add_friend = True
+    receiver = FriendRequest.objects.filter(from_user=profile.user)
+    sender = FriendRequest.objects.filter(to_user=profile.user)
+    received = []
+    sent = []
+    for item in receiver:
+        received.append(item.to_user)
+    for item in sender:
+        sent.append(item.from_user)
         
+    add_family = False
+    if profile in request.user.profile.friends.all():
+        add_family = True
+        
+    remove_family = False
+    if profile in request.user.profile.relations.all():
+        remove_family = True
 
     template = 'profiles/profile_detail.html'
     context = {
@@ -108,9 +111,10 @@ def user_detail(request, slug):
         'albums': albums,
         'plc_albums': plc_albums,
         'pvt_albums': pvt_albums,
-        'sent_req': sent_f_requests,
-        'rec_req': rec_f_requests,
-        'add_friend': add_friend,
+        'received': received,
+        'sent': sent,
+        'add_family': add_family,
+        'remove_family': remove_family,
     }
     
     return render(request, template, context)
@@ -178,15 +182,12 @@ def requests(request):
     """
     to_user=request.user
     profile = get_object_or_404(Profile, user=request.user)
-    rec_req = FriendRequest.objects.received_requests(to_user)
-    print('rec_req: ',rec_req)
     rec_f_requests = FriendRequest.objects.filter(
         to_user=profile.user
     )
     print('rec_f_requests: ',rec_f_requests)
    
     context = {
-       'rec_req': rec_req,
        'profile': profile,
        'rec_f_requests':rec_f_requests
     }
@@ -195,7 +196,7 @@ def requests(request):
 
 def send_request(request, id):
     """
-    Send friend request to users not in friends
+    Send a friend request to users
     """
     user = get_object_or_404(User, id=id)
     f_request, created = FriendRequest.objects.get_or_create(
@@ -214,7 +215,7 @@ def send_request(request, id):
 
 def cancel_request(request, id):
     """
-    Cancel a sent request sent to users not in friends
+    Cancel a sent friend request to a user
     """
     user = get_object_or_404(User, id=id)
     f_request = FriendRequest.objects.filter(
@@ -224,7 +225,7 @@ def cancel_request(request, id):
     f_request.delete()
     messages.success(
         request, 
-        f'Your friend request to {user} has been cancelled.'
+        'Your friend request has been cancelled.'
     )
 
     return redirect('/profiles/%s/' % user.profile.slug)
@@ -237,9 +238,9 @@ def delete_request(request, id):
     f_request.delete()
     messages.success(
         request, 
-        f'Your friend request has been removed.'
+        'Friend request removed.'
     )
-    return redirect('/profiles/my-requests')
+    return redirect('profiles:profile')
 
 
 def accept_request(request, id):
@@ -251,8 +252,8 @@ def accept_request(request, id):
         f_request.to_user.profile.friends.add(f_request.from_user)
         f_request.from_user.profile.friends.add(f_request.to_user)
         f_request.delete()
-        messages.success(request, 'You are now friends with {from_user}')
-        return redirect('/profiles/my-requests')
+        messages.success(request, 'Friend request acceted')
+        return redirect('profiles:my_friends')
 
 
 def search_profiles(request):
@@ -269,7 +270,6 @@ def search_profiles(request):
 
     return render(request, template, context)
 
-# TODO try to work out how to keep track of email sent by the user not important
 def email_invite(request):
     """
     Form to collect email address to send an email invite with link to sign up
