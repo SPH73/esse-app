@@ -77,6 +77,7 @@ def user_detail(request, slug):
     """
     Profile view of all users and if seen by profile owner then the view will seen from the persective of another user
     """
+    
     profile = Profile.objects.get(slug=slug)
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
@@ -93,11 +94,11 @@ def user_detail(request, slug):
     )
     
     add_friend = False
-    if profile not in friends:
-        if request.user not in sent_f_requests:
-            if request.user not in rec_f_requests:
+    if profile not in request.user.profile.friends.all():
+        if len(sent_f_requests) == 0:
+            if len(rec_f_requests) == 0:
                 add_friend = True
-                
+        
 
     template = 'profiles/profile_detail.html'
     context = {

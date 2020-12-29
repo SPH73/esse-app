@@ -56,7 +56,7 @@
             </a>
             {% endif %}
             {% endfor %}
-            {% if add_friend == True %}
+            {% if add_friend %}
             <a href="{% url 'profiles:send_request' profile.user.id %}" data-toggle="tooltip" data-placement="top"
                 title="Send friend request" id="sendBtn" type="button" class="btn btn-outline-info"><i
                     class="fas fa-user-plus"></i>
