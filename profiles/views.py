@@ -91,10 +91,11 @@ def user_detail(request, slug):
     rec_f_requests = FriendRequest.objects.filter(
         from_user=profile.user
     )
+    
     add_friend = False
-    if profile not in request.user.profile.friends.all():
-        if profile not in sent_f_requests:
-            if profile not in rec_f_requests:
+    if profile not in friends:
+        if request.user not in sent_f_requests:
+            if request.user not in rec_f_requests:
                 add_friend = True
                 
 
@@ -174,14 +175,19 @@ def requests(request):
     """
     A view to display the logged in users friend requests
     """
+    to_user=request.user
     profile = get_object_or_404(Profile, user=request.user)
-    rec_req = FriendRequest.objects.filter(
+    rec_req = FriendRequest.objects.received_requests(to_user)
+    print('rec_req: ',rec_req)
+    rec_f_requests = FriendRequest.objects.filter(
         to_user=profile.user
     )
+    print('rec_f_requests: ',rec_f_requests)
    
     context = {
-        'profile': profile,
-        'rec_req': rec_req,
+       'rec_req': rec_req,
+       'profile': profile,
+       'rec_f_requests':rec_f_requests
     }
    
     return render(request, 'profiles/my_requests.html', context)
@@ -195,11 +201,14 @@ def send_request(request, id):
         from_user=request.user,
         to_user=user
     )
-    messages.success(
-        request,
-        f'Your friend request to {user} has been sent.'
-    )
-    
+    if created:
+        messages.success(
+            request,
+            f'Your friend request to {user} has been sent.'
+        )
+        
+        return redirect('/profiles/%s/' % user.profile.slug)
+    messages.info(request, f'You have already sent a friend request to {user}')
     return redirect('/profiles/%s/' % user.profile.slug)
 
 def cancel_request(request, id):
@@ -216,38 +225,33 @@ def cancel_request(request, id):
         request, 
         f'Your friend request to {user} has been cancelled.'
     )
-    
+
     return redirect('/profiles/%s/' % user.profile.slug)
 
-def delete_request(request, slug):
+def delete_request(request, id):
     """
     Delete a friend request from a user
     """
-    from_user = get_object_or_404(Profile, slug=slug)
-    f_request = FriendRequest.objects.filter(
-        from_user=from_user,
-        to_user=request.user
-    )
+    f_request = FriendRequest.objects.get(id=id)
     f_request.delete()
     messages.success(
         request, 
         f'Your friend request has been removed.'
     )
-    return redirect('/profiles/%s/' % from_user.profile.slug)
+    return redirect('/profiles/my-requests')
 
 
-def accept_request(request, slug):
+def accept_request(request, id):
     """
     Accept a friend request from another user
     """
-    from_user = get_object_or_404(Profile, slug=slug)
-    f_request = FriendRequest.objects.filter(
-        from_user=from_user,
-        to_user=request.user
-    )
-    # TODO logic to accept request, add to friends and delete request
-    messages.succes(request, 'You are now friends with {from_user}')
-    return redirect('/profiles/%s/' % request.user.profile.slug)
+    f_request = FriendRequest.objects.get(id=id)
+    if f_request.to_user == request.user:
+        f_request.to_user.profile.friends.add(f_request.from_user)
+        f_request.from_user.profile.friends.add(f_request.to_user)
+        f_request.delete()
+        messages.success(request, 'You are now friends with {from_user}')
+        return redirect('/profiles/my-requests')
 
 
 def search_profiles(request):

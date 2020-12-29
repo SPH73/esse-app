@@ -42,7 +42,7 @@
             <a href="" data-toggle="tooltip" data-placement="top" title="Accept friend request" id="acceptBtn"
                 type="button" class="btn btn-outline-success"><i class="fas fa-user-check"></i>
             </a>
-            <a href="{% url 'profiles:delete_request' request.user.id %}" data-toggle="tooltip" data-placement="top"
+            <a href="{% url 'profiles:delete_request' rec.id %}" data-toggle="tooltip" data-placement="top"
                 title="Delete friend request" id="deleteBtn" type="button" class="btn btn-outline-danger"><i
                     class="fas fa-user-times"></i>
             </a>
@@ -56,7 +56,7 @@
             </a>
             {% endif %}
             {% endfor %}
-            {% if add_friend %}
+            {% if add_friend == True %}
             <a href="{% url 'profiles:send_request' profile.user.id %}" data-toggle="tooltip" data-placement="top"
                 title="Send friend request" id="sendBtn" type="button" class="btn btn-outline-info"><i
                     class="fas fa-user-plus"></i>
@@ -66,30 +66,22 @@
     </div>
     {% endif %}
     <h3 class="text-center">{{ profile|title }}'s Friends</h3>
-    {% if profile.get_friends %}
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th scope="col">Friends</th>
-                <th scope="col" class="status"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="img-container">
+        {% if profile.get_friends %}
+        <div class="img-item">
             {% for friend in profile.get_friends %}
-            <tr>
-                <td class="profile-thumb">
-                    {% cloudinary friend.profile.avatar.url fetch_format="auto" gravity="faces" radius="max" crop="crop"  %}
-                </td>
-                <td><a href="{{ friend.profile.get_absolute_url }}">{{ friend.profile.user|title }}</a></td>
-                <td class="status">{{ friend.profile.status }}</td>
-                {% endfor %}
-            </tr>
-        </tbody>
-    </table>
-    {% else %}
-    <p class="pages-p">{{ profile|title }} doesn't have any friends yet.</p>
-    {% endif %}
+            <div class="col my-auto mx-auto avatar img-thumb">
+                {% cloudinary friend.profile.avatar.url fetch_format="auto" %}
+            </div>
+            <h3 class="title text-center"><a
+                    href="{{ friend.profile.get_absolute_url }}">{{ friend.profile.user|title }}</a>
+            </h3>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="pages-p">{{ profile|title }} doesn't have any friends yet.</p>
+        {% endif %}
+    </div>
     <h3 class="text-center">{{ profile|title }}'s Albums: {{ albums|length }}</h3>
     <div id="profile-gallery">
         {% if request.user in family or request.user.username == profile.user.username %}

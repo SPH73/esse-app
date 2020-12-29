@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+{% load cloudinary %}
+{% block extra_title %}Requests{% endblock extra_title %}
+{% block content %}
+<div class="container">
+    <h3>Received friend requests for {{ profile }}</h3>
+
+    {% for req in rec_f_requests %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 text-center mx-auto">
+        <div class="col mb-4">
+            <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
+                <div class="card-body mt-2" id="profile-card-body">
+                    <!-- transform applied to prevent stretch beyond card-title -->
+                    <h5 class="card-title m-0" style="transform: rotate(0);">
+                        <a class="stretched-link"
+                            href="{{ req.from_user.profile.get_absolute_url }}">{{ req.from_user.profile }}</a>
+                    </h5>
+                    <a href="{{ req.from_user.profile.get_absolute_url }}" data-toggle="tooltip" data-placement="top"
+                        title="View profile">
+                        <img src="{{ req.from_user.profile.avatar.url }}" class="mb-2 img-thumbnail" alt="" width="auto"
+                            height="2em"></a>
+                    <a href="{% url 'profiles:accept_request' req.id %}" class="btn btn-outline-success"
+                        data-toggle="tooltip" data-placement="top" title="Accept friend request"><i
+                            class="fas fa-user-check"></i></a>
+                    <a href="{% url 'profiles:delete_request' req.id %}" class="btn btn-outline-danger"
+                        data-toggle="tooltip" data-placement="top" title="Delete friend request"><i
+                            class="fas fa-user-times"></i></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No rec_f_requests</p>
+    {% endfor %}
+</div>
+{% endblock content %}

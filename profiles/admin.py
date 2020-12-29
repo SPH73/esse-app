@@ -16,7 +16,7 @@ class FriendRequestAdmin(admin.ModelAdmin):
         'to_user',
         'status',
         'created',
-        'is_family'
+        'id'
     )
 
 
