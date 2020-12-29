@@ -1,30 +1,33 @@
 {% extends '_base.html' %}
 {% load cloudinary %}
 
-{% block extra_title %}Home{% endblock extra_title %}
+{% block extra_title %}Search{% endblock extra_title %}
 
 {% block content %}
 <div class="container">
     {% if results %}
     <h3>{{ request.user}} we found {{ results|length }} users matching your query "{{ query }}"</h3>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 text-center mx-auto">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 text-center mx-auto">
         {% for result in results %}
         <div class="col mb-4">
             <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
                 <div class="card-body mt-2" id="profile-card-body">
-                    <h5 class="card-title">{{ result.user.profile|title }}</h5>
-                    <img src="{{ result.user.profile.avatar.url }}" class="img-thumbnail" alt="{{ result.user }}"
-                        width="auto" height="2em">
+                    <h5 class="card-title" style="transform: rotate(0);">
+                        <a class="stretched-link"
+                            href="{{ result.user.profile.get_absolute_url }}">{{ result.user.profile|title }}</a>
+                    </h5>
+                    <a href="{{ result.user.profile.get_absolute_url }}" data-toggle="tooltip" data-placement="top"
+                        title="View this user">
+                        <img src="{{ result.user.profile.avatar.url }}" class="img-thumbnail"
+                            alt="{{ result.user.profile|title }}" width="auto" height="2em"></a>
                     <p class="card-text pages-p p-1">{{ result.user.profile.status }}</p>
                 </div>
-                <a href="{% url 'profiles:user_detail' result.user.profile.slug %}"
-                    class="btn btn-outline-info">View</a>
             </div>
         </div>
         {% endfor %}
     </div>
     {% else %}
-    <p>No profile found matching {{ query }}</p>
+    <p class="pages-p">No usernames found matching {{ query }}. Try searching fewwer characters.</p>
     {% endif %}
 </div>
 {% endblock content %}

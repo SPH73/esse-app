@@ -48,13 +48,17 @@
             style="font-size:1.9rem;cursor:pointer;"><i class="page-icon far fa-window-close"></i></a>
     </div>
     <div id="SideNavItems" class="sidenav-items">
-        <div class="col"><a href=""><i class="page-icon fas fa-users">&nbsp;</i>Family
+        <div class="col"><a href="{% url 'profiles:my_family' %}"><i class="page-icon fas fa-users">&nbsp;</i>Family
                 <span class="col text-right my-auto">{{ request.user.profile.get_relations_count }}</span></a>
         </div>
-        <div class="col"><a href=""><i class="page-icon fas fa-user-friends">&nbsp;</i>Friends
+        <div class="col"><a href="{% url 'profiles:my_friends' %}"><i
+                    class="page-icon fas fa-user-friends">&nbsp;</i>Friends
                 <span class="col text-right my-auto">{{ request.user.profile.get_friends_count }}</span></a></div>
-        <div class="col"><a href=""><i class="page-icon fas fa-user-plus">&nbsp;</i>Requests
-                <span class="col text-right my-auto">{{ request.user.profile.get_friend_req_count }}</span></a></div>
+        <div class="col"><a href="{% url 'profiles:my_requests' %}"><i
+                    class="page-icon fas fa-user-plus">&nbsp;</i>Requests
+                <span
+                    class="col text-right my-auto">{{ request.user.friend_request.get_friend_requests_coun }}</span></a>
+        </div>
         <div class="col">
             <a href="{% url 'profiles:find_friends' %}"><i class="page-icon fas fa-search">&nbsp;</i>&nbsp;Find</a>
         </div>
@@ -66,6 +70,9 @@
         </div>
         <div class="col">
             <a href="{% url 'donations:donations' %}"><i class="page-icon fas fa-donate">&nbsp;</i>&nbsp;Donate</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'profiles:update' %}"><i class="fas fa-users-cog"></i>&nbsp;</i>&nbsp;Account</a>
         </div>
     </div>
 </nav>

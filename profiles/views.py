@@ -5,20 +5,52 @@ from .models import Profile, FriendRequest
 from albums.models import Album
 from .forms import ProfileModelForm, EmailInviteForm
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import get_template, render_to_string
 from django.utils.html import strip_tags
+from profiles.forms import UserEditForm
 
 User = get_user_model()
 
-
+   
+def user_edit(request):
+    if request.method == 'POST':
+        edit_form = UserEditForm(request.POST, instance=request.user)
+        password_form = PasswordChangeForm(data=request.POST, user=request.user)
+        if edit_form.is_valid() and password_form.is_valid():
+            edit_form.save()
+            password_form.save()
+            messages.success(request, f'Your account has been updated')
+            return redirect('profiles:profile')
+        return redirect('profiles:update')
+    
+    edit_form = UserEditForm(instance=request.user)
+    password_form = PasswordChangeForm(user=request.user)
+    
+    context = {
+        'edit_form': edit_form,
+        'password_form': password_form,
+    }
+    template = 'profiles/update.html'
+    return render(request, template, context)
+    
 def profile(request):
+    #TODO ADD IN ACCOUNT UPDATE FORM TO THIS VIEW
+    """
+    A view for the request users profile with edit profile form
+    """
     profile = get_object_or_404(Profile, user=request.user)
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
     pvt_albums = albums.exclude(is_public=True)
-
+    sent_f_requests = FriendRequest.objects.filter(
+        from_user=profile.user
+    )
+    rec_f_requests = FriendRequest.objects.filter(
+        to_user=profile.user
+    )
 
     if request.method == 'POST':
         form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
@@ -35,24 +67,39 @@ def profile(request):
         'albums': albums,
         'plc_albums': plc_albums,
         'pvt_albums': pvt_albums,
-
+        'sent_req': sent_f_requests,
+        'rec_req': rec_f_requests,
     }
 
     return render(request, template, context)
 
 def user_detail(request, slug):
-    # need to put in a check if request.user is friend or family to view albums
+    """
+    Profile view of all users and if seen by profile owner then the view will seen from the persective of another user
+    """
+    
     profile = Profile.objects.get(slug=slug)
     albums = profile.albums.all()
     plc_albums = albums.exclude(is_public=False)
     pvt_albums = albums.exclude(is_public=True)
     
     friends = profile.friends.all()
-    print(friends)
     family = profile.relations.all()
-    print(family)
 
+    sent_f_requests = FriendRequest.objects.filter(
+        to_user=profile.user
+    )
+    rec_f_requests = FriendRequest.objects.filter(
+        from_user=profile.user
+    )
     
+    add_friend = False
+    if profile not in request.user.profile.friends.all():
+        if len(sent_f_requests) == 0:
+            if len(rec_f_requests) == 0:
+                add_friend = True
+        
+
     template = 'profiles/profile_detail.html'
     context = {
         'profile': profile,
@@ -61,12 +108,15 @@ def user_detail(request, slug):
         'albums': albums,
         'plc_albums': plc_albums,
         'pvt_albums': pvt_albums,
+        'sent_req': sent_f_requests,
+        'rec_req': rec_f_requests,
+        'add_friend': add_friend,
     }
     
     return render(request, template, context)
 
 
-# TODO add logic for buttons
+
 def find_friends(request):
     """
     Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile. 
@@ -80,7 +130,7 @@ def find_friends(request):
     rec_f_requests = FriendRequest.objects.filter(
         to_user=request.user
     )
-    print(rec_requests)
+    
     me = request.user
     my_friends = me.profile.friends.all()
     profiles = Profile.objects.exclude(
@@ -92,40 +142,80 @@ def find_friends(request):
             if friend not in find_list and friend != me:
                 if friend not in my_friends:
                     find_list.append(friend)         
-
-    for sent in sent_f_requests:
-        print('Sent', sent)
-        sent_requests.add(sent)
-    
-    
-    for rec in rec_f_requests:
-        print('Rec', rec)
-        rec_requests.add(rec)
-    
+   
     template = 'profiles/find_friends.html'
     context = {
         'find_list': find_list,
-        'sent': sent_requests,
-        'rec': rec_requests,
     }
 
     return render(request, template, context)
 
+def friend_list(request):
+    """
+    Get the profile of the logged in user to access and render their list of friends
+    """
+    profile = Profile.objects.get(user=request.user)
+    context = {
+        'profile': profile,
+    }
+   
+    return render(request, 'profiles/my_friends.html', context)
+
+def family_list(request):
+    """
+    Get the profile of the logged in user to access and render their list of family
+    """
+    profile = Profile.objects.get(user=request.user)
+    context = {
+        'profile': profile,
+    }
+   
+    return render(request, 'profiles/my_family.html', context)
+
+def requests(request):
+    """
+    A view to display the logged in users friend requests
+    """
+    to_user=request.user
+    profile = get_object_or_404(Profile, user=request.user)
+    rec_req = FriendRequest.objects.received_requests(to_user)
+    print('rec_req: ',rec_req)
+    rec_f_requests = FriendRequest.objects.filter(
+        to_user=profile.user
+    )
+    print('rec_f_requests: ',rec_f_requests)
+   
+    context = {
+       'rec_req': rec_req,
+       'profile': profile,
+       'rec_f_requests':rec_f_requests
+    }
+   
+    return render(request, 'profiles/my_requests.html', context)
+
 def send_request(request, id):
+    """
+    Send friend request to users not in friends
+    """
     user = get_object_or_404(User, id=id)
-    print(profile)
     f_request, created = FriendRequest.objects.get_or_create(
         from_user=request.user,
         to_user=user
     )
-    messages.success(
-        request,
-        f'Your friend request to {user} has been sent.'
-    )
-    
+    if created:
+        messages.success(
+            request,
+            f'Your friend request to {user} has been sent.'
+        )
+        
+        return redirect('/profiles/%s/' % user.profile.slug)
+    messages.info(request, f'You have already sent a friend request to {user}')
     return redirect('/profiles/%s/' % user.profile.slug)
 
 def cancel_request(request, id):
+    """
+    Cancel a sent request sent to users not in friends
+    """
     user = get_object_or_404(User, id=id)
     f_request = FriendRequest.objects.filter(
         from_user=request.user,
@@ -136,35 +226,39 @@ def cancel_request(request, id):
         request, 
         f'Your friend request to {user} has been cancelled.'
     )
-    
+
     return redirect('/profiles/%s/' % user.profile.slug)
 
-def delete_request(request, slug):
-    from_user = get_object_or_404(Profile, slug=slug)
-    f_request = FriendRequest.objects.filter(
-        from_user=from_user,
-        to_user=request.user
-    )
+def delete_request(request, id):
+    """
+    Delete a friend request from a user
+    """
+    f_request = FriendRequest.objects.get(id=id)
     f_request.delete()
     messages.success(
         request, 
-        f'Your friend request from {from_user} has been removed.'
+        f'Your friend request has been removed.'
     )
-    return redirect('/profiles/%s/' % request.user.profile.slug)
+    return redirect('/profiles/my-requests')
 
 
-def accept_request(request, slug):
-    from_user = get_object_or_404(Profile, slug=slug)
-    f_request = FriendRequest.objects.filter(
-        from_user=from_user,
-        to_user=request.user
-    )
-    # TODO logic to accept request, add to friends and delete request
-    messages.succes(request, 'You are now friends with {from_user}')
-    return redirect('/profiles/%s/' % request.user.profile.slug)
+def accept_request(request, id):
+    """
+    Accept a friend request from another user
+    """
+    f_request = FriendRequest.objects.get(id=id)
+    if f_request.to_user == request.user:
+        f_request.to_user.profile.friends.add(f_request.from_user)
+        f_request.from_user.profile.friends.add(f_request.to_user)
+        f_request.delete()
+        messages.success(request, 'You are now friends with {from_user}')
+        return redirect('/profiles/my-requests')
 
 
 def search_profiles(request):
+    """
+    Search form to query usernames
+    """
     query = request.GET.get('q')
     results = Profile.objects.filter(user__username__icontains=query)
     template = 'profiles/search_profiles.html'
@@ -177,6 +271,9 @@ def search_profiles(request):
 
 # TODO try to work out how to keep track of email sent by the user not important
 def email_invite(request):
+    """
+    Form to collect email address to send an email invite with link to sign up
+    """
     if request.method == 'POST':
         form = EmailInviteForm(request.POST)
         if form.is_valid():

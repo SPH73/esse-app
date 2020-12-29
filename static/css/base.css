@@ -91,6 +91,14 @@ nav img {
     transition: 0.5s;
 }
 
+.form-signin a {
+    color: white;
+}
+
+#hint_id_password {
+    display: none;
+}
+
 .sidenav a {
     text-decoration: none;
     font-size: 1.5rem;
@@ -229,10 +237,6 @@ h6 a:hover {
     /* font-size: 1.2rem; */
 }
 
-td>.status {
-    font-size: 0.8em;
-}
-
 ul {
     padding-left: 0.7rem;
 }
@@ -288,30 +292,22 @@ li {
 }
 
 .img-thumb img {
-    border: 0.1em solid rgb(23, 162, 184);
     border-radius: 3%;
-    width: 10vmax;
-    background-color: rgb(23, 162, 184);
+    width: 15vmax;
 }
 
-#profile td {
+.img-container {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.img-item {
+    display: inline-block;
     vertical-align: middle;
-    font-size: 1.2rem;
+    padding: 5px
 }
 
-td>.profile-thumb {
-    width: 5rem;
-    margin-left: auto;
-    max-width: 100%;
-    height: auto;
-}
-
-.profile-thumb img {
-    border: 0.015rem dotted rgba(23, 162, 184, 0.5);
-    width: 8vmax;
-    border-radius: 50%;
-    background-color: rgb(23, 162, 184);
-}
 
 .profile-card {
     width: auto;

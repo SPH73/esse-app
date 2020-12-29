@@ -19,19 +19,49 @@ class Profile(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def get_url_path(self):
-        return '/profiles/%s/' % self.slug 
-    
+        return '/profiles/%s/' % self.slug
+        
     def get_friends(self):
         return self.friends.all()
     
     def get_friends_count(self):
         return self.friends.all().count()
     
+    def add_friend(self, user):
+        """
+        Add user to friends
+        """
+        if user not in self.friends.all():
+            self.friends.add(user)
+            
+    def delete_friend(self, user):
+        """
+        Remove user from friends
+        """
+        if user in self.friends.all():
+            self.friends.remove(user)
+    
     def get_relations(self):
         return self.relations.all()
     
     def get_relations_count(self):
         return self.relations.all().count()
+    
+    def add_relation(self, user):
+        """
+        Add friend to relations
+        """
+        if user in self.friends.all():
+            if user not in self.relations.all():
+                self.relations.add(user)
+    
+    def remove_relation(self, user):
+        """
+        Revert relation back to friends
+        """
+        if user in self.relations.all():
+            self.relations.remove(user)
+            self.friends.add(user)
        
     def __str__(self):
         return str(self.user.username)

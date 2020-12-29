@@ -25,120 +25,113 @@
         </div>
     </div>
     <hr>
+    <div class="row">
+        <div class="col">
+            <p class="pages-p">
+                <a href="{% url 'profiles:find_friends' %}">Find</a> people you may know
+            </p>
+        </div>
+    </div>
     <div id="friends">
         <div class="row">
             <div class="col">
-                <p>Sent friend requests: {{ sent_f_requests }}</p>
+                <p class="pages-p">Sent friend requests: {{ sent_req|length }}</p>
+                {% for sent in sent_req %}
+                <a href="{{ sent.to_user.profile.get_absolute_url }}"> {{ sent.to_user.profile|title }}</a>
+                {% endfor %}
             </div>
             <div class="col">
-                <p>Received friend requests: {{ rec_f_requests }}</p>
-                {{ rec_f_requests }}
+                <p class="pages-p">Received friend requests: {{ rec_req|length }}</p>
+                {% for rec in rec_req %}
+                <a href="{{ rec.from_user.profile.get_absolute_url }}">{{ rec.from_user.profile|title }}</a>
+                {% endfor %}
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <p class="pages-p">
-                    <a href="{% url 'profiles:find_friends' %}">Find</a> people you may know
-                </p>
-            </div>
-        </div>
-        {% if profile.get_friends %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Friends</th>
-                    <th scope="col" class="status"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
+        <hr>
+        <div class="img-container">
+            {% if profile.get_friends %}
+            <div class="img-item">
                 {% for friend in profile.get_friends %}
-                <tr>
-                    <td class="profile-thumb">
-                        {% cloudinary friend.profile.avatar.url fetch_format="auto" gravity="faces" %}
-                    </td>
-                    <td><a href="{{ friend.profile.get_absolute_url }}">{{ friend.profile.user|title }}</a></td>
-                    <td class="status">{{ friend.profile.status }}</td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-        {% endif %}
-        {% if profile.get_relations %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Family</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
+                <div class="col my-auto mx-auto avatar img-thumb">
+                    {% cloudinary friend.profile.avatar.url fetch_format="auto" %}
+                </div>
+                <h3 class="title text-center"><a
+                        href="{{ friend.profile.get_absolute_url }}">{{ friend.profile.user|title }}</a>
+                </h3>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="pages-p">Your friends will show up here when you add them</p>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="img-container">
+            {% if profile.get_relations %}
+            <div class="img-item">
                 {% for relation in profile.get_relations %}
-                <tr>
-                    <td class="profile-thumb">
-                        {% cloudinary relation.profile.avatar.url fetch_format="auto" gravity="faces" crop="fill" %}
-                    </td>
-                    <td class=""><a href="{{ relation.profile.get_absolute_url }}">{{ relation.profile.user|title }}</a>
-                    </td>
-                    <td class="text-left">{{ relation.profile.status }}</td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-        {% endif %}
-    </div>
-</div>
-<h2 class="text-center">Albums: {{ albums|length }}</h2>
-<div id="profile-gallery" class="row">
-    <div class="col-6 portfolio">
-        <h3 class="text-center">Public: {{ plc_albums|length }}</h3>
-        {% for album in plc_albums %}
-        <ul>
-            <li>
-                <span class="title"><a href="{{ profile.album.get_absolute_url }}">{{ album.title|title }}:
-                        {{ album.get_asset_count }}</a></span>
-            </li>
-        </ul>
-        {% endfor %}
-    </div>
-    <hr>
-    <div class="col-6 portfolio">
-        <h3>Private: {{ pvt_albums|length }}</h3>
-        {% for album in pvt_albums %}
-        <ul>
-            <li>
-                <span class="title"><a href="{ profile.album.get_absolute_url }}">{{ album.title|title }}:
-                        {{ album.get_asset_count }}</a></span>
-            </li>
-        </ul>
-        {% endfor %}
-    </div>
-</div>
 
-<!-- profile edit modal -->
-<div class="row mt-3">
-    <div class="col">
-        <div class="modal fade profile-update" tabindex="1" role="dialog" aria-labelledby="ProfileUpdate"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="container p-2">
-                        <a href="{% url 'profiles:profile' %}" class="mb-3 btn btn-outline-danger cancel"
-                            type="submit"><i class="far fa-window-close"></i></a>
-                        <form action="{% url 'profiles:profile' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <button type="submit" class="btn btn-outline-success"><i
-                                    class="fas fa-user-lock"></i></button>
-                        </form>
+                <div class="col my-auto mx-auto avatar img-thumb">
+                    {% cloudinary relation.profile.avatar.url fetch_format="auto" %}
+                </div>
+                <h3 class="title text-center"><a
+                        href="{{ relation.profile.get_absolute_url }}">{{ relation.profile.user|title }}</a>
+                </h3>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="pages-p">Your family will show up here when you add them</p>
+            {% endif %}
+        </div>
+        <hr>
+    </div>
+
+    <h2 class="text-center">Albums: {{ albums|length }}</h2>
+    <div id="profile-gallery" class="row">
+        <div class="col-6 portfolio">
+            <h3 class="text-center">Public: {{ plc_albums|length }}</h3>
+            {% for album in plc_albums %}
+            <ul>
+                <li>
+                    <span class="title"><a href="{{ profile.album.get_absolute_url }}">{{ album.title|title }}:
+                            {{ album.get_asset_count }}</a></span>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="col-6 portfolio">
+            <h3 class="text-center">Private: {{ pvt_albums|length }}</h3>
+            {% for album in pvt_albums %}
+            <ul>
+                <li>
+                    <span class="title"><a href="{ profile.album.get_absolute_url }}">{{ album.title|title }}:
+                            {{ album.get_asset_count }}</a></span>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- profile edit modal -->
+    <div class="row mt-3">
+        <div class="col">
+            <div class="modal fade profile-update" tabindex="1" role="dialog" aria-labelledby="ProfileUpdate"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="container p-2">
+                            <a href="{% url 'profiles:profile' %}" class="mb-3 btn btn-outline-danger cancel"
+                                type="submit"><i class="far fa-window-close"></i></a>
+                            <form action="{% url 'profiles:profile' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-outline-success"><i
+                                        class="fas fa-user-lock"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
-
 {% endblock content %}

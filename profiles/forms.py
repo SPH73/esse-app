@@ -5,6 +5,17 @@ from crispy_forms.layout import Layout, Fieldset
 from crispy_forms.layout import Field
 from django.forms import widgets
 from cloudinary.forms import CloudinaryFileField
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm
+
+User = get_user_model()
+
+class UserEditForm(UserChangeForm):
+       
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name',)
+
 
 # TODO how to add google captcha?
 class EmailInviteForm(forms.Form):
@@ -33,10 +44,6 @@ class EmailInviteForm(forms.Form):
             self.fields[field].label = False
 
 
-def avatar_media_dir():
-    folder = 'Esse/user_uploads/avatars'
-    return folder
-
 class ProfileModelForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -53,8 +60,7 @@ class ProfileModelForm(forms.ModelForm):
         'overwrite': True,
         'resource_type': 'auto',
         'transformation': [
-            {'width': 400, 'height': 400, 'gravity': "face", 'radius': "max", 'crop': "crop"},
-            {'width': 200, 'crop': "scale"}
+            {'width': 200, 'height': 200, 'gravity': "face", 'crop': "thumb"}
         ]
     }
       )
