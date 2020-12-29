@@ -87,7 +87,9 @@ def user_detail(request, slug):
     family = profile.relations.all()
 
     receiver = FriendRequest.objects.filter(from_user=profile.user)
+    received_id = receiver.object.get(receiver_id=receiver.id)
     sender = FriendRequest.objects.filter(to_user=profile.user)
+    
     received = []
     sent = []
     for item in receiver:
@@ -113,6 +115,7 @@ def user_detail(request, slug):
         'pvt_albums': pvt_albums,
         'received': received,
         'sent': sent,
+        'received_id': received_id,
         'add_family': add_family,
         'remove_family': remove_family,
     }
@@ -215,7 +218,7 @@ def send_request(request, id):
 
 def cancel_request(request, id):
     """
-    Cancel a sent friend request to a user
+    Cancel a sent friend request
     """
     user = get_object_or_404(User, id=id)
     f_request = FriendRequest.objects.filter(
@@ -228,32 +231,32 @@ def cancel_request(request, id):
         'Your friend request has been cancelled.'
     )
 
-    return redirect('/profiles/%s/' % user.profile.slug)
+    return redirect('profiles:profile')
 
 def delete_request(request, id):
     """
-    Delete a friend request from a user
+    Delete a received friend request
     """
     f_request = FriendRequest.objects.get(id=id)
     f_request.delete()
     messages.success(
         request, 
-        'Friend request removed.'
+        f'Your friend request has been removed.'
     )
     return redirect('profiles:profile')
 
 
 def accept_request(request, id):
     """
-    Accept a friend request from another user
+    Accept a friend request
     """
     f_request = FriendRequest.objects.get(id=id)
     if f_request.to_user == request.user:
         f_request.to_user.profile.friends.add(f_request.from_user)
         f_request.from_user.profile.friends.add(f_request.to_user)
         f_request.delete()
-        messages.success(request, 'Friend request acceted')
-        return redirect('profiles:my_friends')
+        messages.success(request, 'You are now friends with {f_request.from_user}')
+    return redirect('profiles:my_friends')
 
 
 def search_profiles(request):
