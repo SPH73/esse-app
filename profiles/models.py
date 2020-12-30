@@ -81,14 +81,15 @@ STATUS_CHOICES = (
 )
 
 
-
 class FriendRequest(models.Model):
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_user')
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_user')
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES)
     is_family = models.BooleanField(default=False)
-
-
+    
+    def get_friend_requests_count(self):
+        return self.to_user.all().count()
+    
     def __str__(self):
         return f"From {self.from_user}, to {self.to_user} on {self.created.strftime('%d-%m-%Y')}"
