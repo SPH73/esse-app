@@ -39,7 +39,6 @@ def user_edit(request):
 
 @login_required    
 def profile(request):
-    #TODO ADD IN ACCOUNT UPDATE FORM TO THIS VIEW
     """
     A view for the request users profile with edit profile form
     """
@@ -88,6 +87,7 @@ def user_detail(request, slug):
     
     friends = profile.friends.all()
     family = profile.relations.all()
+    user_family = user.profile.relations.all()
 
     receiver = FriendRequest.objects.filter(from_user=profile.user)
     sender = FriendRequest.objects.filter(to_user=profile.user)
@@ -113,6 +113,7 @@ def user_detail(request, slug):
         'pvt_albums': pvt_albums,
         'received': received,
         'sent': sent,
+        'user_family': user_family,
     }
     
     return render(request, template, context)
@@ -230,7 +231,7 @@ def cancel_request(request, id):
     f_request.delete()
     messages.success(
         request, 
-        'Your friend request has been cancelled.'
+        f'Your friend request to {user} has cancelled.'
     )
 
     return redirect('profiles:profile')
@@ -260,34 +261,49 @@ def accept_request(request, id):
         f_request.to_user.profile.friends.add(f_request.from_user)
         f_request.from_user.profile.friends.add(f_request.to_user)
         f_request.delete()
-        messages.success(request, 'Friend request accepted')
+        messages.success(
+            request,
+            f'Your friend request was successfully accepted'
+        )
     return redirect('profiles:my_friends')
 
 
 @login_required
-def delete_friend(request, slug):
-    user = request.user.profile
-    friend = get_object_or_404(Profile, slug)
-    user.friends.remove(friend)
-    friend.friends.remove(user)
-    return redirect('profiles:my_friends')
+def delete_friend(request, id):
+    user = request.user
+    friend = get_object_or_404(User, id=id)
+    user.profile.friends.remove(friend)
+    friend.profile.friends.remove(user)
+    messages.success(
+        request,
+        'User deleted from your friends list'
+    )
+    return redirect('profiles:profile')
 
 
 @login_required
-def add_relation(request, slug):
-    user = request.user.profile
-    friend = get_object_or_404(Profile, slug)
-    user.relations.add(friend)
-    user.friends.remove(friend)
+def add_relation(request, id):
+    user = request.user
+    friend = get_object_or_404(User, id=id)
+    user.profile.relations.add(friend)
+    user.profile.friends.remove(friend)
+    messages.success(
+        request,
+        'Friend added to your family list'
+    )
     return redirect('profiles:my_family')
 
 
 @login_required
-def delete_relation(request, slug):
-    user = request.user.profile
-    relation = get_object_or_404(Profile, slug)
-    user.relations.remove(relation)
-    user.friends.add(relation)
+def remove_relation(request, id):
+    user = request.user
+    relation = get_object_or_404(User, id=id)
+    user.profile.relations.remove(relation)
+    user.profile.friends.add(relation)
+    messages.success(
+        request,
+        'Family member removed to your friends list'
+    )
     return redirect('profiles:my_friends')
 
 

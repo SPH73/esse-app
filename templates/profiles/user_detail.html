@@ -20,22 +20,25 @@
             </div>
             <div class="col-1 my-auto edit">
                 <!-- buttons for friend actions -->
-                {% if request.user in profile.friends.all %}
+                {% if profile.user in request.user.profile.friends.all %}
                 <div class="mb-2">
-                    <a href="" data-toggle="tooltip" data-placement="top" title="Delete friend" id="removeBtn"
-                        type="button" class="btn btn-outline-danger"><i class="fas fa-times"></i>
+                    <a href="{% url 'profiles:delete_friend' profile.user.id %}" data-toggle="tooltip"
+                        data-placement="top" title="Delete friend" id="removeBtn" type="button"
+                        class="btn btn-outline-danger"><i class="fas fa-times"></i>
                     </a>
                 </div>
                 <div class="mb-2">
-                    <a href="" data-toggle="tooltip" data-placement="top" title="Add friend to family" id="familyBtn"
-                        type="button" class="btn btn-outline-primary"><i class="fas fa-check"></i>
+                    <a href="{% url 'profiles:add_relation' profile.user.id %}" data-toggle="tooltip"
+                        data-placement="top" title="Add friend to family" id="familyBtn" type="button"
+                        class="btn btn-outline-primary"><i class="fas fa-check"></i>
                     </a>
                 </div>
                 {% endif %}
-                {% if request.user in profile.relations.all %}
+                {% if profile.user in request.user.profile.relations.all %}
                 <div class="mb-2">
-                    <a href="" data-toggle="tooltip" data-placement="top" title="Revert to friend" id="removeFamilyBtn"
-                        type="button" class="btn btn-outline-primary"><i class="fas fa-times"></i>
+                    <a href="{% url 'profiles:remove_relation' profile.user.id %}" data-toggle="tooltip"
+                        data-placement="top" title="Revert to friend" id="removeFamilyBtn" type="button"
+                        class="btn btn-outline-primary"><i class="fas fa-times"></i>
                     </a>
                 </div>
                 {% endif %}
