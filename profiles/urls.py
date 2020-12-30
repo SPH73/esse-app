@@ -16,4 +16,7 @@ urlpatterns = [
     path('friend-request/cancel/<uuid:id>/', views.cancel_request, name='cancel_request'),
     path('friend-request/accept/<int:id>/', views.accept_request, name='accept_request'),
     path('friend-request/delete/<int:id>/', views.delete_request, name='delete_request'),
+    path('friend/delete/<uuid:id>/', views.delete_friend, name='delete_friend'),
+    path('family/add/<uuid:id>/', views.addd_relation, name='add_relation'),
+    path('family/delete/<uuid:id>/', views.delete_relation, name='delete_relation'),
 ]
