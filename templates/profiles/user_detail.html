@@ -20,7 +20,7 @@
             </div>
             <div class="col-1 my-auto edit">
                 <!-- buttons for friend actions -->
-                {% if profile.user in request.user.profile.friends.all %}
+                {% if profile.user in user_friends %}
                 <div class="mb-2">
                     <a href="{% url 'profiles:delete_friend' profile.user.id %}" data-toggle="tooltip"
                         data-placement="top" title="Delete friend" id="removeBtn" type="button"
@@ -34,7 +34,7 @@
                     </a>
                 </div>
                 {% endif %}
-                {% if profile.user in request.user.profile.relations.all %}
+                {% if profile.user in user_family %}
                 <div class="mb-2">
                     <a href="{% url 'profiles:remove_relation' profile.user.id %}" data-toggle="tooltip"
                         data-placement="top" title="Revert to friend" id="removeFamilyBtn" type="button"
@@ -42,7 +42,7 @@
                     </a>
                 </div>
                 {% endif %}
-                {% if request.user not in received and request.user not in sent and request.user not in profile.friends.all %}
+                {% if request.user not in received and request.user not in sent and profile.user not in user_friends and profile.user not in user_family and request.user not in family %}
                 <a href="{% url 'profiles:send_request' profile.user.id %}" data-toggle="tooltip" data-placement="top"
                     title="Send friend request" id="sendBtn" type="button" class="btn btn-outline-info"><i
                         class="fas fa-user-plus p-1"></i>

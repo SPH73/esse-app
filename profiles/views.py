@@ -88,6 +88,7 @@ def user_detail(request, slug):
     friends = profile.friends.all()
     family = profile.relations.all()
     user_family = user.profile.relations.all()
+    user_friends = user.profile.friends.all()
 
     receiver = FriendRequest.objects.filter(from_user=profile.user)
     sender = FriendRequest.objects.filter(to_user=profile.user)
@@ -114,6 +115,7 @@ def user_detail(request, slug):
         'received': received,
         'sent': sent,
         'user_family': user_family,
+        'user_friends': user_friends,
     }
     
     return render(request, template, context)
