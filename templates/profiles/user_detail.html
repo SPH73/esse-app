@@ -1,0 +1,136 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load cloudinary %}
+
+{% block extra_title %}{{ profile }}{% endblock extra_title %}
+
+{% block content %}
+{% if request.user.username != profile.user.username %}
+<div id="profile" class="container">
+    <h3 class="text-center">{{ profile|title }}'s Profile</h3>
+    <div class="row">
+        <div class="col-12 profile">
+            <div class="col-3 my-auto avatar img-thumb">
+                {% cloudinary profile.avatar.url fetch_format="auto" gravity="faces" crop="thumb" %}
+            </div>
+            <div class="col-8 status text-center">
+                <i class="page-icon fas fa-quote-left"></i>
+                &nbsp;{{ profile.status }}&nbsp;
+                <i class="page-icon fas fa-quote-right"></i>
+            </div>
+            <div class="col-1 my-auto edit">
+                <!-- buttons for friend actions -->
+                {% if request.user in profile.friends.all %}
+                <div class="mb-2">
+                    <a href="" data-toggle="tooltip" data-placement="top" title="Delete friend" id="removeBtn"
+                        type="button" class="btn btn-outline-danger"><i class="fas fa-times"></i>
+                    </a>
+                </div>
+                <div class="mb-2">
+                    <a href="" data-toggle="tooltip" data-placement="top" title="Add friend to family" id="familyBtn"
+                        type="button" class="btn btn-outline-primary"><i class="fas fa-check"></i>
+                    </a>
+                </div>
+                {% endif %}
+                {% if request.user in profile.relations.all %}
+                <div class="mb-2">
+                    <a href="" data-toggle="tooltip" data-placement="top" title="Revert to friend" id="removeFamilyBtn"
+                        type="button" class="btn btn-outline-primary"><i class="fas fa-times"></i>
+                    </a>
+                </div>
+                {% endif %}
+                {% if request.user not in received and request.user not in sent and request.user not in profile.friends.all %}
+                <a href="{% url 'profiles:send_request' profile.user.id %}" data-toggle="tooltip" data-placement="top"
+                    title="Send friend request" id="sendBtn" type="button" class="btn btn-outline-info"><i
+                        class="fas fa-user-plus p-1"></i>
+                </a>
+                {% endif %}
+                {% if request.user in received %}
+                <div class="mb-2">
+                    <a href="{% url 'profiles:accept_request' received.0 %}" data-toggle="tooltip" data-placement="top"
+                        title="Accept friend request" id="acceptBtn" type="button" class="btn btn-outline-success"><i
+                            class="fas fa-user-check"></i>
+                    </a>
+                </div>
+                <div class="mb-2">
+                    <a href="{% url 'profiles:delete_request' received.0 %}" data-toggle="tooltip" data-placement="top"
+                        title="Delete friend request" id="deleteBtn" type="button" class="btn btn-outline-danger"><i
+                            class="fas fa-user-times"></i>
+                    </a>
+                </div>
+                {% endif %}
+                {% if request.user in sent %}
+                <a href="{% url 'profiles:cancel_request' profile.user.id %}" data-toggle="tooltip" data-placement="top"
+                    title="Cancel friend request" id="cancelBtn" type="button" class="btn btn-outline-secondary"><i
+                        class="fas fa-user-minus"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h3 class="text-center">Friends</h3>
+    <div class="img-container">
+        {% if profile.get_friends %}
+        <div class="img-item img-thumb">
+            {% for friend in profile.get_friends %}
+            {% if not friend == request.user %}
+            {% cloudinary friend.profile.avatar.url fetch_format="auto" %}
+            <h3 class="title text-center"><a
+                    href="{{ friend.profile.get_absolute_url }}">{{ friend.profile.user|title }}</a>
+            </h3>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="pages-p">{{ profile|title }} doesn't have any friends yet.</p>
+        {% endif %}
+    </div>
+    <hr>
+    <h3 class="text-center">Albums: {{ albums|length }}</h3>
+    <div id="profile-gallery">
+        {% if request.user in family %}
+        <div class="row">
+            <div class="col portfolio">
+                <h3 class="text-center">{{ profile|title }}'s Family Albums: {{ albums|length }}</h3>
+                {% for album in pvt_albums %}
+                <ul>
+                    <li>
+                        <span class="title"><a href="{% url 'albums:user_album' album.slug %}">{{ album.title|title }}:
+                                {{ album.get_asset_count }}</a></span>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <hr>
+            {% if request.user in friends %}
+            <div class="col portfolio">
+                <h3 class="text-center">{{ profile|title }}'s Public Albums: {{ albums|length }}</h3>
+                {% for album in plc_albums %}
+                <ul>
+                    <li>
+                        <span class="title"><a
+                                href="{% url 'albums:user_album' album.slug %}">{{ album.title|title }}</a>:
+                            {{ album.get_asset_count }}</span>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <p class="pages-p small"><em>You are currently trying to access your profile page on the page to view other user's
+            profiles</em>
+        You can either click the button below to go to your own profile page or on your profile avatar.
+    </p>
+    <!-- go to profile page -->
+    <a href="{% url 'profiles:profile' %}" id="redirect" type="button" class="btn btn-outline-info"><i
+            class="fas fa-user"></i>
+    </a>
+</div>
+{% endif %}
+{% endblock content %}

@@ -11,10 +11,11 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import get_template, render_to_string
 from django.utils.html import strip_tags
 from profiles.forms import UserEditForm
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
-   
+@login_required
 def user_edit(request):
     if request.method == 'POST':
         edit_form = UserEditForm(request.POST, instance=request.user)
@@ -35,7 +36,8 @@ def user_edit(request):
     }
     template = 'profiles/update.html'
     return render(request, template, context)
-    
+
+@login_required    
 def profile(request):
     #TODO ADD IN ACCOUNT UPDATE FORM TO THIS VIEW
     """
@@ -73,6 +75,7 @@ def profile(request):
 
     return render(request, template, context)
 
+@login_required
 def user_detail(request, slug):
     """
     Profile view of all users and if seen by profile owner then the view will seen from the persective of another user
@@ -98,17 +101,9 @@ def user_detail(request, slug):
     for item in sender:
         received.append(item.id)
         sent.append(item.from_user)
-        
-        
-    add_family = False
-    if profile in request.user.profile.friends.all():
-        add_family = True
-        
-    remove_family = False
-    if profile in request.user.profile.relations.all():
-        remove_family = True
 
-    template = 'profiles/profile_detail.html'
+
+    template = 'profiles/user_detail.html'
     context = {
         'profile': profile,
         'friends': friends,
@@ -118,14 +113,12 @@ def user_detail(request, slug):
         'pvt_albums': pvt_albums,
         'received': received,
         'sent': sent,
-        'add_family': add_family,
-        'remove_family': remove_family,
     }
     
     return render(request, template, context)
 
 
-
+@login_required
 def find_friends(request):
     """
     Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile. 
@@ -159,6 +152,8 @@ def find_friends(request):
 
     return render(request, template, context)
 
+
+@login_required
 def friend_list(request):
     """
     Get the profile of the logged in user to access and render their list of friends
@@ -181,6 +176,7 @@ def family_list(request):
    
     return render(request, 'profiles/my_family.html', context)
 
+@login_required
 def requests(request):
     """
     A view to display the logged in users friend requests
@@ -199,6 +195,8 @@ def requests(request):
    
     return render(request, 'profiles/my_requests.html', context)
 
+
+@login_required
 def send_request(request, id):
     """
     Send a friend request to users
@@ -218,6 +216,8 @@ def send_request(request, id):
     messages.info(request, f'You have already sent a friend request to {user}')
     return redirect('/profiles/%s/' % user.profile.slug)
 
+
+@login_required
 def cancel_request(request, id):
     """
     Cancel a sent friend request
@@ -235,6 +235,8 @@ def cancel_request(request, id):
 
     return redirect('profiles:profile')
 
+
+@login_required
 def delete_request(request, id):
     """
     Delete a received friend request
@@ -248,6 +250,7 @@ def delete_request(request, id):
     return redirect('profiles:my_requests')
 
 
+@login_required
 def accept_request(request, id):
     """
     Accept a friend request
@@ -261,6 +264,34 @@ def accept_request(request, id):
     return redirect('profiles:my_friends')
 
 
+@login_required
+def delete_friend(request, slug):
+    user = request.user.profile
+    friend = get_object_or_404(Profile, slug)
+    user.friends.remove(friend)
+    friend.friends.remove(user)
+    return redirect('profiles:my_friends')
+
+
+@login_required
+def add_relation(request, slug):
+    user = request.user.profile
+    friend = get_object_or_404(Profile, slug)
+    user.relations.add(friend)
+    user.friends.remove(friend)
+    return redirect('profiles:my_family')
+
+
+@login_required
+def delete_relation(request, slug):
+    user = request.user.profile
+    relation = get_object_or_404(Profile, slug)
+    user.relations.remove(relation)
+    user.friends.add(relation)
+    return redirect('profiles:my_friends')
+
+
+@login_required
 def search_profiles(request):
     """
     Search form to query usernames
@@ -275,6 +306,8 @@ def search_profiles(request):
 
     return render(request, template, context)
 
+
+@login_required
 def email_invite(request):
     """
     Form to collect email address to send an email invite with link to sign up
