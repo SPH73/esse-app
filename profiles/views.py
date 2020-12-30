@@ -7,23 +7,33 @@ from .forms import ProfileModelForm, EmailInviteForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
-from django.core.mail import send_mail, EmailMultiAlternatives
-from django.template.loader import get_template, render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
 from django.utils.html import strip_tags
 from profiles.forms import UserEditForm
 from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
+
 @login_required
 def user_edit(request):
     if request.method == 'POST':
-        edit_form = UserEditForm(request.POST, instance=request.user)
-        password_form = PasswordChangeForm(data=request.POST, user=request.user)
+        edit_form = UserEditForm(
+            request.POST, 
+            instance=request.user
+        )
+        password_form = PasswordChangeForm(
+            data=request.POST, 
+            user=request.user
+        )
         if edit_form.is_valid() and password_form.is_valid():
             edit_form.save()
             password_form.save()
-            messages.success(request, f'Your account has been updated')
+            messages.success(
+                request, 
+                f'Your account has been updated'
+            )
             return redirect('profiles:profile')
         return redirect('profiles:update')
     
@@ -54,7 +64,12 @@ def profile(request):
     )
 
     if request.method == 'POST':
-        form = ProfileModelForm(request.POST or None, request.FILES or None, instance=profile)
+        form = ProfileModelForm(
+            request.POST or None,
+            request.FILES or None, 
+            instance=profile
+        )
+        
         if form.is_valid():
             form.save()
             messages.success(request, "Profile updated successfully")
@@ -71,13 +86,12 @@ def profile(request):
         'sent_req': sent_f_requests,
         'rec_req': rec_f_requests,
     }
-
     return render(request, template, context)
 
 @login_required
 def user_detail(request, slug):
     """
-    Profile view of all users and if seen by profile owner then the view will seen from the persective of another user
+    Profile view of all users profiles except the request users profile
     """
     user = request.user
     profile = Profile.objects.get(slug=slug)  
@@ -88,6 +102,7 @@ def user_detail(request, slug):
     friends = profile.friends.all()
     family = profile.relations.all()
     user_family = user.profile.relations.all()
+    user_friends = user.profile.friends.all()
 
     receiver = FriendRequest.objects.filter(from_user=profile.user)
     sender = FriendRequest.objects.filter(to_user=profile.user)
@@ -101,8 +116,7 @@ def user_detail(request, slug):
     for item in sender:
         received.append(item.id)
         sent.append(item.from_user)
-
-
+    
     template = 'profiles/user_detail.html'
     context = {
         'profile': profile,
@@ -114,15 +128,18 @@ def user_detail(request, slug):
         'received': received,
         'sent': sent,
         'user_family': user_family,
+        'user_friends': user_friends,
     }
-    
     return render(request, template, context)
 
 
 @login_required
 def find_friends(request):
     """
-    Create a find_list to suggest 'People you may know' of the current users friends friends. Only add them if they haven't already been added. Exclude existing friends profiles and the current user's profile. 
+    Create a find_list to suggest 'People you may know' of the 
+    current users friends friends. Only add them if they haven't 
+    already been added. Exclude existing friends, exiting family profiles
+    and the current user's profile. 
     """
     find_list = [] # consider changing to set() if time
     sent_requests = set()
@@ -136,6 +153,7 @@ def find_friends(request):
     
     me = request.user
     my_friends = me.profile.friends.all()
+    my_family = me.relations.all()
     profiles = Profile.objects.exclude(
         user=request.user
     )
@@ -143,39 +161,40 @@ def find_friends(request):
         user_friends = user.friends.all()
         for friend in user_friends:
             if friend not in find_list and friend != me:
-                if friend not in my_friends:
+                if friend not in my_friends and friend not in my_family:
                     find_list.append(friend)         
    
     template = 'profiles/find_friends.html'
     context = {
         'find_list': find_list,
     }
-
     return render(request, template, context)
 
 
 @login_required
 def friend_list(request):
     """
-    Get the profile of the logged in user to access and render their list of friends
+    Get the profile of the logged in user to access and render 
+    their list of friends
     """
     profile = Profile.objects.get(user=request.user)
     context = {
         'profile': profile,
     }
-   
     return render(request, 'profiles/my_friends.html', context)
+
 
 def family_list(request):
     """
-    Get the profile of the logged in user to access and render their list of family
+    Get the profile of the logged in user to access and render 
+    their list of family
     """
     profile = Profile.objects.get(user=request.user)
     context = {
         'profile': profile,
     }
-   
     return render(request, 'profiles/my_family.html', context)
+
 
 @login_required
 def requests(request):
@@ -193,7 +212,6 @@ def requests(request):
        'profile': profile,
        'rec_f_requests':rec_f_requests
     }
-   
     return render(request, 'profiles/my_requests.html', context)
 
 
@@ -214,7 +232,10 @@ def send_request(request, id):
         )
         
         return redirect('/profiles/%s/' % user.profile.slug)
-    messages.info(request, f'You have already sent a friend request to {user}')
+    messages.info(
+        request,
+        f'You have already sent a friend request to {user}'
+    )
     return redirect('/profiles/%s/' % user.profile.slug)
 
 
@@ -233,7 +254,6 @@ def cancel_request(request, id):
         request, 
         f'Your friend request to {user} has cancelled.'
     )
-
     return redirect('profiles:profile')
 
 
@@ -270,6 +290,10 @@ def accept_request(request, id):
 
 @login_required
 def delete_friend(request, id):
+    """
+    Remove a user from friends and (also removes the request user from the 
+    other users friends list)
+    """
     user = request.user
     friend = get_object_or_404(User, id=id)
     user.profile.friends.remove(friend)
@@ -283,6 +307,9 @@ def delete_friend(request, id):
 
 @login_required
 def add_relation(request, id):
+    """
+    Add add a friend to relations (one way relationship)
+    """
     user = request.user
     friend = get_object_or_404(User, id=id)
     user.profile.relations.add(friend)
@@ -296,6 +323,9 @@ def add_relation(request, id):
 
 @login_required
 def remove_relation(request, id):
+    """
+    Revert a user from relations list to friends list
+    """
     user = request.user
     relation = get_object_or_404(User, id=id)
     user.profile.relations.remove(relation)
@@ -319,14 +349,13 @@ def search_profiles(request):
         'results': results,
         'query': query
     }
-
     return render(request, template, context)
 
 
 @login_required
 def email_invite(request):
     """
-    Form to collect email address to send an email invite with link to sign up
+    Send an email invite with a sign up link
     """
     if request.method == 'POST':
         form = EmailInviteForm(request.POST)
@@ -342,6 +371,8 @@ def email_invite(request):
             msg.send(fail_silently=False)
             messages.success(request, 'Your email has been sent')
             return HttpResponseRedirect(reverse('profiles:find_friends'))
+        messages.error(request, "We are sorry but we could not send your email this time.")
+        return redirect('home')
     else:
          form = EmailInviteForm()
     
