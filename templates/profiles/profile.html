@@ -8,7 +8,7 @@
 <div id="profile" class="container">
     <div class="row">
         <div class="col-12 profile">
-            <div class="col my-auto mx-auto avatar img-thumb">
+            <div class="col-3 my-auto mx-auto avatar img-thumb">
                 {% cloudinary profile.avatar.url fetch_format="auto" gravity="faces" crop="thumb" %}
             </div>
             <div class="col-8 status">
@@ -16,7 +16,7 @@
                 &nbsp;{{ profile.status }}&nbsp;
                 <i class="page-icon fas fa-quote-right"></i>
             </div>
-            <div class="col my-auto edit">
+            <div class="col-1 my-auto edit">
                 <!-- button for edit profile modal -->
                 <button id="profileUpdateBtn" type="button" class="btn btn-outline-info" data-toggle="modal"
                     data-target=".profile-update"><i class="fas fa-user-edit"></i>

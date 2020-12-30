@@ -213,7 +213,7 @@ h6 a:hover {
 
 /* spacing */
 .bt-5 {
-    height: 6.25rem;
+    height: 5rem;
 }
 
 /* icons */
@@ -231,7 +231,6 @@ h6 a:hover {
 }
 
 .profile,
-.profile .avatar,
 .profile .edit {
     padding: 0;
     /* font-size: 1.2rem; */
@@ -297,13 +296,13 @@ li {
 }
 
 .img-container {
+    display: inline-block;
     width: 90%;
     margin: 0 auto;
     text-align: center;
 }
 
 .img-item {
-    display: inline-block;
     vertical-align: middle;
     padding: 5px
 }
@@ -353,7 +352,7 @@ footer a:hover {
     }
 }
 
-@media screen and (min-width: 320px) {
+/* @media screen and (min-width: 320px) {
     #profile .avatar {
         padding-right: 0;
         padding-left: 2rem;
@@ -367,4 +366,4 @@ footer a:hover {
         padding: 0 0.25rem;
     }
 
-}
+} */

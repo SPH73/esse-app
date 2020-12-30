@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django import forms
 from .models import Album, Asset
 from profiles.models import Profile
 from .forms import AssetModelForm, CreateAlbumModelForm
 
+
+@login_required
 def gallery(request):
     """
     Render a view to create and display a gallery of the logged in users album portfolio
@@ -29,7 +32,9 @@ def gallery(request):
         'album_form': album_form,
     }
     return render(request, template, context)
-   
+
+
+@login_required  
 def album_detail(request, album):
     """
    Get the user profile to retrieve all related albums and list the assets and generate a form to add assets.
@@ -58,6 +63,7 @@ def album_detail(request, album):
     return render(request, template, context)
 
 
+@login_required
 def album_delete(request, album):
     """
     Find and delete the album instance and all related assets from the database.
@@ -80,6 +86,7 @@ def album_delete(request, album):
     return render(request, template, context) 
 
 
+@login_required
 def asset_detail(request, album, asset):
     """
     Get the asset from the album
@@ -95,6 +102,7 @@ def asset_detail(request, album, asset):
     return render(request, template, context)
 
 
+@login_required
 def asset_delete(request, album, asset): 
     profile = get_object_or_404(Profile, user=request.user)
     album = get_object_or_404(Album, slug=album)
@@ -118,6 +126,8 @@ def asset_delete(request, album, asset):
     
     return render(request, template, context)
 
+
+@login_required
 def user_album(request, album):
     # need to put in a check if request.user is friend or family to view albums
     album = get_object_or_404(Album, slug=album)
@@ -134,6 +144,8 @@ def user_album(request, album):
     
     return render(request, template, context)
 
+
+@login_required
 def album_asset(request, album, asset):
     """
     Get the asset from the album

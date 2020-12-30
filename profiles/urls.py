@@ -14,6 +14,9 @@ urlpatterns = [
     path('<slug:slug>/', views.user_detail, name='user_detail'),
     path('friend-request/send/<uuid:id>/', views.send_request, name='send_request'),
     path('friend-request/cancel/<uuid:id>/', views.cancel_request, name='cancel_request'),
-    path('friend-request/delete/<int:id>/', views.cancel_request, name='delete_request'),
     path('friend-request/accept/<int:id>/', views.accept_request, name='accept_request'),
+    path('friend-request/delete/<int:id>/', views.delete_request, name='delete_request'),
+    path('friend/delete/<uuid:id>/', views.delete_friend, name='delete_friend'),
+    path('family/add/<uuid:id>/', views.add_relation, name='add_relation'),
+    path('family/remove/<uuid:id>/', views.remove_relation, name='remove_relation'),
 ]
