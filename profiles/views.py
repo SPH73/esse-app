@@ -87,15 +87,18 @@ def user_detail(request, slug):
     family = profile.relations.all()
 
     receiver = FriendRequest.objects.filter(from_user=profile.user)
-    received_id = receiver.object.get(receiver_id=receiver.id)
     sender = FriendRequest.objects.filter(to_user=profile.user)
     
     received = []
     sent = []
     for item in receiver:
+        received.append(item.id)
         received.append(item.to_user)
+
     for item in sender:
+        received.append(item.id)
         sent.append(item.from_user)
+        
         
     add_family = False
     if profile in request.user.profile.friends.all():
@@ -115,7 +118,6 @@ def user_detail(request, slug):
         'pvt_albums': pvt_albums,
         'received': received,
         'sent': sent,
-        'received_id': received_id,
         'add_family': add_family,
         'remove_family': remove_family,
     }
@@ -243,7 +245,7 @@ def delete_request(request, id):
         request, 
         f'Your friend request has been removed.'
     )
-    return redirect('profiles:profile')
+    return redirect('profiles:my_requests')
 
 
 def accept_request(request, id):
@@ -255,7 +257,7 @@ def accept_request(request, id):
         f_request.to_user.profile.friends.add(f_request.from_user)
         f_request.from_user.profile.friends.add(f_request.to_user)
         f_request.delete()
-        messages.success(request, 'You are now friends with {f_request.from_user}')
+        messages.success(request, 'Friend request accepted')
     return redirect('profiles:my_friends')
 
 

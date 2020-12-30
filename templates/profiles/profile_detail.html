@@ -20,7 +20,7 @@
             </div>
             <div class="col-1 my-auto edit">
                 <!-- buttons for friend actions -->
-                {% if request.user in friends %}
+                {% if request.user in profile.friends.all %}
                 <a href="" data-toggle="tooltip" data-placement="top" title="Delete friend" id="removeBtn" type="button"
                     class="btn btn-danger"><i class="fas fa-times"></i>
                 </a>
@@ -36,15 +36,15 @@
                 {% endif %}
                 {% if request.user in received %}
                 <div class="mb-2">
-                    <a href="{% url 'profiles:accept_request' {{received_id}} %}" data-toggle="tooltip"
-                        data-placement="top" title="Accept friend request" id="acceptBtn" type="button"
-                        class="btn btn-outline-success"><i class="fas fa-user-check"></i>
+                    <a href="{% url 'profiles:accept_request' received.0 %}" data-toggle="tooltip" data-placement="top"
+                        title="Accept friend request" id="acceptBtn" type="button" class="btn btn-outline-success"><i
+                            class="fas fa-user-check"></i>
                     </a>
                 </div>
                 <div class="mb-2">
-                    <a href="{% url 'profiles:delete_request' {{received_id}} %}" data-toggle="tooltip"
-                        data-placement="top" title="Delete friend request" id="deleteBtn" type="button"
-                        class="btn btn-outline-danger"><i class="fas fa-user-times"></i>
+                    <a href="{% url 'profiles:delete_request' received.0 %}" data-toggle="tooltip" data-placement="top"
+                        title="Delete friend request" id="deleteBtn" type="button" class="btn btn-outline-danger"><i
+                            class="fas fa-user-times"></i>
                     </a>
                 </div>
                 {% endif %}
