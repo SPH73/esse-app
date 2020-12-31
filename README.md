@@ -318,6 +318,16 @@ Much of the time in development was spent within chrome dev tool to test respons
 
 After added the custom error pages and about page with an error in the live site I have discovered that the custom 500 error page isn't rendering. I will attempt to fix both and leave a comment if so.
 
+Running collectstatic again has not resolved the custom error page not rendering but going to a page that doesn't exist renders the 404 error page.
+Edit: The about page error has been fixed so I cannot see if the 500 page is working now. but as there are no more broken links found thus far it is possible I will not find out before submitting.
+
+A missing curly bracket on the get_absolute_url link from the profile.html to the album_detail.html has been resolved. Not sure how it went missing but it was found and fixed.
+
+A login with staff status has been created to use for assessment:
+username: testuser
+email: testuser@email.com
+password: testpass123
+
 ## Deployment
 
 This project as aforementioned is version controlled in [Github](https://github.com/sph73) and deployed on Heroku. All sensitive data is excluded from verison control and saved in a docker-compose.yml that was used to build and run the docker container. They have also been added to the Heroku settings config vars.
@@ -339,6 +349,23 @@ After the above configurations were complete, I used the Heroku CLI to push to t
 Once a successful build and deployment took place, I enabled automatic deploys in the settings tab on Heroku to deploy from the main branch of the Github remote repository, which ensures the live site is kept up to date with further development, so after each merge into the `main` branch the live site rebuilds.
 
 Before attempting the initial deployment I ran Django's management command `/.manage.py deploy --check` and followed the [checklist](https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/). Unfortunately, doing so resulted in the session cookie not being stored and prevented access to the site from perpetual redirect back to the home page. As I was running out of time, I removed all the added settings once I had found the cause of the problem and have left them off for now, as I am racing against an approaching deadline and it's not included in the project criteria. I will try to add them again after my project has been assessed as this was something I had included in my user stories.
+
+### Cloning the repository
+
+To clone this respository:
+
+1. Create a project directory on your machine in your terminal or IDE using `mkdir <filename> && cd <filename>`
+2. use pipenv to create a virtual environement or swap it with your method of choice
+3. to activate the virtual environemnt use `pipenv shell` or your chosen method
+4. Go the the [respository](https://github.com/SPH73/esse-app) and click on the Code button with the down arrow to either copy the url or download the zip. Ensure that you are in the relevant folder and either open the downloaded file or use `git clone https://github.com/SPH73/esse-app`
+5. Install the project requirements using `pipenv install requirements.txt`
+6. Check the installation with `python manage.py runserver` to confirm that Django installed correctly. If not the dependencies can be installed individually.
+7. Create a .env file and add it to .gitignore with `echo .env >> .gitignore`
+8. Add your environment variables to the env and reference then in the `settings.py`
+9. Create a remote repository and add your push your local repository using `git add .`, `git commit -m 'Initial commit'` and `git push <your remote repository url>`
+10. Your all set to go!
+
+This repository has not been added to Docker Hub because I haven't got a public account, otherwise it could be downloaded as an image to a Dockerfile and built and run with a docker-compose.yml in development.
 
 ## Credits
 
