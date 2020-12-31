@@ -241,8 +241,12 @@ The layout attempts to feel uncluttered but I will definitely be improving some 
 
 ### Wireframes
 
-![Wireframes]()
-The wireframes are very basic. My design skills need some serious work but they did help me visualise how I would implement the features.
+![Wireframes - Albums](Design/wireframe-1.png)  
+![Wireframes - Profile](Design/wireframe-2.png)  
+![Wireframes - Screenshot](Design/album-view-screenshot.png)  
+
+The wireframes are very basic. My design skills need some serious work but they did help me visualise how I would implement the features.  
+I was unable to retrieve the mockups as my trial has expired but I have included the orignal handdrawn ones.
 
 ### Database Schema
 
@@ -323,6 +327,10 @@ Running collectstatic again has not resolved the custom error page not rendering
 Edit: The about page error has been fixed so I cannot see if the 500 page is working now. but as there are no more broken links found thus far it is possible I will not find out before submitting.
 
 A missing curly bracket on the get_absolute_url link from the profile.html to the album_detail.html has been resolved. Not sure how it went missing but it was found and fixed.
+
+My-friends page fixed. The empty conditon was rendering inside the card. The Album urls are resolving correctly. As of now there are no apparent bugs.
+
+The footer is too big and I was not able to fix it in time.
 
 A login with staff status has been created to use for assessment:
 username: testuser
