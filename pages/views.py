@@ -32,3 +32,6 @@ def contactView(request):
         'form': form,
     }
     return render(request, template, context)
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'privacy_policy.html'
