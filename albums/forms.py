@@ -13,18 +13,18 @@ class CreateAlbumModelForm(forms.ModelForm):
             fields = ('title', 'is_public')
 
       is_public = forms.TypedChoiceField(
-            label = 'Who do you want to share this album with?',
-            choices = ((1, "Everyone"), (0, "Family")),
-            coerce = lambda x: bool(int(x)),
-            widget = forms.RadioSelect,
-            initial = '1',
-            required = True,
+            label='Who do you want to share this album with?',
+            choices=((1, "Everyone"), (0, "Family")),
+            coerce=lambda x: bool(int(x)),
+            widget=forms.RadioSelect,
+            initial='1',
+            required=True,
       )
 
       title = forms.CharField(
-            label = 'Title',
-            max_length = 80,
-            required = True,
+            label='Title',
+            max_length=80,
+            required=True,
       )
 
       def __init__(self, *args, **kwargs):
@@ -33,14 +33,16 @@ class CreateAlbumModelForm(forms.ModelForm):
             self.helper.form_id = 'id-createAlbumModelForm'
             self.helper.layout = Layout(
                   Fieldset(
-                  'Create your album',
-                  'is_public',
-                  'title',
+                        'Create your album',
+                        'is_public',
+                        'title',
                   ),
             )
 
+
 def album_media_dir():
-      folder_name = 'Esse/user_uploads/albums/user_{instance.profile}/{instance.album.slug}/{filename}'
+      folder_name = 'Esse/user_uploads/albums/user\
+            _{instance.profile}/{instance.album.slug}/{filename}'
       return folder_name
 
 
@@ -50,26 +52,25 @@ class AssetModelForm(forms.ModelForm):
             fields = ('title', 'media', 'tags')
 
       title = forms.CharField(
-            label = 'Title',
-            max_length = 80,
-            required = True,
+            label='Title',
+            max_length=80,
+            required=True,
       )
 
       media = CloudinaryFileField(
-            options = {
-            'folder': album_media_dir(),
-            'use_filename': True,
-            'resource_type': 'auto',
-            'auto_tagging': 0.8
+            options={
+                  'folder': album_media_dir(),
+                  'use_filename': True,
+                  'resource_type': 'auto',
+                  'auto_tagging': 0.8
             }
       )
 
       tags = forms.CharField(
-            label = 'Tags',
-            required = False,
-            help_text = 'Comma, separated, list'
+            label='Tags',
+            required=False,
+            help_text='Comma, separated, list'
       )
-
 
       def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -78,9 +79,9 @@ class AssetModelForm(forms.ModelForm):
             self.helper.use_custom_control = True
             self.helper.layout = Layout(
                   Fieldset(
-                  'Add your media',
-                  'media',
-                  'title',
-                  'tags',
+                        'Add your media',
+                        'media',
+                        'title',
+                        'tags',
                   )
             )

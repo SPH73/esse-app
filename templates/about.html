@@ -1,11 +1,11 @@
 {% extends '_base.html' %}
 {% load static %}
 
-{% block extra_title %}About{% endblock title %}
+{% block extra_title %}About{% endblock extra_title %}
 
 {% block content %}
 <div id="about" class="about-image">
-    <img class="esse-image" src="/static/images/Esse-about-white.png">
+    <img class="esse-image" src="{% static 'images/Esse-about-white.png' %}">
 </div>
 <div class="container">
     <div class="about-text">

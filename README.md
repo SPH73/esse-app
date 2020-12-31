@@ -8,11 +8,11 @@ style="float: left; vertical-align: middle;">
 
 This is final project for the Full Stack Developer Course and is a culmination of all the modules and additional learning that was required to achieve the purpose (and some).
 
-What is Esse and why?
+What is [Esse](https://esse-app.herokuapp.com/) and why?
 
-The idea for Esse came out of a frustration and a need to solve an irk. I have a daughter who lives 6000 miles away, who got married during lockdown; an event that I had anticipated for over a year and that I could not attend. Sharing the wedding photos on WhatsApp and Facebook wasn’t ideal from a family perspective and I felt that we had a need for a 'private social media, in which we can upload our photos to albums and any family member can go and view them at will. No need to go scrolling through an endless amount of feed and no need to download all the pics to our phones.
+The idea for Esse came out of a frustration and a need to solve an irk. I have a daughter who lives 6000 miles away, who got married during lockdown; an event that I had anticipated for over a year and that I could not attend. Sharing the wedding photos on WhatsApp and Facebook wasn’t ideal from a family perspective and I felt that we had a need for a 'private social media', in which we can upload our photos to albums and any family member can go and view them at will. No need to go scrolling through an endless amount of feed and no need to download all the pics to our phones.
 
-Esse will allow uploading of videos in the next sprint and have a calendar for sharing events with family and a post page to share a broadcast about something relevant to family and friends - anything you’d would want to tell the whole family.
+Esse will allow uploading of videos in the next sprint and have a calendar for sharing events with family and a post page to share a broadcast about something relevant to family and friends - anything you would want to tell the whole family.
 
 However, Esse has been developed for close friends too and so the aim was for it to extend to suit a close network or family. A certain member may wish to have someone in their family list but unlike friendships, family relationships are nonreciprocal; each user must add a friend to their family list and when a user is removed from a list, they revert back to friends. Removal of friends, again, is reciprocal.
 
@@ -149,7 +149,7 @@ As the site owner I want/need:
   - through the familiarity of icons and actions
   - by optimised page loading
   - by providing feedback on the actions they take
-  - by ensuring the site follows Django security best practices as expressed in the [documentation] (https://docs.djangoproject.com/en/3.1/topics/security/)
+  - by ensuring the site follows Django security best practices as expressed in the [documentation](https://docs.djangoproject.com/en/3.1/topics/security/)
     to enjoy all the benefits of the site as per a registered user or visitor
 
 As a student/developer I endeavoured:
@@ -200,6 +200,7 @@ Furthermore, since the app is still in a primitive or beta state and currently s
 3. Following system to track when friends upload new media
 4. Post app (that would be more appropriately named messages but can’t be due to a conflict with Django messages framework) to send notifications to friends and family
 5. Calendar to schedule family or group events (Django Calendar)
+6. Social login will be added in the next sprint
 
 ## Design
 
@@ -316,6 +317,18 @@ Account confirmation and forgotton password emails were not following the site s
 
 Much of the time in development was spent within chrome dev tool to test responsiveness between device sizes and media queries added and then removed. As mentioned previously, I need to further improve how the site renders on different screen sizes but it has been tested from a 4k screen the smallest mobile screen and changed to improve the appearance across them all.
 
+After added the custom error pages and about page with an error in the live site I have discovered that the custom 500 error page isn't rendering. I will attempt to fix both and leave a comment if so.
+
+Running collectstatic again has not resolved the custom error page not rendering but going to a page that doesn't exist renders the 404 error page.
+Edit: The about page error has been fixed so I cannot see if the 500 page is working now. but as there are no more broken links found thus far it is possible I will not find out before submitting.
+
+A missing curly bracket on the get_absolute_url link from the profile.html to the album_detail.html has been resolved. Not sure how it went missing but it was found and fixed.
+
+A login with staff status has been created to use for assessment:
+username: testuser
+email: testuser@email.com
+password: testpass123
+
 ## Deployment
 
 This project as aforementioned is version controlled in [Github](https://github.com/sph73) and deployed on Heroku. All sensitive data is excluded from verison control and saved in a docker-compose.yml that was used to build and run the docker container. They have also been added to the Heroku settings config vars.
@@ -337,6 +350,23 @@ After the above configurations were complete, I used the Heroku CLI to push to t
 Once a successful build and deployment took place, I enabled automatic deploys in the settings tab on Heroku to deploy from the main branch of the Github remote repository, which ensures the live site is kept up to date with further development, so after each merge into the `main` branch the live site rebuilds.
 
 Before attempting the initial deployment I ran Django's management command `/.manage.py deploy --check` and followed the [checklist](https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/). Unfortunately, doing so resulted in the session cookie not being stored and prevented access to the site from perpetual redirect back to the home page. As I was running out of time, I removed all the added settings once I had found the cause of the problem and have left them off for now, as I am racing against an approaching deadline and it's not included in the project criteria. I will try to add them again after my project has been assessed as this was something I had included in my user stories.
+
+### Cloning the repository
+
+To clone this respository:
+
+1. Create a project directory on your machine in your terminal or IDE using `mkdir <filename> && cd <filename>`
+2. use pipenv to create a virtual environement or swap it with your method of choice
+3. to activate the virtual environemnt use `pipenv shell` or your chosen method
+4. Go the the [respository](https://github.com/SPH73/esse-app) and click on the Code button with the down arrow to either copy the url or download the zip. Ensure that you are in the relevant folder and either open the downloaded file or use `git clone https://github.com/SPH73/esse-app`
+5. Install the project requirements using `pipenv install requirements.txt`
+6. Check the installation with `python manage.py runserver` to confirm that Django installed correctly. If not the dependencies can be installed individually.
+7. Create a .env file and add it to .gitignore with `echo .env >> .gitignore`
+8. Add your environment variables to the env and reference then in the `settings.py`
+9. Create a remote repository and add your push your local repository using `git add .`, `git commit -m 'Initial commit'` and `git push <your remote repository url>`
+10. Your all set to go!
+
+This repository has not been added to Docker Hub because I haven't got a public account, otherwise it could be downloaded as an image to a Dockerfile and built and run with a docker-compose.yml in development.
 
 ## Credits
 

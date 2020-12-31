@@ -104,7 +104,7 @@
             {% for album in pvt_albums %}
             <ul>
                 <li>
-                    <span class="title"><a href="{ profile.album.get_absolute_url }}">{{ album.title|title }}:
+                    <span class="title"><a href="{{ profile.album.get_absolute_url }}">{{ album.title|title }}:
                             {{ album.get_asset_count }}</a></span>
                 </li>
             </ul>
