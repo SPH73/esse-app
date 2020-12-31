@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block extra_title %}Internal Server Error{% endblock %}
+
+
+{% block content %}
+<div class="container text-center text-muted my-5">
+    <div class="row">
+        <div class="col-12 mt-4">
+            <h1>Error</h1>
+            <h2 class="pt-3 pb-5">Internal Server Error</h2>
+            <h4 class="pt-5">Doops! Well this is unexpected!</h4>
+            <h4 class="pt-3">An error has occured and we're working to fix the problem!</h4>
+            <h4 class="pt-3">We'll have it sorted shortly.</h4>
+            <a class="btn btn-outline-secondary" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
+            </h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

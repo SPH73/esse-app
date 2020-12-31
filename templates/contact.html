@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block extra_title %}Contact{% endblock extra_title %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Contact Us</h1>
+    <a class="btn btn-outline-secondary" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
+    <p class="pages-p">
+        For any site queries or concerns, please contact us using this form
+    </p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <button class="btn btn-outline-success btn-sm" type="submit"><i class="fas fa-envelope"></i></button>
+    </form>
+</div>
+{% endblock content %}

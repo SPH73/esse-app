@@ -141,11 +141,18 @@ Coverage.py is being used to check the code being tested or more specifically to
 
 Thanks to Adam Johnson and this blog post [Getting a Django Application to 100% Coverage](https://adamj.eu/tech/2019/04/30/getting-a-django-application-to-100-percent-coverage/) I was able to resolve coverage reporting 98% to 100% by including the code in manage.py which is a workaround for a bug in the report. See screenshots here and refer to the credit code in manaage.py.
 
+EDIT: There is no longer 100% coverage. I eventually found that I was no longer able to think about think about how to write the tests so I reverted to manual testing
+
 ## Deployment
 
 ## Credits
 
 Credit to [Zac Kwan](https://medium.com/@Zaccc123) and [this blog](https://medium.com/@Zaccc123/django-tests-with-nose-and-coverage-dff5d3633b4b) for the additional line of code in manage.py to generate a coverage html report automatically.
+
+[Gerlad Altmann on pixabay](https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3149988)
+[About image by Gerlad Altmann on pixabay](https://pixabay.com/photos/mobile-phone-smartphone-keyboard-1917737/)
+[Image by Gerlad Altmann on pixabay](https://pixabay.com/photos/personal-network-smartphone-hand-3149988/)
+[Hero image by Gerlad Altmann on pixabay](https://pixabay.com/photos/iphone-ios-iphoto-smartphone-smart-1055371/)
 
 ## Acknowledgements
 

@@ -3,15 +3,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <a class="p-2" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="p-2" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="p-2" href=""><i class="fab fa-google-plus-g"></i></a>
-                    <a class="p-2" href=""><i class="fab fa-instagram-square"></i></a>
+                    <a type="button" class="btn-floating p-2" href="https://twitter.com/" target="_blank"><i
+                            class="fab fa-twitter"></i></a>
+                    <a type="button" class="btn-floating p-2" href="https://www.facebook.com/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a type="button" class="btn-floating p-2" href="https://www.instagram.com/" target="_blank"><i
+                            class="fab fa-instagram-square"></i></a>
                 </div>
                 <div class="col">
                     <a class="p-2" href="{% url 'about' %}">About</a>
+                    <a class="p-2" href="{% url 'contact' %}">Contact</a>
                 </div>
-
             </div>
             <div class="row">
                 <div class="col">
@@ -24,6 +26,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </footer>

@@ -201,8 +201,7 @@ EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = 'esse@pixpimedia.com'
-    
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 cloudinary.config(
   cloud_name = env.str('CLOUDINARY_CLOUD_NAME'),

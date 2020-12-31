@@ -29,6 +29,9 @@ admin.site.site_header = "Esse Admin"
 admin.site.site_title = "Esse Admin Portal"
 admin.site.index_title = "Welcome to Esse Portal"
 
+handler404 = 'config.views.handler404'
+handler500 = 'config.views.handler500'
+
 urlpatterns = [
     path('backoffice/', admin.site.urls),
   
@@ -45,7 +48,7 @@ urlpatterns = [
 
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    
-] 
+]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
