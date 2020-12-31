@@ -8,11 +8,11 @@ style="float: left; vertical-align: middle;">
 
 This is final project for the Full Stack Developer Course and is a culmination of all the modules and additional learning that was required to achieve the purpose (and some).
 
-What is Esse and why?
+What is [Esse](https://esse-app.herokuapp.com/) and why?
 
-The idea for Esse came out of a frustration and a need to solve an irk. I have a daughter who lives 6000 miles away, who got married during lockdown; an event that I had anticipated for over a year and that I could not attend. Sharing the wedding photos on WhatsApp and Facebook wasn’t ideal from a family perspective and I felt that we had a need for a 'private social media, in which we can upload our photos to albums and any family member can go and view them at will. No need to go scrolling through an endless amount of feed and no need to download all the pics to our phones.
+The idea for Esse came out of a frustration and a need to solve an irk. I have a daughter who lives 6000 miles away, who got married during lockdown; an event that I had anticipated for over a year and that I could not attend. Sharing the wedding photos on WhatsApp and Facebook wasn’t ideal from a family perspective and I felt that we had a need for a 'private social media', in which we can upload our photos to albums and any family member can go and view them at will. No need to go scrolling through an endless amount of feed and no need to download all the pics to our phones.
 
-Esse will allow uploading of videos in the next sprint and have a calendar for sharing events with family and a post page to share a broadcast about something relevant to family and friends - anything you’d would want to tell the whole family.
+Esse will allow uploading of videos in the next sprint and have a calendar for sharing events with family and a post page to share a broadcast about something relevant to family and friends - anything you would want to tell the whole family.
 
 However, Esse has been developed for close friends too and so the aim was for it to extend to suit a close network or family. A certain member may wish to have someone in their family list but unlike friendships, family relationships are nonreciprocal; each user must add a friend to their family list and when a user is removed from a list, they revert back to friends. Removal of friends, again, is reciprocal.
 
@@ -149,7 +149,7 @@ As the site owner I want/need:
   - through the familiarity of icons and actions
   - by optimised page loading
   - by providing feedback on the actions they take
-  - by ensuring the site follows Django security best practices as expressed in the [documentation] (https://docs.djangoproject.com/en/3.1/topics/security/)
+  - by ensuring the site follows Django security best practices as expressed in the [documentation](https://docs.djangoproject.com/en/3.1/topics/security/)
     to enjoy all the benefits of the site as per a registered user or visitor
 
 As a student/developer I endeavoured:
