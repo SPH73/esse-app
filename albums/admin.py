@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Album, Asset
 
+
 class AlbumModelAdmin(admin.ModelAdmin):
     list_display = (
         'profile',
@@ -11,7 +12,8 @@ class AlbumModelAdmin(admin.ModelAdmin):
         'is_public',
     )
     ordering = ('-updated',)
-    
+
+
 class AssetModelAdmin(admin.ModelAdmin):
     list_display = (
         'album',
@@ -21,7 +23,6 @@ class AssetModelAdmin(admin.ModelAdmin):
         'added',
     )
     ordering = ('-added',)
-    
+
 admin.site.register(Album, AlbumModelAdmin)
 admin.site.register(Asset, AssetModelAdmin)
-

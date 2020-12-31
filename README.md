@@ -200,6 +200,7 @@ Furthermore, since the app is still in a primitive or beta state and currently s
 3. Following system to track when friends upload new media
 4. Post app (that would be more appropriately named messages but can’t be due to a conflict with Django messages framework) to send notifications to friends and family
 5. Calendar to schedule family or group events (Django Calendar)
+6. Social login will be added in the next sprint
 
 ## Design
 

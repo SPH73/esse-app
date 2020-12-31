@@ -10,19 +10,21 @@ from django.contrib.auth.forms import UserChangeForm
 
 User = get_user_model()
 
+
 class UserEditForm(UserChangeForm):
-       
+
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name',)
 
 
-# TODO how to add google captcha?
 class EmailInviteForm(forms.Form):
     name = forms.CharField(max_length=30,)
     to = forms.EmailField()
-    comment = forms.CharField(required=False, max_length=300, widget=forms.Textarea)
-    
+    comment = forms.CharField(
+        required=False, max_length=300, widget=forms.Textarea
+    )
+
     def __init__(self, *args, **kwargs):
         """
         Use placeholders instead of labels and autofocus the first field
@@ -48,13 +50,13 @@ class ProfileModelForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('status', 'avatar')
-    
+
     status = forms.CharField(
-        label = '',
+        label='',
       )
-    
+
     avatar = CloudinaryFileField(
-    options = {
+    options={
         'folder': 'Esse/user_uploads/avatars',
         'use_filename': True,
         'overwrite': True,
@@ -63,8 +65,8 @@ class ProfileModelForm(forms.ModelForm):
             {'width': 200, 'height': 200, 'gravity': "face", 'crop': "thumb"}
         ]
     }
-      )
-        
+    )
+
     def __init__(self, *args, **kwargs):
         """
         Remove the labels

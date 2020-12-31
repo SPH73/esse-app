@@ -9,15 +9,13 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from pathlib import Path
 from environs import Env
 env = Env()
 env.read_env()
-
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,12 +30,13 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=True)
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = ['esse-app.herokuapp.com','localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['esse-app.herokuapp.com', 'localhost', '127.0.0.1']
+
 
 # Application definition
 
 DJNAGO_APPS = [
-    'django.contrib.admin', 
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.postgres',
@@ -104,28 +103,40 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
-#https://docs.djangoproject.com/en/3.1/ref/settings#settings
+# https://docs.djangoproject.com/en/3.1/ref/settings#settings
 
 DATABASES = {
-    "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
+    "default": env.dj_db_url(
+        "DATABASE_URL",
+        default="postgres://postgres@db/postgres"
+    )
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/3.1/ref/settings/
+# #auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.\
+                UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.\
+                MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.\
+                CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.\
+                NumericPasswordValidator',
     },
 ]
 
@@ -168,7 +179,7 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
-ACCOUNT_SESSION_REMEMBER = True 
+ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
@@ -204,9 +215,9 @@ EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 cloudinary.config(
-  cloud_name = env.str('CLOUDINARY_CLOUD_NAME'),
-  api_key =  env.str('CLOUDINARY_API_KEY'),
-  api_secret = env.str('CLOUDINARY_API_SECRET')
+  cloud_name=env.str('CLOUDINARY_CLOUD_NAME'),
+  api_key=env.str('CLOUDINARY_API_KEY'),
+  api_secret=env.str('CLOUDINARY_API_SECRET')
 )
 
 STRIPE_TEST_PUBLISHABLE_KEY = env.str('STRIPE_TEST_PUBLISHABLE_KEY')
