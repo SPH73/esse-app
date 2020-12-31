@@ -207,6 +207,14 @@ nav img {
 
 }
 
+.large-text {
+    font-size: larger;
+}
+
+.smaller-text {
+    font-size: smaller;
+}
+
 .account-p {
     color: rgb(53, 87, 162);
     font-style: italic;
@@ -378,7 +386,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 0.9rem 0.5rem 0 0.5rem;
+    padding-top: 0.5rem;
 }
 
 
