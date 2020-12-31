@@ -5,13 +5,17 @@ body {
     font-family: 'Muli', sans-serif;
     font-weight: 400;
     font-size: 2vw;
-    height: 100%;
+    min-height: 100%;
+    position: absolute;
     width: 100vw;
     margin: 0;
     padding: 0;
     overscroll-behavior: none;
     overflow-x: hidden;
 }
+
+/*https://jigsaw.w3.org/css-validator/validator finds overscroll-behaviour as an error */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior */
 
 .top-bar {
     background-image: linear-gradient(to bottom, rgba(23, 162, 184, 1), rgba(23, 162, 184, 0));
@@ -178,7 +182,6 @@ nav img {
     transform: translate(-50%, -50%);
     color: white;
     font-size: 2rem;
-    font-style: bolder;
 }
 
 /* homepage */
@@ -208,11 +211,11 @@ nav img {
 }
 
 .large-text {
-    font-size: larger;
+    font-size: 1.3rem;
 }
 
 .smaller-text {
-    font-size: smaller;
+    font-size: 0.8rem;
 }
 
 .account-p {
@@ -382,11 +385,12 @@ footer {
     background-image: linear-gradient(to bottom, rgba(23, 162, 184, 0), rgba(23, 162, 184, 1));
     color: rgb(47, 81, 159);
     text-align: center;
-    align-self: auto;
-    position: fixed;
+    position: absolute;
+    left: 0;
     bottom: 0;
     width: 100%;
     padding-top: 0.5rem;
+    height: 20px;
 }
 
 
@@ -411,19 +415,3 @@ footer a:hover {
         font-size: 1.1rem;
     }
 }
-
-/* @media screen and (min-width: 320px) {
-    #profile .avatar {
-        padding-right: 0;
-        padding-left: 2rem;
-    }
-
-    #profile .edit {
-        padding-left: 0;
-    }
-
-    footer .col {
-        padding: 0 0.25rem;
-    }
-
-} */
