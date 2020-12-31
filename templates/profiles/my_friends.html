@@ -4,8 +4,8 @@
 {% block content %}
 <div class="container">
     <h3>{{ profile|title }}'s friends</h3>
+    {% for friend in profile.get_friends %}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 text-center mx-auto">
-        {% for friend in profile.get_friends %}
         <div class="col mb-4">
             <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
                 <div class="card-body mt-2" id="profile-card-body">
@@ -24,7 +24,8 @@
         </div>
     </div>
     {% empty %}
-    <p class="pages-p">To find friends to add, try the find tool to see if there are any suggestions for you, or use the
+    <p class="pages-p">To find friends to add, try the find tool to see if there are any suggestions for you, or use
+        the
         search bar.</p>
     {% endfor %}
 </div>
