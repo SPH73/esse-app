@@ -316,6 +316,8 @@ Account confirmation and forgotton password emails were not following the site s
 
 Much of the time in development was spent within chrome dev tool to test responsiveness between device sizes and media queries added and then removed. As mentioned previously, I need to further improve how the site renders on different screen sizes but it has been tested from a 4k screen the smallest mobile screen and changed to improve the appearance across them all.
 
+After added the custom error pages and about page with an error in the live site I have discovered that the custom 500 error page isn't rendering. I will attempt to fix both and leave a comment if so.
+
 ## Deployment
 
 This project as aforementioned is version controlled in [Github](https://github.com/sph73) and deployed on Heroku. All sensitive data is excluded from verison control and saved in a docker-compose.yml that was used to build and run the docker container. They have also been added to the Heroku settings config vars.
