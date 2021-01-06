@@ -1,11 +1,11 @@
 {% extends '_base.html' %}
 {% load cloudinary %}
-{% block extra_title %}Friends{% endblock extra_title %}
+{% block extra_title %}Family{% endblock extra_title %}
 {% block content %}
 <div class="container">
     <h3>{{ profile|title }}'s family</h3>
+    {% for family in profile.get_relations %}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 text-center mx-auto">
-        {% for family in profile.get_relations %}
         <div class="col mb-4">
             <div id="profile-card" class="card bg-transparent profile-card d-flex" style="width: auto;">
                 <div class="card-body mt-2" id="profile-card-body">
