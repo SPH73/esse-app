@@ -6,6 +6,7 @@ body {
     font-weight: 400;
     font-size: 16px;
     height: 100%;
+    position: absolute;
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -310,6 +311,11 @@ h6 a:hover {
     height: 0.125rem;
 }
 
+.main {
+    width: 100vw;
+    height: 100%;
+    position: relative;
+}
 
 /* spacing */
 .bt-5 {
@@ -410,13 +416,15 @@ li {
 }
 
 /* Footer */
-footer {
+.footer {
     background-image: linear-gradient(to bottom, rgba(23, 162, 184, 0), rgba(23, 162, 184, 1));
     color: rgb(47, 81, 159);
     text-align: center;
     align-self: auto;
     bottom: 0;
+    position: relative;
     width: 100%;
+    height: fit-content;
     padding-top: 0.5rem;
 }
 

@@ -97,10 +97,14 @@
     {% block page_header %}
     {% endblock %}
 
+    <div class="main">
+        {% block content %}
+        {% endblock content %}
+    </div>
 
-    {% block content %}
-    {% endblock content %}
-
+    <div class="footer">
+        {% include 'includes/footer.html' %}
+    </div>
 
     {% block postloadjs %}
     <script type="text/javascript">
@@ -114,9 +118,7 @@
         })
     </script>
     {% endblock postloadjs %}
-    <div>
-        {% include 'includes/footer.html' %}
-    </div>
+
 
 
 </body>
