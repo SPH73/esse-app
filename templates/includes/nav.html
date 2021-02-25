@@ -1,31 +1,12 @@
 {% load static %}
 <header>
-    <div class="navbar navbar-light">
-        <span style="font-size:1.9rem;cursor:pointer" aria-label="Open menu" onclick="openNav()"><i
+    <nav class="navbar navbar-expand-sm">
+        <span style="cursor:pointer" aria-label="Open menu" onclick="openNav()"><i
                 class="page-icon fas fa-bars"></i></span>
-        <div class="nav-search">
-            <form action="{% url 'profiles:search_result' %}" method="get">
-                <div class="form-row align-items-center">
-                    <div class="col-auto mr-0">
-                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">@</div>
-                            </div>
-                            <input type="text" id="q" name="q" class="form-control" id="inlineFormInputGroup"
-                                placeholder="Username">
-                        </div>
-                    </div>
-                    <div class="col-auto ml-0">
-                        <button type="submit" class="btn btn-outline-info"><i
-                                class="page-icon fas fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <a href="{% url 'home' %}" class="navbar-brand my-0"><img class="logo"
+        <a href="{% url 'home' %}" class="navbar-brand my-0 mx-auto"><img class="logo"
                 src="{% static 'images/logos/Esse-new-logo.png'%}" alt="Esse"></a>
-        <nav class=" nav my-1 my-md-0 mr-md-3">
+        <div class="collapse navbar-collapse" id="main-toggle">
+            <div class="navbar-nav ml-auto"></div>
             {% if user.is_authenticated %}
             <a class="p-1 my-auto" href="{% url 'profiles:profile' %}"><img class="rounded-circle"
                     src="{{ request.user.profile.avatar.url }}" alt="{{request.user}}"></a>
@@ -38,7 +19,23 @@
                     Up</a></button>
             {% endif %}
             <a aria-label="Home" class="p-1" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
-        </nav>
+        </div>
+        <span class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-toggle"
+            aria-controls="main-toggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="page-icon fas fa-bars ml-1"></span>
+        </span>
+    </nav>
+    <div class="nav-search mx-auto ml-2 mr-2 mb-2" style="width:80%;">
+        <form action="{% url 'profiles:search_result' %}" method="get">
+            <div class="input-group">
+                <input type="text" id="q" name="q" class="form-control" id="searchInput" placeholder="Username"
+                    aria-label="Username search" aria-describedby="search">
+                <div class="input-group-append">
+                    <button type="submit" id="search" class="btn btn-outline-info"><i
+                            class="page-icon fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
     </div>
 </header>
 <nav id="sideNav" class=" nav sidenav">
