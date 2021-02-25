@@ -1,12 +1,11 @@
 {% load static %}
 <header>
     <nav class="navbar navbar-expand-sm">
-        <span style="cursor:pointer" aria-label="Open menu" onclick="openNav()"><i
+        <span style="font-size:1rem;cursor:pointer" aria-label="Open menu" onclick="openNav()"><i
                 class="page-icon fas fa-bars"></i></span>
         <a href="{% url 'home' %}" class="navbar-brand my-0 mx-auto"><img class="logo"
                 src="{% static 'images/logos/Esse-new-logo.png'%}" alt="Esse"></a>
         <div class="collapse navbar-collapse" id="main-toggle">
-            <div class="navbar-nav ml-auto"></div>
             {% if user.is_authenticated %}
             <a class="p-1 my-auto" href="{% url 'profiles:profile' %}"><img class="rounded-circle"
                     src="{{ request.user.profile.avatar.url }}" alt="{{request.user}}"></a>
@@ -22,10 +21,10 @@
         </div>
         <span class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-toggle"
             aria-controls="main-toggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="page-icon fas fa-bars ml-1"></span>
+            <span class="page-icon fas fa-bars"></span>
         </span>
     </nav>
-    <div class="nav-search mx-auto ml-2 mr-2 mb-2" style="width:80%;">
+    <div class="nav-search mx-auto ml-2 mr-2 mb-2" style="width:40%;">
         <form action="{% url 'profiles:search_result' %}" method="get">
             <div class="input-group">
                 <input type="text" id="q" name="q" class="form-control" id="searchInput" placeholder="Username"
