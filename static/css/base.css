@@ -76,7 +76,7 @@ nav img {
 .signup-btn:hover {
     border: none;
     background-color: transparent;
-    color: rgb(23, 162, 184);
+    color: white;
 }
 
 .sidenav {
@@ -164,14 +164,14 @@ nav img {
     position: absolute;
     top: 0;
     left: 0.15rem;
-    font-size: 1.5rem;
+    /* font-size: 1.1rem; */
 }
 
 .close-btn {
     position: absolute;
     top: 2rem;
     left: 0.5rem;
-    font-size: 1.7em;
+    /* font-size: 1rem; */
 }
 
 .sidenav-items {
@@ -240,9 +240,10 @@ nav img {
 
 }
 
+/* 
 .large-text {
     font-size: larger;
-}
+} */
 
 .smaller-text {
     font-size: smaller;
@@ -311,16 +312,6 @@ h6 a:hover {
     height: 0.125rem;
 }
 
-.main {
-    width: 100vw;
-    height: 100%;
-    position: relative;
-}
-
-/* spacing */
-.bt-5 {
-    height: 5rem;
-}
 
 
 .profile {
@@ -415,6 +406,17 @@ li {
     padding: 0.2rem
 }
 
+.main {
+    width: 100vw;
+    height: 100%;
+    padding-bottom: 200px;
+}
+
+/* spacing */
+.space {
+    height: 3rem;
+}
+
 /* Footer */
 .footer {
     background-image: linear-gradient(to bottom, rgba(23, 162, 184, 0), rgba(23, 162, 184, 1));
@@ -422,7 +424,6 @@ li {
     text-align: center;
     align-self: auto;
     bottom: 0;
-    position: relative;
     width: 100%;
     height: fit-content;
     padding-top: 0.5rem;
@@ -476,5 +477,9 @@ footer a:hover {
 @media screen and (max-width: 320px) {
     body {
         font-size: 14px;
+    }
+
+    .logo {
+        width: 75px;
     }
 }

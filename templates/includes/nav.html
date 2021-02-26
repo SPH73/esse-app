@@ -1,25 +1,27 @@
 {% load static %}
 <header>
     <nav class="navbar navbar-expand-sm">
+        {% if user.is_authenticated %}
         <span style="font-size:1rem;cursor:pointer" aria-label="Open menu" onclick="openNav()"><i
                 class="page-icon fas fa-bars"></i></span>
-        <a href="{% url 'home' %}" class="navbar-brand my-0 mx-auto"><img class="logo"
+        <a class="my-auto ml-2 mr-2" href="{% url 'profiles:profile' %}"><img class="rounded-circle"
+                src="{{ request.user.profile.avatar.url }}" alt="{{request.user}}"></a>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="navbar-brand my-0"><img class="logo"
                 src="{% static 'images/logos/Esse-new-logo.png'%}" alt="Esse"></a>
         <div class="collapse navbar-collapse" id="main-toggle">
             <div class="nav navbar-nav ml-auto my-auto">
                 {% if user.is_authenticated %}
-                <a class="p-1 my-auto" href="{% url 'profiles:profile' %}"><img class="rounded-circle"
-                        src="{{ request.user.profile.avatar.url }}" alt="{{request.user}}"></a>
                 <a aria-label="Sign out" class="p-1" href="{% url 'account_logout' %}"><i
                         class="fas fa-sign-out-alt"></i></a>
                 {% else %}
                 <a aria-label="Sign in" class="p-1" href="{% url 'account_login' %}"><i
                         class="fas fa-sign-in-alt"></i></a>
-                <button type="submit" class="signup-btn"><a class="signup-btn" href="{% url 'account_signup' %}"><i
-                            class="fas fa-pencil-alt"></i>Sign
-                        Up</a></button>
+                <a aria-label="Sign up" href="{% url 'account_signup' %}"><i
+                        class="page-icon fas fa-pencil-alt"></i></a>
                 {% endif %}
-                <a aria-label="Home" class="p-1" href="{% url 'home' %}"><i class="fas fa-home"></i></a>
+                <!-- <a aria-label="Home" href="{% url 'home' %}"><i class="fas fa-home"></i></a> -->
             </div>
         </div>
         <span class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-toggle"
@@ -40,11 +42,12 @@
         </form>
     </div>
 </header>
+{% if user.is_authenticated %}
 <nav id="sideNav" class=" nav sidenav">
     {% include 'includes/topbar.html' %}
     <div id="sideNavHead">
         <a href="javascript:void(0)" class="close-btn" aria-label="Close menu" onclick="closeNav()"
-            style="font-size:1.9rem;cursor:pointer;"><i class="page-icon far fa-window-close"></i></a>
+            style="font-size:1rem;cursor:pointer;"><i class="page-icon far fa-window-close"></i></a>
     </div>
     <div id="SideNavItems" class="sidenav-items">
         <div class="col"><a href="{% url 'profiles:my_family' %}"><i class="page-icon fas fa-users">&nbsp;</i>Family
@@ -76,6 +79,7 @@
         </div>
     </div>
 </nav>
+{% endif %}
 
 {% block postload_js %}
 <script>
