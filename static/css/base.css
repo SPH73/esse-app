@@ -12,6 +12,7 @@ body {
     padding: 0;
     overscroll-behavior: none;
     overflow-x: hidden;
+    background-color: #fff;
 }
 
 .top-bar {
@@ -409,35 +410,47 @@ li {
 .main {
     width: 100vw;
     height: 100%;
-    padding-bottom: 200px;
+    padding: 2rem;
+    z-index: 3;
+    position: relative;
+    margin-bottom: 200px;
+    background-color: #fff;
 }
 
 /* spacing */
 .space {
-    height: 3rem;
+    height: 4rem;
 }
 
 /* Footer */
 .footer {
-    background-image: linear-gradient(to bottom, rgba(23, 162, 184, 0), rgba(23, 162, 184, 1));
-    color: rgb(47, 81, 159);
+    /* background-color: rgb(23, 162, 184); */
+    background-color: rgb(53, 87, 162);
+    /* background-image: linear-gradient(to bottom, rgba(23, 162, 184, 1), rgba(23, 162, 184, 1)); */
+    /* color: rgb(47, 81, 159); */
+    color: #fff;
     text-align: center;
     align-self: auto;
     bottom: 0;
+    left: 0;
     width: 100%;
-    height: fit-content;
     padding-top: 0.5rem;
+    position: fixed;
+    display: grid;
+    place-items: center;
 }
 
 
 
 footer a {
-    color: rgb(47, 81, 159);
+    /* color: rgb(47, 81, 159);
+     */
+    color: #fff;
     text-decoration: none;
 }
 
 footer a:hover {
-    color: rgba(47, 81, 159, 0.5);
+    color: rgb(23, 162, 184);
     text-decoration: none;
 }
 
@@ -468,9 +481,13 @@ footer a:hover {
 
 } */
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 414px) {
     body {
         font-size: 18px;
+    }
+
+    .logo {
+        width: 75px;
     }
 }
 
@@ -482,4 +499,5 @@ footer a:hover {
     .logo {
         width: 75px;
     }
+
 }
