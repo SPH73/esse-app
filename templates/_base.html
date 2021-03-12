@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Description" content="Free Digital Media Album Sharing app family and friend networks.">
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicon-esse.ico/apple-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicon-esse.ico/apple-icon-60x60.png' %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicon-esse.ico/apple-icon-72x72.png' %}">
@@ -97,14 +98,12 @@
     {% block page_header %}
     {% endblock %}
 
-    <div class="main">
-        {% block content %}
-        {% endblock content %}
-    </div>
-    <!-- <div class="space"></div> -->
-    <div class="footer">
-        {% include 'includes/footer.html' %}
-    </div>
+
+    {% block content %}
+    {% endblock content %}
+
+
+    {% include 'includes/footer.html' %}
 
     {% block postloadjs %}
     <script type="text/javascript">

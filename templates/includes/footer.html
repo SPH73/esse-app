@@ -1,30 +1,28 @@
-<footer>
-    <div class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <a type="button" class="btn-floating p-2" href="https://twitter.com/" target="_blank"><i
-                            class="fab fa-twitter"></i></a>
-                    <a type="button" class="btn-floating p-2" href="https://www.facebook.com/" target="_blank"><i
-                            class="fab fa-facebook-f"></i></a>
-                    <a type="button" class="btn-floating p-2" href="https://www.instagram.com/" target="_blank"><i
-                            class="fab fa-instagram-square"></i></a>
-                </div>
-                <div class="col">
-                    <a class="p-2" href="{% url 'about' %}">About</a>
-                    <a class="p-2" href="{% url 'contact' %}">Contact</a>
-                    <a class="p-2" href="{% url 'privacy_policy' %}">Privacy Policy</a>
-                </div>
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <a type="button" class="btn-floating p-2" href="https://twitter.com/" target="_blank"
+                    rel="noreferrer"><i class="fab fa-twitter"></i></a>
+                <a type="button" class="btn-floating p-2" href="https://www.facebook.com/" target="_blank"
+                    rel="noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a type="button" class="btn-floating p-2" href="https://www.instagram.com/" target="_blank"
+                    rel="noreferrer"><i class="fab fa-instagram-square"></i></a>
             </div>
-            <div class="row">
-                <div class="col">
-                    <p><small>
-                            Copyright &copy;<script>
-                                document.write(new Date().getFullYear())
-                            </script> PixPiMedia
-                        </small>
-                    </p>
-                </div>
+            <div class="col">
+                <a class="p-2" href="{% url 'about' %}">About</a>
+                <a class="p-2" href="{% url 'contact' %}">Contact</a>
+                <a class="p-2" href="{% url 'privacy_policy' %}">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><small>
+                        Copyright &copy;<script>
+                            document.write(new Date().getFullYear())
+                        </script> PixPiMedia
+                    </small>
+                </p>
             </div>
         </div>
     </div>
