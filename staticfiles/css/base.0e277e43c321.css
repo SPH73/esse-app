@@ -6,13 +6,11 @@ body {
     font-weight: 400;
     font-size: 16px;
     height: 100%;
-    position: absolute;
     width: 100vw;
     margin: 0;
     padding: 0;
     overscroll-behavior: none;
     overflow-x: hidden;
-    background-color: #fff;
 }
 
 .top-bar {
@@ -77,13 +75,13 @@ nav img {
 .signup-btn:hover {
     border: none;
     background-color: transparent;
-    color: white;
+    color: rgb(23, 162, 184);
 }
 
 .sidenav {
     width: 0;
     position: fixed;
-    z-index: 4;
+    z-index: 1;
     top: 0;
     left: 0;
     background-color: #fff;
@@ -104,35 +102,12 @@ nav img {
     color: white;
 }
 
-.form-control {
-    display: block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: rgb(47, 81, 159);
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgb(23, 162, 184);
-    border-radius: .25rem;
-}
-
-.form-control:focus {
-    color: rgb(47, 81, 159);
-    background-color: #fff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgb(23, 162, 184/25%);
-    ;
-}
-
 #hint_id_password {
     display: none;
 }
 
 .navbar-toggler {
-    padding: 0;
+    padding: .25rem .75rem;
     font-size: 1rem;
     line-height: 1;
     background-color: transparent;
@@ -165,14 +140,14 @@ nav img {
     position: absolute;
     top: 0;
     left: 0.15rem;
-    /* font-size: 1.1rem; */
+    font-size: 1.5rem;
 }
 
 .close-btn {
     position: absolute;
     top: 2rem;
     left: 0.5rem;
-    /* font-size: 1rem; */
+    font-size: 1.7em;
 }
 
 .sidenav-items {
@@ -192,7 +167,7 @@ nav img {
 /* homepage */
 
 .hero-image {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/iphone-camera.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/iphone-camera.d62ff4a9c618.jpg");
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -218,7 +193,7 @@ nav img {
 /* homepage */
 
 .about-image {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/mobile-phone-hero.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/mobile-phone-hero.e2e2d88db70b.jpg");
     height: 50%;
     background-position: center;
     background-repeat: no-repeat;
@@ -241,10 +216,9 @@ nav img {
 
 }
 
-/* 
 .large-text {
     font-size: larger;
-} */
+}
 
 .smaller-text {
     font-size: smaller;
@@ -313,6 +287,11 @@ h6 a:hover {
     height: 0.125rem;
 }
 
+
+/* spacing */
+.bt-5 {
+    height: 5rem;
+}
 
 
 .profile {
@@ -407,50 +386,27 @@ li {
     padding: 0.2rem
 }
 
-.main {
-    width: 100vw;
-    height: 100%;
-    padding: 2rem;
-    z-index: 3;
-    position: relative;
-    margin-bottom: 200px;
-    background-color: #fff;
-}
-
-/* spacing */
-.space {
-    height: 4rem;
-}
-
 /* Footer */
-.footer {
-    /* background-color: rgb(23, 162, 184); */
-    background-color: rgb(53, 87, 162);
-    /* background-image: linear-gradient(to bottom, rgba(23, 162, 184, 1), rgba(23, 162, 184, 1)); */
-    /* color: rgb(47, 81, 159); */
-    color: #fff;
+footer {
+    background-image: linear-gradient(to bottom, rgba(23, 162, 184, 0), rgba(23, 162, 184, 1));
+    color: rgb(47, 81, 159);
     text-align: center;
     align-self: auto;
+    position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
     padding-top: 0.5rem;
-    position: fixed;
-    display: grid;
-    place-items: center;
 }
 
 
 
 footer a {
-    /* color: rgb(47, 81, 159);
-     */
-    color: #fff;
+    color: rgb(47, 81, 159);
     text-decoration: none;
 }
 
 footer a:hover {
-    color: rgb(23, 162, 184);
+    color: rgba(47, 81, 159, 0.5);
     text-decoration: none;
 }
 
@@ -480,24 +436,3 @@ footer a:hover {
     }
 
 } */
-
-@media screen and (min-width: 414px) {
-    body {
-        font-size: 18px;
-    }
-
-    .logo {
-        width: 75px;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    body {
-        font-size: 14px;
-    }
-
-    .logo {
-        width: 75px;
-    }
-
-}

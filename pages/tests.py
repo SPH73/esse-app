@@ -1,7 +1,6 @@
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse, resolve
 from .views import HomePageView, AboutPageView
-from .models import Page
 
 
 class HomepageTests(SimpleTestCase):
@@ -21,7 +20,7 @@ class HomepageTests(SimpleTestCase):
         self.assertTemplateUsed(self.response, 'home.html')
 
     def test_homepage_contains_correct_html(self):
-        self.assertContains(self.response, 'Homepage')
+        self.assertContains(self.response, 'Home')
 
     def test_homepage_does_not_contain_incorrect_html(self):
         self.assertNotContains(
@@ -52,7 +51,7 @@ class AboutPageTests(SimpleTestCase):
         self.assertTemplateUsed(self.response, 'about.html')
 
     def test_aboutpage_contains_correct_html(self):
-        self.assertContains(self.response, 'About Page')
+        self.assertContains(self.response, 'About')
 
     def test_aboutpage_does_not_contain_incorrect_html(self):
         self.assertNotContains(
@@ -65,8 +64,8 @@ class AboutPageTests(SimpleTestCase):
             AboutPageView.as_view().__name__
         )
 
-class PageModelTest(TestCase):
+# class PageModelTest(TestCase):
 
-    def test_page_string_method_returns_title(self):
-        page = Page.objects.create(title='About')
-        self.assertEqual(str(page), 'About')
+#     def test_page_string_method_returns_title(self):
+#         page = Page.objects.create(title='About')
+#         self.assertEqual(str(page), 'About')
