@@ -6,7 +6,7 @@ style="float: left; vertical-align: middle;">
 
 ## Introduction
 
-This is final project for the Full Stack Developer Course and is a culmination of all the modules and additional learning that was required to achieve the purpose (and some).
+This is my final project for the Full Stack Developer Course and is a culmination of all the modules and additional learning that was required to achieve the purpose (and some).
 
 What is [Esse](https://esse-app.herokuapp.com/) and why?
 
