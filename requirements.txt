@@ -214,7 +214,7 @@ spyder==4.0.1
 spyder-kernels==1.8.1
 terminado==0.8.3
 testpath==0.4.4
-tornado==6.0.3
+tornado==6.3.3
 traitlets==4.3.3
 ujson==5.4.0
 urllib3==1.26.5
