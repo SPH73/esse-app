@@ -21,7 +21,7 @@ distlib==0.3.1
 dnspython==1.16.0
 docutils==0.16
 entrypoints==0.3
-filelock==3.0.12
+filelock==3.20.1
 flake8==3.7.9
 Flask-PyMongo==2.2.0
 helpdev==0.6.10
@@ -214,7 +214,7 @@ spyder==4.0.1
 spyder-kernels==1.8.1
 terminado==0.8.3
 testpath==0.4.4
-tornado==6.0.3
+tornado==6.5.3
 traitlets==4.3.3
 ujson==5.4.0
 urllib3==1.26.5
